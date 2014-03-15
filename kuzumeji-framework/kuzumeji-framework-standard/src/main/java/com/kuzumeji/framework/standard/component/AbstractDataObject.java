@@ -14,9 +14,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <dt>使用条件
  * <dd>全データオブジェクトの基底クラスとすること。
  * </dl>
+ * @param <T> データオブジェクト型
  * @author nilcy
  */
-public abstract class AbstractDataObject implements DataObject {
+public abstract class AbstractDataObject<T extends DataObject<T>> implements DataObject<T> {
     /** 識別番号 */
     private static final long serialVersionUID = 713428173593081041L;
     /** 一時項目の検査 */

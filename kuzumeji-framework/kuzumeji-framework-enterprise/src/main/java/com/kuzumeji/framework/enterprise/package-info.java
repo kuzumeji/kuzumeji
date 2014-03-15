@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * 標準FW
+ * 基幹FW
  * @author nilcy
  */
-package com.kuzumeji.framework.enterpise;
+package com.kuzumeji.framework.enterprise;

@@ -7,7 +7,7 @@ package com.kuzumeji.framework.enterpise;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.kuzumeji.framework.enterpise.Hello;
+import com.kuzumeji.framework.enterprise.Hello;
 /**
  * @see Hello
  * @author nilcy

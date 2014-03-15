@@ -14,4 +14,13 @@
 		<module>kuzumeji-framework-standard</module>
 		<module>kuzumeji-framework-enterprise</module>
 	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.kuzumeji</groupId>
+				<artifactId>kuzumeji-framework-standard</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

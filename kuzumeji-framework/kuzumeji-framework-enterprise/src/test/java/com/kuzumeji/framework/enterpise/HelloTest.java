@@ -7,7 +7,7 @@ package com.kuzumeji.framework.enterpise;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.framework.enterpise.Hello;
+import com.kuzumeji.framework.enterprise.Hello;
 /**
  * @see Hello
  * @author nilcy

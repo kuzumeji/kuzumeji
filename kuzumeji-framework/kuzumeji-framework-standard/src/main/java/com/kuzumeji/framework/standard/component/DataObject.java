@@ -11,7 +11,8 @@ import java.io.Serializable;
  * <dt>使用条件
  * <dd>全データオブジェクトの基底クラスのI/Fとすること。
  * </dl>
+ * @param <T> データオブジェクト型
  * @author nilcy
  */
-public interface DataObject extends Serializable {
+public interface DataObject<T extends DataObject<T>> extends Serializable {
 }
