@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * 標準FW
+ * 標準FW | コンポーネント
  * @author nilcy
  */
-package com.kuzumeji.framework.standard;
+package com.kuzumeji.framework.standard.component;
