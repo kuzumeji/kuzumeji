@@ -10,4 +10,4 @@
  * </dl>
  * @author nilcy
  */
-package org.kuzumeji.framework.coding;
+package com.kuzumeji.framework.coding;
