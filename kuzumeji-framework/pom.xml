@@ -8,10 +8,10 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>kuzumeji-framework</artifactId>
-	<name>kuzumeji-framework</name>
 	<packaging>pom</packaging>
 	<modules>
 		<module>kuzumeji-framework-coding</module>
 		<module>kuzumeji-framework-standard</module>
+		<module>kuzumeji-framework-enterprise</module>
 	</modules>
 </project>
