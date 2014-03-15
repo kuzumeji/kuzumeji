@@ -10,5 +10,6 @@
   </parent>
   <modules>
     <module>kuzumeji-framework-coding</module>
+    <module>kuzumeji-framework-standard</module>
   </modules>
 </project>
