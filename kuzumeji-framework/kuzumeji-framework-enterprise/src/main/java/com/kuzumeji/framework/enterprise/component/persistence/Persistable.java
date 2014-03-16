@@ -1,0 +1,32 @@
+// ----------------------------------------------------------------------------
+// Copyright (C) Kuzumeji Evolution Laboratory. All rights reserved.
+// GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+// http://www.gnu.org/licenses/gpl-3.0-standalone.html
+// ----------------------------------------------------------------------------
+package com.kuzumeji.framework.enterprise.component.persistence;
+import java.io.Serializable;
+/**
+ * (永続可能)エンティティI/F
+ * <dl>
+ * <dt>使用条件
+ * <dd>
+ * <ol>
+ * <li>(永続可能)エンティティは本I/Fを実装すること。</li>
+ * <li>{@link Serializable} を実装すること。</li>
+ * </ol>
+ * </dl>
+ * @param <ID> 識別子オブジェクト型
+ * @author nilcy
+ */
+public interface Persistable<ID extends Serializable> extends Serializable, Cloneable {
+    /**
+     * 識別子(ID)
+     * @return 識別子(ID)
+     */
+    ID identity();
+    /**
+     * 永続管理チェック
+     * @return TRUE:管理中,FALSE:未管理
+     */
+    boolean isPersisted();
+}

@@ -6,9 +6,10 @@
 package com.kuzumeji.framework.enterprise.component;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.ejb.ApplicationException;
 import com.kuzumeji.framework.standard.component.StandardException;
 /**
- * 基本キャッチ例外
+ * 基幹キャッチ例外
  * <dl>
  * <dt>使用条件
  * <dd>キャッチ例外でメッセージマップを保有できて、{@link com.kuzumeji.framework.standard.component.MessageHelper}
@@ -16,6 +17,7 @@ import com.kuzumeji.framework.standard.component.StandardException;
  * </dl>
  * @author nilcy
  */
+@ApplicationException(rollback = true, inherited = true)
 public class EnterpriseException extends StandardException {
     /** 識別番号 */
     private static final long serialVersionUID = -4686970986421722935L;

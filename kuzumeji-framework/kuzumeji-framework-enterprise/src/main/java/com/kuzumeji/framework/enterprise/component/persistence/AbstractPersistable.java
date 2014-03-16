@@ -1,0 +1,106 @@
+// ----------------------------------------------------------------------------
+// Copyright (C) Kuzumeji Evolution Laboratory. All rights reserved.
+// GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+// http://www.gnu.org/licenses/gpl-3.0-standalone.html
+// ----------------------------------------------------------------------------
+package com.kuzumeji.framework.enterprise.component.persistence;
+import java.math.BigDecimal;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
+import javax.persistence.PostUpdate;
+import javax.persistence.Transient;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import com.kuzumeji.framework.standard.component.AbstractDataObject;
+import com.kuzumeji.framework.standard.component.ReferenceObject;
+/**
+ * (永続可能)エンティティ
+ * <dl>
+ * <dt>使用条件
+ * <dd>
+ * <ol>
+ * <li>{@link ReferenceObject 参照オブジェクトI/F} と {@link Persistable 永続可能エンティティI/F} が実装されること。</li>
+ * <li>前提としてJPAが永続化するために識別子(ID)が必要である。(IDによる同一性の確認ができる)</li>
+ * <li>まず、参照オブジェクトを永続化するときは概念上の識別子と一致するため問題はない。</li>
+ * <li>いっぽう、値オブジェクトを永続化するときは値による同一性の確認が一般的である。</li>
+ * <li>(永続化する)値オブジェクトの識別子(ID)はJPA永続化に必要だが、アプリケーションが使用すべきものではない。</li>
+ * <li>なお、永続管理の状態設定は {@link #setPersisted()} を参照すること。</li>
+ * </ol>
+ * </dl>
+ * @param <PE> 永続可能エンティティ型
+ * @author nilcy
+ */
+@MappedSuperclass
+public abstract class AbstractPersistable<PE extends AbstractPersistable<PE>> extends
+    AbstractDataObject<PE> implements ReferenceObject<PE, BigDecimal>, Persistable<BigDecimal> {
+    /** 識別番号 */
+    private static final long serialVersionUID = 1365773187648802997L;
+    /** 識別子(ID) */
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, insertable = true, updatable = false)
+    private BigDecimal id;
+    /** 永続管理FG (TRUE:管理中,FALSE:未管理) */
+    @Transient
+    private boolean persisted;
+    /** コンストラクタ */
+    public AbstractPersistable() {
+    }
+    /**
+     * {@link #id} の取得
+     * @return {@link #id}
+     */
+    public final BigDecimal getId() {
+        return id;
+    }
+    /**
+     * {@link #id} の設定
+     * @param id {@link #id}
+     */
+    public final void setId(final BigDecimal id) {
+        this.id = id;
+    }
+    /** {@inheritDoc} */
+    @Override
+    public final BigDecimal identity() {
+        return id;
+    }
+    /** {@inheritDoc} */
+    @Override
+    public final boolean isPersisted() {
+        return persisted;
+    }
+    /**
+     * {@inheritDoc}
+     * <dl>
+     * <dt>使用条件
+     * <dd>比較対象オブジェクトが非NULLかつ識別子(ID)が同一かチェックされること。
+     * </dl>
+     */
+    @Override
+    public final boolean sameIdentityAs(final PE other) {
+        return (other != null)
+            && new EqualsBuilder().append(identity(), other.identity()).isEquals();
+    }
+    /**
+     * {@link #persisted} の設定
+     * <dl>
+     * <dt>使用条件
+     * <dd>
+     * <ol>
+     * <li>該当データのライフサイクルコールバック(以下)で、永続管理FGがTRUEに更新されること。</li>
+     * <li>データ登録後(@PostPersist),データ更新後(@PostUpdate),データ取得後(@PostLoad)</li>
+     * </ol>
+     * </dl>
+     */
+    @PostPersist
+    @PostUpdate
+    @PostLoad
+    private void setPersisted() {
+        persisted = true;
+    }
+}
