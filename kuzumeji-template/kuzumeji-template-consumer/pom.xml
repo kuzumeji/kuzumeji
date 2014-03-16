@@ -49,4 +49,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<packaging>war</packaging>
 </project>
