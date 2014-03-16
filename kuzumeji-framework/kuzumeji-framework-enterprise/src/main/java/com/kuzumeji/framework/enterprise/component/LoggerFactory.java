@@ -12,7 +12,7 @@ import org.slf4j.Logger;
  * ロガーのファクトリー
  * <dl>
  * <dt>使用条件
- * <dd>TODO 各操作前後の不変条件を表明すること。
+ * <dd><code>@Inject Logger log;</code>のようにDIで使用すること。
  * </dl>
  * @author nilcy
  */

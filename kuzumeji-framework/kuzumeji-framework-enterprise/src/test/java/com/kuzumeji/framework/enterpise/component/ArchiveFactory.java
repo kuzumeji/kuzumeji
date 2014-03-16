@@ -6,22 +6,24 @@
 package com.kuzumeji.framework.enterpise.component;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import com.kuzumeji.framework.enterprise.component.LoggerFactory;
 /**
  * アーカイブのファクトリー
  * @author nilcy
  */
 final class ArchiveFactory {
     /** 非公開コンストラクタ */
-    private ArchiveFactory() {
+    public ArchiveFactory() {
     }
     /**
      * アーカイブの作成
      * @return アーカイブ
      */
-    static JavaArchive create() {
-        return ShrinkWrap.create(JavaArchive.class)
+    public static JavaArchive create() {
+        return ShrinkWrap.create(JavaArchive.class).addClass(LoggerFactory.class)
             .addPackages(true, "com.kuzumeji.framework.standard")
             .addPackages(true, "com.kuzumeji.framework.enterprise.component")
+            // .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
             .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 }

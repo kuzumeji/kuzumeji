@@ -13,9 +13,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import com.kuzumeji.framework.enterprise.component.LoggerFactory;
 /**
- * @see LoggerFactory
+ * @see com.kuzumeji.framework.enterprise.component.LoggerFactory
  * @author nilcy
  */
 @RunWith(Arquillian.class)
