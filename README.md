@@ -1,4 +1,3 @@
-Kuzumeji
-========
+# `Kuzumeji`
 
 Enterprise Application Template
