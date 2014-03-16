@@ -2,6 +2,9 @@
     <wb-module deploy-name="kuzumeji-template-consumer">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <dependent-module archiveName="kuzumeji-template-registry-0.1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kuzumeji-template-registry/kuzumeji-template-registry">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="kuzumeji-framework-enterprise-0.1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/kuzumeji-framework-enterprise/kuzumeji-framework-enterprise">
             <dependency-type>uses</dependency-type>
         </dependent-module>

@@ -16,7 +16,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kuzumeji</groupId>
-			<artifactId>kuzumeji-framework-enterprise</artifactId>
+			<artifactId>kuzumeji-template-registry</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

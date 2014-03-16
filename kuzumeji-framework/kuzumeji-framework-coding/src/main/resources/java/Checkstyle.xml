@@ -190,7 +190,10 @@
     </module>
     <module name="OuterTypeFilename"/>
   </module>
-  <module name="JavadocPackage"/>
+  <module name="JavadocPackage">
+    <property name="severity" value="ignore"/>
+    <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+  </module>
   <module name="FileLength"/>
   <module name="FileTabCharacter"/>
   <module name="StrictDuplicateCode"/>

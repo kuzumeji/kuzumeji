@@ -7,7 +7,7 @@ package com.kuzumeji.framework.standard.component;
 import java.util.LinkedHashMap;
 import java.util.Map;
 /**
- * 基本キャッチ例外
+ * 標準キャッチ例外
  * <dl>
  * <dt>使用条件
  * <dd>キャッチ例外でメッセージマップを保有できて、{@link MessageHelper} でメッセージが構築できること。
