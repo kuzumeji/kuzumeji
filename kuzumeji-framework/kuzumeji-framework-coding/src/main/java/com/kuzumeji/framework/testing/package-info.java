@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * コーディングFW
+ * テスティングFW
  * @author nilcy
  */
-package com.kuzumeji.framework.coding;
+package com.kuzumeji.framework.testing;

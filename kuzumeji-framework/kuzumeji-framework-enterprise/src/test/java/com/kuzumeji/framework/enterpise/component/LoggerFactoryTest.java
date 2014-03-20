@@ -13,6 +13,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
+import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see com.kuzumeji.framework.enterprise.component.LoggerFactory
  * @author nilcy
@@ -24,7 +25,7 @@ public class LoggerFactoryTest {
     private Logger testee;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.create();
+        return ArchiveFactory.createJar();
     }
     @Test
     public final void test() {
