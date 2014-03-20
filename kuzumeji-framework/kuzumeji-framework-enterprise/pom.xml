@@ -20,7 +20,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.kuzumeji</groupId>
-			<artifactId>kuzumeji-framework-coding</artifactId>
+			<artifactId>kuzumeji-framework-testing</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
