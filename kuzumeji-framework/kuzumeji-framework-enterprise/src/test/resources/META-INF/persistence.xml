@@ -4,10 +4,10 @@
   version="2.1">
   <persistence-unit name="primary" transaction-type="JTA">
     <jta-data-source>jdbc/kuzumeji</jta-data-source>
-    <class>com.kuzumeji.framework.standard.component.persistence.AbstractPersistable</class>
-    <class>com.kuzumeji.framework.standard.component.persistence.AbstractVersionable</class>
-    <class>com.kuzumeji.framework.standard.component.persistence.AbstractAuditable</class>
-    <class>com.kuzumeji.framework.enterprise.component.persistence.TestEntity</class>
+    <class>com.kuzumeji.framework.enterprise.component.persistence.AbstractPersistable</class>
+    <class>com.kuzumeji.framework.enterprise.component.persistence.AbstractVersionable</class>
+    <class>com.kuzumeji.framework.enterprise.component.persistence.AbstractAuditable</class>
+    <class>com.kuzumeji.framework.enterprise.component.persistence.PersistableTestee</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     <validation-mode>AUTO</validation-mode>

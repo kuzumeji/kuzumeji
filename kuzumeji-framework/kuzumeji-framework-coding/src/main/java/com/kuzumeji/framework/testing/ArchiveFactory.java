@@ -22,4 +22,13 @@ public final class ArchiveFactory {
         return ShrinkWrap.create(JavaArchive.class).addPackages(true, "com.kuzumeji")
             .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
+    /**
+     * JARの作成
+     * @return JAR
+     */
+    public static JavaArchive createJar_Jpa() {
+        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "com.kuzumeji")
+            .addAsManifestResource("META-INF/beans.xml", "beans.xml")
+            .addAsManifestResource("META-INF/persistence.xml", "persistence.xml");
+    }
 }
