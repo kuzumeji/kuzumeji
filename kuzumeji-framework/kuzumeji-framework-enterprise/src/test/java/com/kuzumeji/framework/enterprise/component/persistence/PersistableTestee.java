@@ -5,14 +5,18 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import com.kuzumeji.framework.enterprise.component.persistence.AbstractPersistable;
+import javax.persistence.UniqueConstraint;
 /**
  * @see AbstractPersistable
  * @author nilcy
  */
 @Entity
-@Table(name = "PersitenceTestee")
+@Table(name = "PersitenceTestee", indexes = { @Index(columnList = "code") }, uniqueConstraints = { @UniqueConstraint(columnNames = { "code" }) })
+@NamedQueries({ @NamedQuery(name = "PersistableTestee.findUK", query = "SELECT pt FROM PersistableTestee pt WHERE pt.code=:code") })
 public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
     /** 識別番号 */
     private static final long serialVersionUID = 4506075597459118931L;
@@ -22,6 +26,15 @@ public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
     private String name;
     /** コンストラクタ */
     public PersistableTestee() {
+    }
+    /**
+     * コンストラクタ
+     * @param code {@link #code コード}
+     * @param name {@link #name なまえ}
+     */
+    public PersistableTestee(final String code, final String name) {
+        this.code = code;
+        this.name = name;
     }
     /**
      * {@link #code} の取得
@@ -48,7 +61,7 @@ public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
      * {@link #name} の設定
      * @param name {@link #name}
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 }

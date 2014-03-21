@@ -23,14 +23,5 @@
         <dependent-module archiveName="commons-codec-1.9.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-codec/commons-codec/1.9/commons-codec-1.9.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="logback-classic-1.1.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/ch/qos/logback/logback-classic/1.1.1/logback-classic-1.1.1.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="logback-core-1.1.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/ch/qos/logback/logback-core/1.1.1/logback-core-1.1.1.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="slf4j-api-1.7.6.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/slf4j/slf4j-api/1.7.6/slf4j-api-1.7.6.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
     </wb-module>
 </project-modules>

@@ -7,7 +7,10 @@ package com.kuzumeji.framework.enterprise.component.persistence;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 /**
  * 簡単リポジトリ
  * @param <P> エンティティ型
@@ -59,8 +62,14 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     }
     /** {@inheritDoc} */
     @Override
-    public P findOne(final Object filter) {
-        return null;
+    public P findOne(final String name, final Map<String, Object> filter) {
+        final String queryName = !name.startsWith(clazz.getSimpleName()) ? clazz.getSimpleName()
+            + "." + name : name;
+        final TypedQuery<P> query = manager.createNamedQuery(queryName, clazz);
+        for (final Entry<String, Object> entry : filter.entrySet()) {
+            query.setParameter(entry.getKey(), entry.getValue());
+        }
+        return query.getSingleResult();
     }
     /** {@inheritDoc} */
     @Override
