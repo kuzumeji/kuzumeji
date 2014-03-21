@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+  <!-- JDBC Resource -->
+  <jdbc-connection-pool name="jdbc/kuzumejiPool" res-type="javax.sql.DataSource"
+    datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource" is-isolation-level-guaranteed="false">
+    <property name="databaseName" value="target/databases/derby" />
+    <property name="createDatabase" value="create" />
+  </jdbc-connection-pool>
+  <jdbc-resource jndi-name="jdbc/kuzumeji" pool-name="jdbc/kuzumejiPool" />
+  <!-- Mail Resource -->
+  <mail-resource jndi-name="mail/kuzumeji" debug="true" host="smtp.gmail.com"
+    transport-protocol-class="com.sun.mail.smtp.SMTPSSLTransport" transport-protocol="smtps"
+    from="kuzumeji@gmail.com" user="kuzumeji@gmail.com">
+    <property name="mail-smtps-auth" value="true" />
+    <property name="mail-smtps-password" value="xxxxxxxx" />
+  </mail-resource>
+  <!-- JMS Resource -->
+  <connector-connection-pool name="jms/kuzumejiConnectionPool"
+    resource-adapter-name="jmsra" connection-definition-name="javax.jms.ConnectionFactory"
+    max-pool-size="250" steady-pool-size="1">
+    <property name="ClientId" value="KID"></property>
+  </connector-connection-pool>
+  <connector-resource jndi-name="jms/kuzumejiConnectionFactory" pool-name="jms/kuzumejiConnectionPool"
+    object-type="user" enabled="true" />
+  <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Queue"
+    jndi-name="jms/kuzumejiQueue" object-type="user" enabled="true">
+    <property name="Name" value="kuzumejiQueue" />
+  </admin-object-resource>
+  <admin-object-resource res-adapter="jmsra" res-type="javax.jms.Topic"
+    jndi-name="jms/kuzumejiTopic" object-type="user" enabled="true">
+    <property name="Name" value="kuzumejiTopic" />
+  </admin-object-resource>
+</resources>

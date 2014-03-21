@@ -6,6 +6,7 @@
 package com.kuzumeji.framework.enterprise.component.persistence;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import java.util.Collection;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,6 +37,15 @@ public class PersistableTesteeTest {
     @Test
     public final void test() {
         assertThat(manager, is(not(nullValue())));
-        manager.persist(new PersistableTestee());
+        final PersistableTestee entity = new PersistableTestee();
+        entity.setCode("code#01");
+        entity.setName("name#01");
+        manager.persist(entity);
+        final Collection<PersistableTestee> entities = manager.createQuery(
+            "select pt from PersistableTestee pt").getResultList();
+        assertThat(entities.size(), is(1));
+        final PersistableTestee first = entities.iterator().next();
+        assertThat(first.getCode(), is("code#01"));
+        assertThat(first.getName(), is("name#01"));
     }
 }

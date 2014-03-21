@@ -4,10 +4,28 @@
 	<engine>
 		<property name="deploymentExportPath">target</property>
 	</engine>
-	<container qualifier="glassfish-embedded" default="true">
+	<container qualifier="glassfish-remote" default="true">
 		<configuration>
-			<!-- <property name="bindHttpPort">8000</property> -->
-			<!-- <property name="resourcesXml">src/test/resources/glassfish-resources.xml</property> -->
+			<!-- <property name="adminHttps"></property> -->
+			<property name="adminHost">localhost</property>
+			<!-- <property name="adminPort"></property> -->
+			<!-- <property name="adminUser"></property> -->
+			<!-- <property name="adminPassword"></property> -->
+			<!-- <property name="remoteServerAddress"></property> -->
+			<!-- <property name="remoteServerHttpPort"></property> -->
+			<!-- <property name="remoteServerAdminHttps"></property> -->
+			<!-- <property name="remoteServerAdminPort"></property> -->
+			<!-- <property name="properties"></property> -->
+			<!-- <property name="type"></property> -->
+			<!-- <property name="authorisation"></property> -->
+			<!-- <property name="target"></property> -->
+			<!-- <property name="libraries"></property> -->
+		</configuration>
+	</container>
+	<container qualifier="glassfish-embedded" default="false">
+		<configuration>
+			<property name="bindHttpPort">8000</property>
+			<property name="resourcesXml">src/test/resources/glassfish-embedded-resources.xml</property>
 		</configuration>
 	</container>
 </arquillian>
