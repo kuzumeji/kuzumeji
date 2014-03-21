@@ -5,20 +5,24 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
  * @see SimpleRepository
  * @author nilcy
  */
-public class SimpleRepositoryFactory {
+public class SimpleRepositoryProducer {
     @PersistenceContext
     private EntityManager manager;
+    @Inject
+    private UniqueFilterFactory<PersistableTestee> uniqueFilterFactory;
     /** コンストラクタ */
-    public SimpleRepositoryFactory() {
+    public SimpleRepositoryProducer() {
     }
     @Produces
     public SimpleRepository<PersistableTestee> createSimpleRepository_PersistableTestee() {
-        return new SimpleRepository<PersistableTestee>(PersistableTestee.class, manager);
+        return new SimpleRepository<PersistableTestee>(PersistableTestee.class, manager,
+            uniqueFilterFactory);
     }
 }

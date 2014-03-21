@@ -6,10 +6,7 @@
 package com.kuzumeji.framework.enterprise.component.persistence;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import java.util.HashMap;
-import java.util.Map;
 import javax.inject.Inject;
-import javax.persistence.PersistenceException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -31,13 +28,15 @@ public class SimpleRepositoryTest {
     @Inject
     private SimpleRepository<PersistableTestee> testee;
     @Inject
+    private UniqueFilterFactory<PersistableTestee> uniqueFilterFactory;
+    @Inject
     private Logger log;
     @Deployment
     public static JavaArchive deploy() {
         return ArchiveFactory.createJar_Jpa();
     }
     @Test
-    public final void test() {
+    public final void test() throws PersistenceException {
         assertThat(testee, is(not(nullValue())));
         // 追加してID発番,永続管理ができることを確認する。
         PersistableTestee entity = new PersistableTestee("code#01", "name#01");
@@ -65,15 +64,17 @@ public class SimpleRepositoryTest {
     @Test
     public final void testUK() {
         assertThat(testee, is(not(nullValue())));
-        testee.save(new PersistableTestee("code#01", "name#01"));
-        final Map<String, Object> filter = new HashMap<>();
-        filter.put("code", "code#01");
-        assertThat(testee.findOne("PersistableTestee.findUK", filter).getCode(), is("code#01"));
-        assertThat(testee.findOne("findUK", filter).getCode(), is("code#01"));
         try {
             testee.save(new PersistableTestee("code#01", "name#01"));
         } catch (final PersistenceException e) {
-            log.warn(e.getLocalizedMessage(), e);
+            fail(e.getLocalizedMessage());
+        }
+        try {
+            testee.save(new PersistableTestee("code#01", "name#01"));
+            fail();
+        } catch (final PersistenceException e) {
+            log.debug("message : {}", e.getMessage());
+            log.debug("message-map : {}", e.getMessageMap());
         }
     }
 }

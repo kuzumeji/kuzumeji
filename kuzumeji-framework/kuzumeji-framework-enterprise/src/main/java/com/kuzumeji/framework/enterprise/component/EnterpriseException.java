@@ -7,6 +7,9 @@ package com.kuzumeji.framework.enterprise.component;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.ApplicationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.kuzumeji.framework.enterprise.component.persistence.SimpleRepository;
 import com.kuzumeji.framework.standard.component.StandardException;
 /**
  * 基幹キャッチ例外
@@ -21,6 +24,8 @@ import com.kuzumeji.framework.standard.component.StandardException;
 public class EnterpriseException extends StandardException {
     /** 識別番号 */
     private static final long serialVersionUID = -4686970986421722935L;
+    /** ロガー */
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
     /**
      * メッセージマップ
      * <dl>
@@ -126,6 +131,10 @@ public class EnterpriseException extends StandardException {
         super(key);
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
+        LOG.debug("messageMap : {}", messageMap);
+        for (final Object value : values) {
+            LOG.debug("value : {}", value);
+        }
     }
     /**
      * コンストラクタ

@@ -14,18 +14,19 @@ import java.util.Map;
 public interface Repository<P extends Persistable> {
     /**
      * エンティティの保存
-     * @param <S> エンティティ型(サブタイプでも可能)
      * @param entity エンティティ
      * @return 保存後エンティティ
+     * @throws PersistenceException 保存の失敗
      */
-    <S extends P> S save(S entity);
+    P save(P entity) throws PersistenceException;
     /**
      * エンティティの保存
      * @param <S> エンティティ型(サブタイプでも可能)
      * @param entities エンティティ
      * @return 保存後エンティティ
+     * @throws PersistenceException 保存の失敗
      */
-    <S extends P> Collection<S> save(Iterable<S> entities);
+    <S extends P> Collection<S> save(Iterable<S> entities) throws PersistenceException;
     /**
      * エンティティのID検索
      * @param id ID
@@ -49,16 +50,19 @@ public interface Repository<P extends Persistable> {
      * エンティティの削除
      * @param <S> エンティティ型(サブタイプでも可能)
      * @param entity エンティティ
+     * @throws PersistenceException 保存の失敗
      */
-    <S extends P> void delete(S entity);
+    <S extends P> void delete(S entity) throws PersistenceException;
     /**
      * エンティティの削除
      * @param <S> エンティティ型(サブタイプでも可能)
      * @param entities エンティティ
+     * @throws PersistenceException 保存の失敗
      */
-    <S extends P> void delete(Iterable<S> entities);
+    <S extends P> void delete(Iterable<S> entities) throws PersistenceException;
     /**
      * データベースへ反映
+     * @throws PersistenceException 保存の失敗
      */
-    void flush();
+    void flush() throws PersistenceException;
 }

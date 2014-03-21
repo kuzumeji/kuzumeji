@@ -16,9 +16,9 @@ import org.slf4j.Logger;
  * </dl>
  * @author nilcy
  */
-public class LoggerFactory {
+public class LoggerProducer {
     /** コンストラクタ */
-    public LoggerFactory() {
+    public LoggerProducer() {
     }
     /**
      * ロガーの作成

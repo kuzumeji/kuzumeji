@@ -15,12 +15,12 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
- * @see LoggerFactory
+ * @see LoggerProducer
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @SuppressWarnings("all")
-public class LoggerFactoryTest {
+public class LoggerProducerTest {
     @Inject
     private Logger testee;
     @Deployment
