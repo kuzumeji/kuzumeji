@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -17,7 +18,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see Repository
@@ -70,12 +70,10 @@ public class SimpleRepositoryTest {
         filter.put("code", "code#01");
         assertThat(testee.findOne("PersistableTestee.findUK", filter).getCode(), is("code#01"));
         assertThat(testee.findOne("findUK", filter).getCode(), is("code#01"));
-    }
-    @Test
-    public final void testName() {
-        final Logger log = LoggerFactory.getLogger(this.getClass());
-        log.info(this.getClass().getCanonicalName());
-        log.info(this.getClass().getSimpleName());
-        log.info("match : {}", "PersistableTestee.findUK".matches("PersistableTestee.*"));
+        try {
+            testee.save(new PersistableTestee("code#01", "name#01"));
+        } catch (final PersistenceException e) {
+            log.warn(e.getLocalizedMessage(), e);
+        }
     }
 }
