@@ -4,7 +4,6 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
-import java.io.Serializable;
 /**
  * 版管理エンティティI/F
  * <dl>
@@ -15,10 +14,9 @@ import java.io.Serializable;
  * <li>{@link Persistable 永続可能エンティティI/F} を実装すること。</li>
  * </ol>
  * </dl>
- * @param <I> 識別子オブジェクト型
  * @author nilcy
  */
-public interface Versionable<I extends Serializable> extends Persistable<I> {
+public interface Versionable extends Persistable {
     /**
      * 版数の取得
      * @return 版数

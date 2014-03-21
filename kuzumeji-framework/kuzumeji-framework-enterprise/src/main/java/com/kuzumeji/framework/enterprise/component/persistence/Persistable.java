@@ -15,15 +15,14 @@ import java.io.Serializable;
  * <li>{@link Serializable} を実装すること。</li>
  * </ol>
  * </dl>
- * @param <ID> 識別子オブジェクト型
  * @author nilcy
  */
-public interface Persistable<ID extends Serializable> extends Serializable, Cloneable {
+public interface Persistable extends Serializable, Cloneable {
     /**
      * 識別子(ID)
      * @return 識別子(ID)
      */
-    ID identity();
+    Object identity();
     /**
      * 永続管理チェック
      * @return TRUE:管理中,FALSE:未管理

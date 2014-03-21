@@ -31,12 +31,12 @@ import com.kuzumeji.framework.standard.component.ReferenceObject;
  * <li>なお、永続管理の状態設定は {@link #setPersisted()} を参照すること。</li>
  * </ol>
  * </dl>
- * @param <PE> 永続可能エンティティ型
+ * @param <P> 永続可能エンティティ型
  * @author nilcy
  */
 @MappedSuperclass
-public abstract class AbstractPersistable<PE extends AbstractPersistable<PE>> extends
-    AbstractDataObject<PE> implements ReferenceObject<PE, BigDecimal>, Persistable<BigDecimal> {
+public abstract class AbstractPersistable<P extends AbstractPersistable<P>> extends
+    AbstractDataObject<P> implements ReferenceObject<P>, Persistable {
     /** 識別番号 */
     private static final long serialVersionUID = 1365773187648802997L;
     /** 識別子(ID) */
@@ -82,7 +82,7 @@ public abstract class AbstractPersistable<PE extends AbstractPersistable<PE>> ex
      * </dl>
      */
     @Override
-    public final boolean sameIdentityAs(final PE other) {
+    public final boolean sameIdentityAs(final P other) {
         return (other != null)
             && new EqualsBuilder().append(identity(), other.identity()).isEquals();
     }

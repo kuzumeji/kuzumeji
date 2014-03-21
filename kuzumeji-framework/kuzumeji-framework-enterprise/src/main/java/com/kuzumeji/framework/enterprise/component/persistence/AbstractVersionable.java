@@ -4,7 +4,6 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
-import java.math.BigDecimal;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
@@ -25,7 +24,7 @@ import javax.persistence.Version;
  */
 @MappedSuperclass
 public abstract class AbstractVersionable<VE extends AbstractVersionable<VE>> extends
-    AbstractPersistable<VE> implements Versionable<BigDecimal> {
+    AbstractPersistable<VE> implements Versionable {
     /** 識別番号 */
     private static final long serialVersionUID = 3662224470361465232L;
     /** 版数 */

@@ -4,7 +4,6 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
-import java.io.Serializable;
 /**
  * 参照オブジェクトI/F
  * <dl>
@@ -16,11 +15,9 @@ import java.io.Serializable;
  * </ol>
  * </dl>
  * @param <RO> 参照オブジェクト型
- * @param <ID> 識別子オブジェクト型
  * @author nilcy
  */
-public interface ReferenceObject<RO extends ReferenceObject<RO, ID>, ID extends Serializable>
-    extends DataObject<RO> {
+public interface ReferenceObject<RO extends ReferenceObject<RO>> extends DataObject<RO> {
     /**
      * 同一性の確認
      * <dl>
@@ -35,5 +32,5 @@ public interface ReferenceObject<RO extends ReferenceObject<RO, ID>, ID extends 
      * 識別子(ID)
      * @return 識別子(ID)
      */
-    ID identity();
+    Object identity();
 }
