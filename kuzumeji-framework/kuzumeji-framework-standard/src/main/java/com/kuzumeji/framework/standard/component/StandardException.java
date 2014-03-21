@@ -143,7 +143,7 @@ public class StandardException extends Exception {
      * {@link #messageMap} の取得
      * @return {@link #messageMap}
      */
-    public final Map<String, Object[]> getMessageMap() {
+    public Map<String, Object[]> getMessageMap() {
         return messageMap;
     }
 }

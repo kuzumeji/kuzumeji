@@ -152,4 +152,12 @@ public class EnterpriseException extends StandardException {
         super(messageMap.keySet().iterator().next());
         this.messageMap = messageMap;
     }
+    /**
+     * {@link #messageMap} の取得
+     * @return {@link #messageMap}
+     */
+    @Override
+    public Map<String, Object[]> getMessageMap() {
+        return messageMap;
+    }
 }
