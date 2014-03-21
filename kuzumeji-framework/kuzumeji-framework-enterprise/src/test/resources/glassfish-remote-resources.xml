@@ -3,9 +3,13 @@
 <resources>
   <!-- JDBC Resource -->
   <jdbc-connection-pool name="jdbc/kuzumejiPool" res-type="javax.sql.DataSource"
-    datasource-classname="org.apache.derby.jdbc.EmbeddedDataSource" is-isolation-level-guaranteed="false">
-    <property name="databaseName" value="target/databases/derby" />
-    <property name="createDatabase" value="create" />
+    datasource-classname="org.apache.derby.jdbc.ClientDataSource" is-isolation-level-guaranteed="false">
+    <property name="url" value="jdbc:derby://localhost:1527/kuzumeji"/>
+    <property name="serverName" value="localhost"/>
+    <property name="portNumber" value="1527"/>
+    <property name="databaseName" value="kuzumeji"/>
+    <property name="user" value="app"/>
+    <property name="password" value="app"/>
   </jdbc-connection-pool>
   <jdbc-resource jndi-name="jdbc/kuzumeji" pool-name="jdbc/kuzumejiPool" />
   <!-- Mail Resource -->
