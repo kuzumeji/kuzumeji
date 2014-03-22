@@ -6,21 +6,21 @@
 package com.kuzumeji.framework.enterprise.component.persistence;
 import java.util.Map;
 /**
- * UK制約条件I/F
- * @param <T> 対象オブジェクト型
+ * リポジトリリスナーI/F
+ * @param <P> エンティティ型
  * @author nilcy
  */
-public interface UniqueFilterFactory<T> {
+public interface RepositoryListener<P extends Persistable> {
     /**
      * UK制約条件の作成
      * @param object 対象オブジェクト
      * @return UK制約条件
      */
-    Map<String, Object> create(T object);
+    Map<String, Object> uniqueConstraints(P object);
     /**
      * UK制約違反オブジェクト配列の取得
      * @param object 対象オブジェクト
      * @return UK制約違反オブジェクト配列
      */
-    Object[] toArray(T object);
+    Object[] uniqueFields(P object);
 }

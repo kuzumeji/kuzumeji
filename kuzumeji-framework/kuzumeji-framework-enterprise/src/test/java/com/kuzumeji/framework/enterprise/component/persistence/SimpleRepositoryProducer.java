@@ -16,13 +16,13 @@ public class SimpleRepositoryProducer {
     @PersistenceContext
     private EntityManager manager;
     @Inject
-    private UniqueFilterFactory<PersistableTestee> uniqueFilterFactory;
+    private RepositoryListener<PersistableTestee> repositoryListener;
     /** コンストラクタ */
     public SimpleRepositoryProducer() {
     }
     @Produces
     public SimpleRepository<PersistableTestee> createSimpleRepository_PersistableTestee() {
         return new SimpleRepository<PersistableTestee>(PersistableTestee.class, manager,
-            uniqueFilterFactory);
+            repositoryListener);
     }
 }

@@ -28,7 +28,7 @@ public class SimpleRepositoryTest {
     @Inject
     private SimpleRepository<PersistableTestee> testee;
     @Inject
-    private UniqueFilterFactory<PersistableTestee> uniqueFilterFactory;
+    private RepositoryListener<PersistableTestee> repositoryListener;
     @Inject
     private Logger log;
     @Deployment

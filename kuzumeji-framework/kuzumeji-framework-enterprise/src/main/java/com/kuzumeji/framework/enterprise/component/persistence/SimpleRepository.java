@@ -12,8 +12,6 @@ import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * 簡単リポジトリ
  * @param <P> エンティティ型
@@ -22,14 +20,14 @@ import org.slf4j.LoggerFactory;
 public class SimpleRepository<P extends Persistable> implements Repository<P> {
     /** 重複キー */
     private static final String DUPLICATE = "DUPLICATE";
+    /** ロガー */
+    // private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
     /** エンティティクラス */
     private final Class<P> clazz;
     /** エンティティマネージャ */
     private final EntityManager manager;
     /** UK制約条件 */
-    private final UniqueFilterFactory<P> uniqueFilterFactory;
-    /** ロガー */
-    private final Logger log = LoggerFactory.getLogger(SimpleRepository.class);
+    private final RepositoryListener<P> listener;
     /**
      * コンストラクタ
      * @param clazz {@link #clazz エンティティクラス}
@@ -38,48 +36,39 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     public SimpleRepository(final Class<P> clazz, final EntityManager manager) {
         this.clazz = clazz;
         this.manager = manager;
-        uniqueFilterFactory = null;
+        listener = null;
     }
     /**
      * コンストラクタ
      * @param clazz {@link #clazz エンティティクラス}
      * @param manager {@link #manager エンティティマネージャ}
-     * @param uniqueFilterFactory {@link #uniqueFilterFactory UK制約条件}
+     * @param uniqueFilterFactory {@link #listener UK制約条件}
      */
     public SimpleRepository(final Class<P> clazz, final EntityManager manager,
-        final UniqueFilterFactory<P> uniqueFilterFactory) {
+        final RepositoryListener<P> uniqueFilterFactory) {
         this.clazz = clazz;
         this.manager = manager;
-        this.uniqueFilterFactory = uniqueFilterFactory;
+        this.listener = uniqueFilterFactory;
     }
     /** {@inheritDoc} */
     @Override
     public P save(final P entity) throws PersistenceException {
         P other = null;
-        log.debug("uniqueFilterFactory : {}", uniqueFilterFactory);
-        if (uniqueFilterFactory != null) {
-            final Map<String, Object> filter = uniqueFilterFactory.create(entity);
-            log.debug("filter : {}", filter);
+        if (listener != null) {
+            final Map<String, Object> filter = listener.uniqueConstraints(entity);
             try {
                 other = findOne("findUK", filter);
             } catch (final NoResultException e) {
             }
         }
-        final Object[] array = uniqueFilterFactory.toArray(entity);
-        log.debug("array : {}", array);
         if (!entity.isPersisted()) {
             if (other != null) {
-                throw new PersistenceException(DUPLICATE, array);
+                throw new PersistenceException(DUPLICATE, listener.uniqueFields(entity));
             }
             manager.persist(entity);
         } else {
-            log.debug("other : {}", other);
-            log.debug("entity : {}", entity);
-            if (other != null) {
-                log.debug("other-id={}, entity-id={}", other.identity(), entity.identity());
-            }
             if ((other != null) && !other.identity().equals(entity.identity())) {
-                throw new PersistenceException(DUPLICATE, array);
+                throw new PersistenceException(DUPLICATE, listener.uniqueFields(entity));
             }
             manager.merge(entity);
         }
@@ -93,10 +82,10 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
         for (final S entity : entities) {
             if (!entity.isPersisted()) {
                 manager.persist(entity);
+                results.add(entity);
             } else {
-                manager.merge(entity);
+                results.add(manager.merge(entity));
             }
-            results.add(entity);
         }
         return results;
     }

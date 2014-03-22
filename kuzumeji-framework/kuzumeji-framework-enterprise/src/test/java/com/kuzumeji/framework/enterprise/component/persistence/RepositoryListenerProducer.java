@@ -10,26 +10,26 @@ import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
- * @see UniqueFilterFactory
+ * @see RepositoryListener
  * @author nilcy
  */
-public class UniqueFilterFactoryProducer {
+public class RepositoryListenerProducer {
     @PersistenceContext
     private EntityManager manager;
     /** コンストラクタ */
-    public UniqueFilterFactoryProducer() {
+    public RepositoryListenerProducer() {
     }
     @Produces
-    public UniqueFilterFactory<PersistableTestee> createUniqueFilterFactory_PersistableTestee() {
-        return new UniqueFilterFactory<PersistableTestee>() {
+    public RepositoryListener<PersistableTestee> createUniqueFilterFactory_PersistableTestee() {
+        return new RepositoryListener<PersistableTestee>() {
             @Override
-            public Map<String, Object> create(final PersistableTestee object) {
+            public Map<String, Object> uniqueConstraints(final PersistableTestee object) {
                 final Map<String, Object> filter = new HashMap<>();
                 filter.put("code", object.getCode());
                 return filter;
             }
             @Override
-            public Object[] toArray(final PersistableTestee object) {
+            public Object[] uniqueFields(final PersistableTestee object) {
                 return new Object[] { object.getCode() };
             }
         };
