@@ -20,7 +20,7 @@ import javax.persistence.TypedQuery;
 public class SimpleRepository<P extends Persistable> implements Repository<P> {
     /** 一意キー制約違反キー */
     private static final String ERR_UK = "ERR_KFE_UK";
-    /** ロガー */
+    // /** ロガー */
     // private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
     /** エンティティクラス */
     private final Class<P> clazz;

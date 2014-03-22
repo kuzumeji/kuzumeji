@@ -30,27 +30,13 @@ public class StandardException extends Exception {
      * <dd>メッセージのキーとオブジェクト配列という形式であること。
      * </dl>
      */
-    protected Map<String, Object[]> messageMap;
-    /**
-     * コンストラクタ
-     * <dl>
-     * <dt>使用条件
-     * <dd>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。
-     * </dl>
-     */
+    private final Map<String, Object[]> messageMap;
+    /** コンストラクタ */
     public StandardException() {
         messageMap = new LinkedHashMap<>();
     }
     /**
      * コンストラクタ
-     * <dl>
-     * <dt>使用条件
-     * <dd>
-     * <ol>
-     * <li>{@link Exception#Exception(String)}へ委譲されること。</li>
-     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
-     * </ol>
-     * </dl>
      * @param message メッセージ
      */
     public StandardException(final String message) {
@@ -59,14 +45,6 @@ public class StandardException extends Exception {
     }
     /**
      * コンストラクタ
-     * <dl>
-     * <dt>使用条件
-     * <dd>
-     * <ol>
-     * <li>{@link Exception#Exception(Throwable)}へ委譲されること。</li>
-     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
-     * </ol>
-     * </dl>
      * @param cause 例外オブジェクト
      */
     public StandardException(final Throwable cause) {
@@ -75,14 +53,6 @@ public class StandardException extends Exception {
     }
     /**
      * コンストラクタ
-     * <dl>
-     * <dt>使用条件
-     * <dd>
-     * <ol>
-     * <li>{@link Exception#Exception(String, Throwable)}へ委譲されること。</li>
-     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
-     * </ol>
-     * </dl>
      * @param message メッセージ
      * @param cause 例外オブジェクト
      */
@@ -92,14 +62,6 @@ public class StandardException extends Exception {
     }
     /**
      * コンストラクタ
-     * <dl>
-     * <dt>使用条件
-     * <dd>
-     * <ol>
-     * <li>{@link Exception#Exception(String, Throwable, boolean, boolean)}へ委譲されること。</li>
-     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
-     * </ol>
-     * </dl>
      * @param message メッセージ
      * @param cause 例外オブジェクト
      * @param enableSuppression 抑制の有無
@@ -117,7 +79,6 @@ public class StandardException extends Exception {
      * <dd>
      * <ol>
      * <li>キーをもとに {@link Exception#Exception(String)} へ委譲されること。</li>
-     * <li>{@link #messageMap} が {@link LinkedHashMap#LinkedHashMap()} で初期化されること。</li>
      * <li>キーとオブジェクト配列が {@link #messageMap} へ格納されること。</li>
      * </ol>
      * </dl>
@@ -159,7 +120,7 @@ public class StandardException extends Exception {
     public String getApplicationMessage() {
         final PropertiesHelper props = new PropertiesHelper("message.properties");
         try {
-            final Entry<String, Object[]> entry = messageMap.entrySet().iterator().next();
+            final Entry<String, Object[]> entry = getMessageMap().entrySet().iterator().next();
             return props.getText(entry.getKey(), entry.getValue());
         } catch (final NoSuchElementException e) {
             LOG.warn(e.getLocalizedMessage());
