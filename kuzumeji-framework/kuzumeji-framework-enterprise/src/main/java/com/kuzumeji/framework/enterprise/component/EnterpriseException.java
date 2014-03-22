@@ -33,7 +33,7 @@ public class EnterpriseException extends StandardException {
      * <dd>メッセージのキーとオブジェクト配列という形式であること。
      * </dl>
      */
-    private final Map<String, Object[]> messageMap;
+    // private final Map<String, Object[]> messageMap;
     /**
      * コンストラクタ
      * <dl>

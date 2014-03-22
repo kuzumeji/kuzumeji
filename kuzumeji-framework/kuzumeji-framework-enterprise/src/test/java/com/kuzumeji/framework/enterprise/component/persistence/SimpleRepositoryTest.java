@@ -73,8 +73,10 @@ public class SimpleRepositoryTest {
             testee.save(new PersistableTestee("code#01", "name#01"));
             fail();
         } catch (final PersistenceException e) {
-            log.debug("message : {}", e.getMessage());
-            log.debug("message-map : {}", e.getMessageMap());
+            log.debug(e.getApplicationMessage());
+            // log.warn(e.getLocalizedMessage(), e);
+            // log.debug("message : {}", e.getMessage());
+            // log.debug("message-map : {}", e.getMessageMap());
         }
     }
 }

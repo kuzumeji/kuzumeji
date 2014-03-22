@@ -6,6 +6,10 @@
 package com.kuzumeji.framework.standard.component;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * 標準キャッチ例外
  * <dl>
@@ -17,6 +21,8 @@ import java.util.Map;
 public class StandardException extends Exception {
     /** 識別番号 */
     private static final long serialVersionUID = 7615078242077460244L;
+    /** ロガー */
+    private static final Logger LOG = LoggerFactory.getLogger(StandardException.class);
     /**
      * メッセージマップ
      * <dl>
@@ -24,7 +30,7 @@ public class StandardException extends Exception {
      * <dd>メッセージのキーとオブジェクト配列という形式であること。
      * </dl>
      */
-    private final Map<String, Object[]> messageMap;
+    protected Map<String, Object[]> messageMap;
     /**
      * コンストラクタ
      * <dl>
@@ -145,5 +151,19 @@ public class StandardException extends Exception {
      */
     public Map<String, Object[]> getMessageMap() {
         return messageMap;
+    }
+    /**
+     * アプリケーションメッセージの取得
+     * @return アプリケーションメッセージ
+     */
+    public String getApplicationMessage() {
+        final PropertiesHelper props = new PropertiesHelper("message.properties");
+        try {
+            final Entry<String, Object[]> entry = messageMap.entrySet().iterator().next();
+            return props.getText(entry.getKey(), entry.getValue());
+        } catch (final NoSuchElementException e) {
+            LOG.warn(e.getLocalizedMessage());
+            return null;
+        }
     }
 }

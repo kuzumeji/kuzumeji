@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
+import java.text.MessageFormat;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
@@ -37,6 +38,17 @@ public final class PropertiesHelper {
     public String getText(final String key) {
         assert config != null;
         return config.getString(key);
+    }
+    /**
+     * テキスト値の取得
+     * @param key キー
+     * @param arguments 可変長引数オブジェクト
+     * @return テキスト値
+     */
+    public String getText(final String key, final Object... arguments) {
+        assert config != null;
+        final String text = config.getString(key);
+        return MessageFormat.format(text, arguments);
     }
     /**
      * テキスト値の取得

@@ -28,6 +28,7 @@ public final class ArchiveFactory {
      */
     public static JavaArchive createJar_Jpa() {
         return ShrinkWrap.create(JavaArchive.class).addPackages(true, "com.kuzumeji")
+            .addAsResource("message.properties")
             .addAsManifestResource("META-INF/beans.xml", "beans.xml")
             .addAsManifestResource("META-INF/persistence.xml", "persistence.xml");
     }
