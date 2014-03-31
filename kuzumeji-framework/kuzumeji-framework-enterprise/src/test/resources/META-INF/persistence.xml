@@ -3,7 +3,7 @@
   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd"
   version="2.1">
   <persistence-unit name="primary" transaction-type="JTA">
-    <jta-data-source>jdbc/kuzumeji</jta-data-source>
+    <jta-data-source>jdbc/__default</jta-data-source>
     <class>com.kuzumeji.framework.enterprise.component.persistence.Config</class>
     <class>com.kuzumeji.framework.enterprise.component.persistence.AbstractPersistable</class>
     <class>com.kuzumeji.framework.enterprise.component.persistence.AbstractVersionable</class>

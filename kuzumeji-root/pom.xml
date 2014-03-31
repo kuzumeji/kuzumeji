@@ -108,6 +108,11 @@
 				<version>1.1.1</version>
 			</dependency>
 			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>1.7.6</version>
+			</dependency>
+			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>4.11</version>
@@ -434,7 +439,7 @@
 							<artifactId>maven-checkstyle-plugin</artifactId>
 							<version>2.9.1</version>
 							<configuration>
-								<configLocation>kuzumeji-support/kuzumeji-support-coding/src/main/config/Java/Checkstyle.xml</configLocation>
+								<configLocation>kuzumeji-support/kuzumeji-support-testing/src/main/config/Java/Checkstyle.xml</configLocation>
 							</configuration>
 						</plugin>
 					</reportPlugins>
@@ -513,7 +518,8 @@
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
 				<configuration>
-					<message>Creating site for ${project.artifactId}, ${project.version}</message>
+					<message>Creating site for ${project.artifactId},
+						${project.version}</message>
 					<path>${project.distributionManagement.site.url}</path>
 					<merge>true</merge>
 					<noJekyll>true</noJekyll>

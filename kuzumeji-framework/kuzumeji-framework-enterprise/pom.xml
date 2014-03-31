@@ -25,6 +25,10 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.kuzumeji</groupId>
 			<artifactId>kuzumeji-framework-testing</artifactId>
 			<scope>test</scope>
