@@ -10,9 +10,9 @@
     <encoder>
       <pattern>%date [%thread] %-5level %logger - %message%n</pattern>
     </encoder>
-    <file>target/logs/kuzumeji.log</file>
+    <file>target/logs/application.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>target/logs/kuzumeji.%d{yyyy-MM-dd-HH}.zip</fileNamePattern>
+      <fileNamePattern>target/logs/application_%d{yyyy-MM-dd}.zip</fileNamePattern>
     </rollingPolicy>
   </appender>
   <logger name="com.kuzumeji" level="TRACE">
