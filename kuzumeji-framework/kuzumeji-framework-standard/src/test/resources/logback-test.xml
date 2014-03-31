@@ -3,14 +3,14 @@
 <configuration debug="false" scan="true">
   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %-5level %logger - %message%n</pattern>
+      <pattern>%date %-5level %logger - %message%n</pattern>
     </encoder>
   </appender>
   <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>target/logs/application.log</file>
     <encoder>
-      <pattern>%date{HH:mm:ss.SSS} [%thread] %-5level %logger %message%n</pattern>
-    </encoder>>
+      <pattern>%date [%thread] %-5level %logger - %message%n</pattern>
+    </encoder>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
       <fileNamePattern>target/logs/application_%d{yyyy-MM-dd}.zip</fileNamePattern>
       <maxHistory>7</maxHistory>
