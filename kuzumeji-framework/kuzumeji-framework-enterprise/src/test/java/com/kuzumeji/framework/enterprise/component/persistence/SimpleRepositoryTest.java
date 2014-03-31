@@ -33,7 +33,7 @@ public class SimpleRepositoryTest {
     private Logger log;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar_Jpa();
+        return ArchiveFactory.createJarWithJpa();
     }
     @Test
     public final void test() throws PersistenceException {

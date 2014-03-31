@@ -1,0 +1,7 @@
+h1. Eclipse
+
+h2. Help -> Eclipse Marketplace...
+
+* Checkstyle plug-in
+* FindBugs Eclipse plugin
+

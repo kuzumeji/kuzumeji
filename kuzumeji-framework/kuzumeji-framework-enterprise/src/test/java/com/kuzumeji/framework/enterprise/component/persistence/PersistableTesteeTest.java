@@ -32,7 +32,7 @@ public class PersistableTesteeTest {
     private EntityManager manager;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar_Jpa();
+        return ArchiveFactory.createJarWithJpa();
     }
     @Test
     public final void test() {

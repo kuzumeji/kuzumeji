@@ -11,25 +11,43 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
  * @author nilcy
  */
 public final class ArchiveFactory {
+    /** ベースパッケージ */
+    private static final String BASE_PACKAGE = "com.kuzumeji";
+    /** CDI定義ソース */
+    private static final String CDI_SOURCE = "META-INF/beans.xml";
+    /** CDI定義ターゲット */
+    private static final String CDI_TARGET = "beans.xml";
+    /** JPA定義ソース */
+    private static final String JPA_SOURCE = "META-INF/persistence.xml";
+    /** JPA定義ターゲット */
+    private static final String JPA_TARGET = "persistence.xml";
     /** 非公開コンストラクタ */
     private ArchiveFactory() {
     }
     /**
      * JARの作成
+     * @param packages パッケージ
      * @return JAR
      */
-    public static JavaArchive createJar() {
-        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "com.kuzumeji")
-            .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+    public static JavaArchive createJar(final String... packages) {
+        final JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
+        if (packages.length == 0) {
+            jar.addPackages(true, BASE_PACKAGE);
+        } else {
+            jar.addPackages(true, packages);
+        }
+        jar.addAsResource("message.properties");
+        jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
+        return jar;
     }
     /**
      * JARの作成
+     * @param packages パッケージ
      * @return JAR
      */
-    public static JavaArchive createJar_Jpa() {
-        return ShrinkWrap.create(JavaArchive.class).addPackages(true, "com.kuzumeji")
-            .addAsResource("message.properties")
-            .addAsManifestResource("META-INF/beans.xml", "beans.xml")
-            .addAsManifestResource("META-INF/persistence.xml", "persistence.xml");
+    public static JavaArchive createJarWithJpa(final String... packages) {
+        final JavaArchive jar = createJar(packages);
+        jar.addAsManifestResource(JPA_SOURCE, JPA_TARGET);
+        return jar;
     }
 }
