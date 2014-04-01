@@ -1,18 +1,22 @@
 h1. Eclipse
 
-h2. Help -> Eclipse Marketplace...
+h2. plug-in
+
+h3. Help > Eclipse Marketplace...
 
 * Checkstyle plug-in
 * FindBugs Eclipse plugin
 * Git - Git Team Provider
 * GitHub MyLyn Connector
 
-H2. Preferences -> Java -> Editor -> Content Assist -> Favorites -> New Type...
+h2. Preferences
 
-org.hamcrest.CoreMatchers
-org.hamcrest.Matchers
-org.junit.Assert
-org.junit.Assume
-org.junit.matchers.JUnitMatchers
+h3. Window > Preferences > Java > Editor > Content Assist > Favorites > New Type...
+
+* org.hamcrest.CoreMatchers
+* org.hamcrest.Matchers
+* org.junit.Assert
+* org.junit.Assume
+* org.junit.matchers.JUnitMatchers
 
 

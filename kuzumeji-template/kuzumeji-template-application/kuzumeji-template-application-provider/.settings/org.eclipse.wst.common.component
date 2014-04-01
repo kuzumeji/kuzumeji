@@ -8,9 +8,6 @@
         <dependent-module archiveName="kuzumeji-template-consumer-0.1.0-SNAPSHOT.war" deploy-path="/" handle="module:/resource/kuzumeji-template-consumer/kuzumeji-template-consumer">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="kuzumeji-template-registry-0.1.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/kuzumeji-template-registry/kuzumeji-template-registry">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="kuzumeji-framework-enterprise-0.1.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/kuzumeji-framework-enterprise/kuzumeji-framework-enterprise">
             <dependency-type>uses</dependency-type>
         </dependent-module>
@@ -39,6 +36,9 @@
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="commons-logging-1.1.1.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="kuzumeji-template-registry-0.1.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/kuzumeji-template-registry/kuzumeji-template-registry">
             <dependency-type>uses</dependency-type>
         </dependent-module>
     </wb-module>
