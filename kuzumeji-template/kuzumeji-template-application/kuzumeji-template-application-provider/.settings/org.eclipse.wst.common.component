@@ -5,9 +5,6 @@
         <dependent-module archiveName="kuzumeji-template-provider-0.1.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/kuzumeji-template-provider/kuzumeji-template-provider">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="kuzumeji-template-consumer-0.1.0-SNAPSHOT.war" deploy-path="/" handle="module:/resource/kuzumeji-template-consumer/kuzumeji-template-consumer">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <dependent-module archiveName="kuzumeji-framework-enterprise-0.1.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/kuzumeji-framework-enterprise/kuzumeji-framework-enterprise">
             <dependency-type>uses</dependency-type>
         </dependent-module>

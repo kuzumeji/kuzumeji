@@ -16,12 +16,6 @@
 			<version>0.1.0-SNAPSHOT</version>
 			<type>ejb</type>
 		</dependency>
-		<dependency>
-			<groupId>com.kuzumeji</groupId>
-			<artifactId>kuzumeji-template-consumer</artifactId>
-			<version>0.1.0-SNAPSHOT</version>
-			<type>war</type>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -34,11 +28,6 @@
 							<groupId>com.kuzumeji</groupId>
 							<artifactId>kuzumeji-template-provider</artifactId>
 						</ejbModule>
-						<webModule>
-							<groupId>com.kuzumeji</groupId>
-							<artifactId>kuzumeji-template-consumer</artifactId>
-							<contextRoot>/template</contextRoot>
-						</webModule>
 					</modules>
 				</configuration>
 			</plugin>
