@@ -4,4 +4,5 @@ h2. Help -> Eclipse Marketplace...
 
 * Checkstyle plug-in
 * FindBugs Eclipse plugin
-
+* Git - Git Team Provider
+* GitHub MyLyn Connector
