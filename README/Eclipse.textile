@@ -6,3 +6,13 @@ h2. Help -> Eclipse Marketplace...
 * FindBugs Eclipse plugin
 * Git - Git Team Provider
 * GitHub MyLyn Connector
+
+H2. Preferences -> Java -> Editor -> Content Assist -> Favorites -> New Type...
+
+org.hamcrest.CoreMatchers
+org.hamcrest.Matchers
+org.junit.Assert
+org.junit.Assume
+org.junit.matchers.JUnitMatchers
+
+

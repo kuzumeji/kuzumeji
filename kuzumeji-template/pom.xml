@@ -19,6 +19,11 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.kuzumeji</groupId>
+				<artifactId>kuzumeji-framework-testing</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.kuzumeji</groupId>
 				<artifactId>kuzumeji-framework-enterprise</artifactId>
 				<version>0.1.0-SNAPSHOT</version>
 			</dependency>
