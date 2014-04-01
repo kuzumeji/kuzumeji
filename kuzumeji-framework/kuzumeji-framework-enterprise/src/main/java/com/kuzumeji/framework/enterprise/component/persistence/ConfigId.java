@@ -4,17 +4,19 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
-import javax.persistence.Id;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 /**
  * 設定ID
  * @author nilcy
  */
+@Embeddable
 public class ConfigId {
     /** 設定名 */
-    @Id
+    @Column(name = "config_name", nullable = false)
     private String name;
     /** 設定キー */
-    @Id
+    @Column(name = "config_key", nullable = false)
     private String key;
     /** コンストラクタ */
     public ConfigId() {

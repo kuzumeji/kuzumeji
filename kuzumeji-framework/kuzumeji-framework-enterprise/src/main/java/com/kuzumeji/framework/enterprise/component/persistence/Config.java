@@ -4,9 +4,9 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 /**
  * 設定
@@ -14,46 +14,29 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "config")
-@IdClass(ConfigId.class)
 public class Config {
-    /** 設定名 */
-    @Id
-    private String name;
-    /** 設定キー */
-    @Id
-    private String key;
+    /** 設定ID */
+    @EmbeddedId
+    private ConfigId id;
     /** 設定値 */
+    @Column(name = "config_value", nullable = true)
     private String value;
     /** コンストラクタ */
     public Config() {
     }
     /**
-     * {@link #name} の取得
-     * @return {@link #name}
+     * {@link #id} の取得
+     * @return {@link #id}
      */
-    public String getName() {
-        return name;
+    public ConfigId getId() {
+        return id;
     }
     /**
-     * {@link #name} の設定
-     * @param name {@link #name}
+     * {@link #id} の設定
+     * @param id {@link #id}
      */
-    public void setName(final String name) {
-        this.name = name;
-    }
-    /**
-     * {@link #key} の取得
-     * @return {@link #key}
-     */
-    public String getKey() {
-        return key;
-    }
-    /**
-     * {@link #key} の設定
-     * @param key {@link #key}
-     */
-    public void setKey(final String key) {
-        this.key = key;
+    public void setId(final ConfigId id) {
+        this.id = id;
     }
     /**
      * {@link #value} の取得
