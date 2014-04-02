@@ -20,3 +20,33 @@ h3. Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
 * org.junit.matchers.JUnitMatchers
 
 
+h2. Misc
+
+h3. Programming Font
+
+h4. TOP 10 PROGRAMMING FONTS
+
+http://hivelogic.com/articles/top-10-programming-fonts/
+
+h4. Install Inconsolata
+
+http://www.google.com/fonts/
+Search "Inconsolata" > Add to Collection
+Collection > Use > Download zipped file
+Open zipped file > Install ttf
+
+h4. Font Link
+ 
+Run registry-editor(regedit)
+<pre>
+entry: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\FontLink\SystemLink
+key: Inconsolata
+type: REG_MULTI_SIZE
+value: MEIRYO.TTC,Meiryo
+</pre>
+
+h4. Setting Eclipse
+ 
+Window > Preferences > General > Appearance > Colors and Fonts
+Basic > Text Font > Edit...
+Select "Inconsolata"
