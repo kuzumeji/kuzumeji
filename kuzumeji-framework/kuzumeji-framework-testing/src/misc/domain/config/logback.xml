@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE logback>
+<configuration debug="true" scan="true">
+	<appender name="APP" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>../logs/app.log</file>
+		<encoder>
+			<pattern>%date [%thread] %-5level %logger - %message%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>../logs/app_%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<maxHistory>31</maxHistory>
+		</rollingPolicy>
+	</appender>
+	<appender name="INFRA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>../logs/infra.log</file>
+		<encoder>
+			<pattern>%date [%thread] %-5level %logger - %message%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>../logs/infra_%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+	</appender>
+	<logger name="com.kuzumeji" level="trace">
+		<appender-ref ref="APP" />
+	</logger>
+	<root level="info">
+		<appender-ref ref="INFRA" />
+	</root>
+</configuration>
