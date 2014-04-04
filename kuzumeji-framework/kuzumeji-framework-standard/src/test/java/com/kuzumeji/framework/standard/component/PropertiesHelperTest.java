@@ -17,7 +17,7 @@ import org.junit.Test;
 public class PropertiesHelperTest {
     @Test
     public final void testSimple() throws ConfigurationException {
-        final PropertiesHelper testee = new PropertiesHelper("usergui.properties");
+        final PropertiesHelper testee = new PropertiesHelper("usergui");
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.getText("colors.background"), is("#FFFFFF"));
         assertThat(testee.getText("colors.foreground"), is("#000080"));
@@ -31,15 +31,14 @@ public class PropertiesHelperTest {
     }
     @Test
     public final void testVariable() throws ConfigurationException {
-        final PropertiesHelper testee = new PropertiesHelper("application.properties");
+        final PropertiesHelper testee = new PropertiesHelper("application");
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.getText("application.title"), is("Kuzumeji Framework 0.1.0-SNAPSHOT"));
     }
     @Test
     public final void testMessage() throws ConfigurationException {
-        final PropertiesHelper testee = new PropertiesHelper("message.properties");
+        final PropertiesHelper testee = new PropertiesHelper("throwable-messages");
         assertThat(testee, is(not(nullValue())));
-        assertThat(testee.getText("ERR_KFS_UK", "name=日本,key=国番号"),
-            is("一意キー制約の違反です。[name=日本,key=国番号]"));
+        assertThat(testee.getText("ERR_UK", "name=日本,key=国番号"), is("一意キー制約の違反です。[name=日本,key=国番号]"));
     }
 }
