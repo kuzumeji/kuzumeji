@@ -10,7 +10,7 @@ import com.kuzumeji.framework.standard.component.StandardRuntimeException;
  * 基幹ランタイム例外
  * <dl>
  * <dt>使用条件
- * <dd>{@link StandardRuntimeException} へ準拠すること。
+ * <dd>{@link StandardRuntimeException} へ準拠すること。ロールバックあり、継承あり。
  * </dl>
  * @author nilcy
  */

@@ -3,22 +3,24 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.framework.standard.component;
-import java.util.Iterator;
+package com.kuzumeji.framework.enterprise.component;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
+import javax.ejb.ApplicationException;
+import com.kuzumeji.framework.standard.component.PropertiesHelper;
+import com.kuzumeji.framework.standard.component.StandardException;
 /**
- * 標準キャッチ例外
+ * 基幹キャッチ例外
  * <dl>
  * <dt>使用条件
- * <dd>{@link Exception} へ準拠すること。アプリケーションメッセージへ対応すること。
+ * <dd>{@link StandardException} へ準拠すること。ロールバックなし、継承あり。
  * </dl>
  * @author nilcy
  */
-public class StandardException extends Exception {
+@ApplicationException(rollback = false, inherited = true)
+public class EnterpriseWarning extends StandardException {
     /** 識別番号 */
-    private static final long serialVersionUID = 7615078242077460244L;
+    private static final long serialVersionUID = -6004059900614805028L;
     /** メッセージ定義ベース名 */
     private static final String MESSAGE_BASENAME = "throwable-messages";
     /**
@@ -29,43 +31,81 @@ public class StandardException extends Exception {
      * </dl>
      */
     private final Map<String, Object[]> messageMap;
-    /** コンストラクタ */
-    public StandardException() {
+    /**
+     * コンストラクタ
+     * <dl>
+     * <dt>使用条件
+     * <dd>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。
+     * </dl>
+     */
+    public EnterpriseWarning() {
         messageMap = new LinkedHashMap<>();
     }
     /**
      * コンストラクタ
+     * <dl>
+     * <dt>使用条件
+     * <dd>
+     * <ol>
+     * <li>{@link Exception#Exception(String)}へ委譲されること。</li>
+     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
+     * </ol>
+     * </dl>
      * @param message メッセージ
      */
-    public StandardException(final String message) {
+    public EnterpriseWarning(final String message) {
         super(message);
         messageMap = new LinkedHashMap<>();
     }
     /**
      * コンストラクタ
+     * <dl>
+     * <dt>使用条件
+     * <dd>
+     * <ol>
+     * <li>{@link Exception#Exception(Throwable)}へ委譲されること。</li>
+     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
+     * </ol>
+     * </dl>
      * @param cause 例外オブジェクト
      */
-    public StandardException(final Throwable cause) {
+    public EnterpriseWarning(final Throwable cause) {
         super(cause);
         messageMap = new LinkedHashMap<>();
     }
     /**
      * コンストラクタ
+     * <dl>
+     * <dt>使用条件
+     * <dd>
+     * <ol>
+     * <li>{@link Exception#Exception(String, Throwable)}へ委譲されること。</li>
+     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
+     * </ol>
+     * </dl>
      * @param message メッセージ
      * @param cause 例外オブジェクト
      */
-    public StandardException(final String message, final Throwable cause) {
+    public EnterpriseWarning(final String message, final Throwable cause) {
         super(message, cause);
         messageMap = new LinkedHashMap<>();
     }
     /**
      * コンストラクタ
+     * <dl>
+     * <dt>使用条件
+     * <dd>
+     * <ol>
+     * <li>{@link Exception#Exception(String, Throwable, boolean, boolean)}へ委譲されること。</li>
+     * <li>{@link #messageMap}が{@link LinkedHashMap#LinkedHashMap()}で初期化されること。</li>
+     * </ol>
+     * </dl>
      * @param message メッセージ
      * @param cause 例外オブジェクト
      * @param enableSuppression 抑制の有無
      * @param writableStackTrace スタックトレース書込の可否
      */
-    public StandardException(final String message, final Throwable cause,
+    public EnterpriseWarning(final String message, final Throwable cause,
         final boolean enableSuppression, final boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
         messageMap = new LinkedHashMap<>();
@@ -77,13 +117,14 @@ public class StandardException extends Exception {
      * <dd>
      * <ol>
      * <li>キーをもとに {@link Exception#Exception(String)} へ委譲されること。</li>
+     * <li>{@link #messageMap} が {@link LinkedHashMap#LinkedHashMap()} で初期化されること。</li>
      * <li>キーとオブジェクト配列が {@link #messageMap} へ格納されること。</li>
      * </ol>
      * </dl>
      * @param key キー
      * @param values オブジェクト配列
      */
-    public StandardException(final String key, final Object... values) {
+    public EnterpriseWarning(final String key, final Object... values) {
         super(new PropertiesHelper(MESSAGE_BASENAME).getText(key, values));
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
@@ -100,7 +141,7 @@ public class StandardException extends Exception {
      * </dl>
      * @param messageMap {@link #messageMap}
      */
-    public StandardException(final Map<String, Object[]> messageMap) {
+    public EnterpriseWarning(final Map<String, Object[]> messageMap) {
         super(messageMap.keySet().iterator().next());
         this.messageMap = messageMap;
     }
@@ -108,24 +149,8 @@ public class StandardException extends Exception {
      * {@link #messageMap} の取得
      * @return {@link #messageMap}
      */
+    @Override
     public Map<String, Object[]> getMessageMap() {
         return messageMap;
-    }
-    /**
-     * アプリケーションメッセージの取得
-     * @return アプリケーションメッセージ
-     */
-    public final String getApplicationMessage() {
-        final PropertiesHelper props = new PropertiesHelper(MESSAGE_BASENAME);
-        final StringBuilder builder = new StringBuilder();
-        final Iterator<Entry<String, Object[]>> iter = getMessageMap().entrySet().iterator();
-        while (iter.hasNext()) {
-            final Entry<String, Object[]> entry = iter.next();
-            if (builder.length() > 0) {
-                builder.append(" ");
-            }
-            builder.append(props.getText(entry.getKey(), entry.getValue()));
-        }
-        return builder.length() > 0 ? builder.toString() : getLocalizedMessage();
     }
 }

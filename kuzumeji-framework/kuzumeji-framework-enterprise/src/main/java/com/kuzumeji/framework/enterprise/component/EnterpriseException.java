@@ -13,8 +13,7 @@ import com.kuzumeji.framework.standard.component.StandardException;
  * 基幹キャッチ例外
  * <dl>
  * <dt>使用条件
- * <dd>キャッチ例外でメッセージマップを保有できて、{@link com.kuzumeji.framework.standard.component.MessageHelper}
- * でメッセージが構築できること。
+ * <dd>{@link StandardException} へ準拠すること。ロールバックあり、継承あり。
  * </dl>
  * @author nilcy
  */
