@@ -23,14 +23,18 @@ public class RepositoryListenerProducer {
     public RepositoryListener<PersistableTestee> createUniqueFilterFactory_PersistableTestee() {
         return new RepositoryListener<PersistableTestee>() {
             @Override
-            public Map<String, Object> uniqueConstraints(final PersistableTestee object) {
+            public String uniqueKey() {
+                return "PersistableTestee_UK_code";
+            }
+            @Override
+            public Object[] uniqueValues(final PersistableTestee object) {
+                return new Object[] { object.getCode() };
+            }
+            @Override
+            public Map<String, Object> uniqueFilter(final PersistableTestee object) {
                 final Map<String, Object> filter = new HashMap<>();
                 filter.put("code", object.getCode());
                 return filter;
-            }
-            @Override
-            public Object[] uniqueFields(final PersistableTestee object) {
-                return new Object[] { object.getCode() };
             }
         };
     }

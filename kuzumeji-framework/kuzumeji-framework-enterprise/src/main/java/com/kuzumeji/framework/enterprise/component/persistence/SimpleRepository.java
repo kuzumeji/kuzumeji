@@ -18,8 +18,8 @@ import javax.persistence.TypedQuery;
  * @author nilcy
  */
 public class SimpleRepository<P extends Persistable> implements Repository<P> {
-    /** 一意キー制約違反キー */
-    private static final String ERR_UK = "ERR_KFE_UK";
+    // /** 一意キー制約違反キー */
+    // private static final String ERR_UK = "ERR_KFE_UK";
     // /** ロガー */
     // private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
     /** エンティティクラス */
@@ -55,7 +55,7 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     public P save(final P entity) throws PersistenceException {
         P other = null;
         if (listener != null) {
-            final Map<String, Object> filter = listener.uniqueConstraints(entity);
+            final Map<String, Object> filter = listener.uniqueFilter(entity);
             try {
                 other = findOne("findUK", filter);
             } catch (final NoResultException e) {
@@ -63,12 +63,12 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
         }
         if (!entity.isPersisted()) {
             if (other != null) {
-                throw new PersistenceException(ERR_UK, listener.uniqueFields(entity));
+                throw new PersistenceException(listener.uniqueKey(), listener.uniqueValues(entity));
             }
             manager.persist(entity);
         } else {
             if ((other != null) && !other.identity().equals(entity.identity())) {
-                throw new PersistenceException(ERR_UK, listener.uniqueFields(entity));
+                throw new PersistenceException(listener.uniqueKey(), listener.uniqueValues(entity));
             }
             manager.merge(entity);
         }

@@ -11,11 +11,14 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 /**
+ * テストエンティティ
  * @see AbstractPersistable
  * @author nilcy
  */
 @Entity
-@Table(name = "PersitenceTestee", indexes = { @Index(columnList = "code") }, uniqueConstraints = { @UniqueConstraint(columnNames = { "code" }) })
+@Table(name = "PersitenceTestee", indexes = { @Index(columnList = "code"),
+    @Index(columnList = "name") }, uniqueConstraints = {
+    @UniqueConstraint(columnNames = { "code" }), @UniqueConstraint(columnNames = { "name" }) })
 @NamedQueries({ @NamedQuery(name = "PersistableTestee.findUK", query = "SELECT pt FROM PersistableTestee pt WHERE pt.code=:code") })
 public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
     /** 識別番号 */

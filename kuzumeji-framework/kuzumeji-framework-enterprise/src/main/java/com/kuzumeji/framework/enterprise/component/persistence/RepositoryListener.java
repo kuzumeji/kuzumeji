@@ -12,15 +12,20 @@ import java.util.Map;
  */
 public interface RepositoryListener<P extends Persistable> {
     /**
-     * UK制約条件の作成
-     * @param object 対象オブジェクト
-     * @return UK制約条件
+     * UK制約違反キーの取得
+     * @return UK制約違反キー
      */
-    Map<String, Object> uniqueConstraints(P object);
+    String uniqueKey();
     /**
      * UK制約違反オブジェクト配列の取得
      * @param object 対象オブジェクト
      * @return UK制約違反オブジェクト配列
      */
-    Object[] uniqueFields(P object);
+    Object[] uniqueValues(P object);
+    /**
+     * UK制約条件の作成
+     * @param object 対象オブジェクト
+     * @return UK制約条件
+     */
+    Map<String, Object> uniqueFilter(P object);
 }

@@ -73,10 +73,7 @@ public class SimpleRepositoryTest {
             testee.save(new PersistableTestee("code#01", "name#01"));
             fail();
         } catch (final PersistenceException e) {
-            log.debug(e.getApplicationMessage());
-            // log.warn(e.getLocalizedMessage(), e);
-            // log.debug("message : {}", e.getMessage());
-            // log.debug("message-map : {}", e.getMessageMap());
+            assertThat(e.getApplicationMessage(), is("一意キー制約の違反です。テストエンティティ[コード=code#01]"));
         }
     }
 }
