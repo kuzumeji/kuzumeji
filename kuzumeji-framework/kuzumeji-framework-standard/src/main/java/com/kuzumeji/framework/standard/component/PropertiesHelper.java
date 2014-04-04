@@ -48,6 +48,7 @@ public final class PropertiesHelper {
     public String getText(final String key, final Object... arguments) {
         assert config != null;
         final String text = config.getString(key);
+        assert text != null;
         return MessageFormat.format(text, arguments);
     }
     /**

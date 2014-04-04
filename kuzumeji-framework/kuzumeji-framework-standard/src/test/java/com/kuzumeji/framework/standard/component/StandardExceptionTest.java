@@ -6,6 +6,8 @@
 package com.kuzumeji.framework.standard.component;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import org.junit.Test;
 /**
  * @see StandardException
@@ -14,50 +16,45 @@ import org.junit.Test;
 @SuppressWarnings("all")
 public class StandardExceptionTest {
     @Test
-    public final void testStandardException() {
-        assertThat(new StandardException(), is(not(nullValue())));
-    }
-    @Test
-    public final void testStandardExceptionString() {
-        assertThat(new StandardException("testee"), is(not(nullValue())));
-    }
-    @Test
-    public final void testStandardExceptionThrowable() {
-        assertThat(new StandardException(new UnsupportedOperationException()), is(not(nullValue())));
-    }
-    @Test
-    public final void testStandardExceptionStringThrowable() {
-        assertThat(new StandardException("testee", new UnsupportedOperationException()),
-            is(not(nullValue())));
-    }
-    @Test
-    public final void testStandardExceptionStringThrowableBooleanBoolean() {
-        assertThat(
-            new StandardException("testee", new UnsupportedOperationException(), true, true),
-            is(not(nullValue())));
-    }
-    @Test
-    public final void testStandardExceptionStringObjectArray() {
-        assertThat(new StandardException("ERR_KSF_UK", "name=日本,key=国番号"), is(not(nullValue())));
-    }
-    @Test
-    public final void testStandardExceptionMapOfStringObject() {
-        assertThat(
-            new StandardException(
-                new StandardException("ERR_KSF_UK", "name=日本,key=国番号").getMessageMap()),
-            is(not(nullValue())));
-    }
-    /**
-     * Test method for
-     * {@link com.kuzumeji.framework.standard.component.StandardException#getMessageMap()}.
-     */
-    @Test
-    public final void testGetMessageMap() {
-        assertThat(new StandardException().getMessageMap(), is(not(nullValue())));
-    }
-    @Test
-    public final void testGetApplicationMessage() {
-        assertThat(new StandardException("ERR_KFS_UK", "name=日本,key=国番号").getApplicationMessage(),
-            is("一意キー制約の違反です。[name=日本,key=国番号]"));
+    public final void test() {
+        try {
+            throw new StandardException();
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(), is(nullValue()));
+        }
+        try {
+            throw new StandardException("testee");
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(), is("testee"));
+        }
+        try {
+            throw new StandardException(new UnsupportedOperationException());
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(), is("java.lang.UnsupportedOperationException"));
+        }
+        try {
+            throw new StandardException("testee", new UnsupportedOperationException());
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(), is("testee"));
+        }
+        try {
+            throw new StandardException("testee", new UnsupportedOperationException(), true, true);
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(), is("testee"));
+        }
+        try {
+            throw new StandardException("ERR_UK", "国コード=81");
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(), is("一意キー制約の違反です。[国コード=81]"));
+        }
+        try {
+            final Map<String, Object[]> messageMap = new LinkedHashMap<>();
+            messageMap.put("ERR_COUNTRY_UK_CODE", new Object[] { "81" });
+            messageMap.put("ERR_COUNTRY_UK_NAME", new Object[] { "Japan" });
+            throw new StandardException(messageMap);
+        } catch (final StandardException e) {
+            assertThat(e.getApplicationMessage(),
+                is("一意キー制約の違反です。[国コード=81] 一意キー制約の違反です。[国名=Japan]"));
+        }
     }
 }

@@ -6,8 +6,15 @@ h3. Help > Eclipse Marketplace...
 
 * Checkstyle plug-in
 * FindBugs Eclipse plugin
+* EclEmma Java Code Coverage
 * Git - Git Team Provider
 * GitHub MyLyn Connector
+
+h3. Help > Install New Software... > Add...
+
+* プロパティエディタ 
+Name: propedit
+Location: http://propedit.sourceforge.jp/eclipse/updates/
 
 h2. Preferences
 
@@ -18,7 +25,6 @@ h3. Window > Preferences > Java > Editor > Content Assist > Favorites > New Type
 * org.junit.Assert
 * org.junit.Assume
 * org.junit.matchers.JUnitMatchers
-
 
 h2. Misc
 

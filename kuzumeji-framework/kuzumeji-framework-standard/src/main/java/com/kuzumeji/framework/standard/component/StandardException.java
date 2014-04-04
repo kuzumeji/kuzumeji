@@ -4,12 +4,10 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.NoSuchElementException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * 標準キャッチ例外
  * <dl>
@@ -21,8 +19,8 @@ import org.slf4j.LoggerFactory;
 public class StandardException extends Exception {
     /** 識別番号 */
     private static final long serialVersionUID = 7615078242077460244L;
-    /** ロガー */
-    private static final Logger LOG = LoggerFactory.getLogger(StandardException.class);
+    /** メッセージプロパティ */
+    private static final String MESSAGE_PROPERTIES = "message.properties";
     /**
      * メッセージマップ
      * <dl>
@@ -86,7 +84,7 @@ public class StandardException extends Exception {
      * @param values オブジェクト配列
      */
     public StandardException(final String key, final Object... values) {
-        super(key);
+        super(new PropertiesHelper(MESSAGE_PROPERTIES).getText(key, values));
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
     }
@@ -117,14 +115,17 @@ public class StandardException extends Exception {
      * アプリケーションメッセージの取得
      * @return アプリケーションメッセージ
      */
-    public String getApplicationMessage() {
-        final PropertiesHelper props = new PropertiesHelper("message.properties");
-        try {
-            final Entry<String, Object[]> entry = getMessageMap().entrySet().iterator().next();
-            return props.getText(entry.getKey(), entry.getValue());
-        } catch (final NoSuchElementException e) {
-            LOG.warn(e.getLocalizedMessage());
-            return null;
+    public final String getApplicationMessage() {
+        final PropertiesHelper props = new PropertiesHelper(MESSAGE_PROPERTIES);
+        final StringBuilder builder = new StringBuilder();
+        final Iterator<Entry<String, Object[]>> iter = getMessageMap().entrySet().iterator();
+        while (iter.hasNext()) {
+            final Entry<String, Object[]> entry = iter.next();
+            if (builder.length() > 0) {
+                builder.append(" ");
+            }
+            builder.append(props.getText(entry.getKey(), entry.getValue()));
         }
+        return builder.length() > 0 ? builder.toString() : getLocalizedMessage();
     }
 }
