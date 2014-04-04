@@ -22,8 +22,8 @@ import com.kuzumeji.framework.standard.component.StandardException;
 public class EnterpriseException extends StandardException {
     /** 識別番号 */
     private static final long serialVersionUID = -4686970986421722935L;
-    /** メッセージプロパティ */
-    private static final String MESSAGE_PROPERTIES = "message.properties";
+    /** メッセージ定義ベース名 */
+    private static final String MESSAGE_BASENAME = "throwable-messages";
     /**
      * メッセージマップ
      * <dl>
@@ -126,7 +126,7 @@ public class EnterpriseException extends StandardException {
      * @param values オブジェクト配列
      */
     public EnterpriseException(final String key, final Object... values) {
-        super(new PropertiesHelper(MESSAGE_PROPERTIES).getText(key, values));
+        super(new PropertiesHelper(MESSAGE_BASENAME).getText(key, values));
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
     }

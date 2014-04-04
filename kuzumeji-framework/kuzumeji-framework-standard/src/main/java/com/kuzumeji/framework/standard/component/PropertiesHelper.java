@@ -5,8 +5,12 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
 import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Locale;
+import java.util.ResourceBundle.Control;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -20,11 +24,11 @@ public final class PropertiesHelper {
     private PropertiesConfiguration config;
     /**
      * コンストラクタ
-     * @param name プロパティ名
+     * @param baseName プロパティ定義ベース名
      */
-    public PropertiesHelper(final String name) {
+    public PropertiesHelper(final String baseName) {
         try {
-            config = new PropertiesConfiguration(name);
+            config = new PropertiesConfiguration(createFileName(baseName));
         } catch (final ConfigurationException e) {
             LOG.warn(e.getLocalizedMessage(), e);
             config = null;
@@ -85,5 +89,28 @@ public final class PropertiesHelper {
     public void save() throws ConfigurationException {
         assert config != null;
         config.save();
+    }
+    /**
+     * ファイル名の作成
+     * @param baseName ベース名
+     * @return ファイル名
+     */
+    private static String createFileName(final String baseName) {
+        final String languageTag = String.format("%s-%s", SystemUtils.USER_LANGUAGE,
+            SystemUtils.USER_COUNTRY);
+        final Control control = Control.getControl(Control.FORMAT_DEFAULT);
+        final Collection<Locale> locales = control.getCandidateLocales("messages",
+            Locale.forLanguageTag(languageTag));
+        for (final Locale locale : locales) {
+            try {
+                final String bundleName = control.toBundleName(baseName, locale);
+                final String resourceName = control.toResourceName(bundleName, "properties");
+                new PropertiesConfiguration(resourceName);
+                return resourceName;
+            } catch (final ConfigurationException e) {
+            }
+        }
+        throw new StandardRuntimeException(String.format("PROPERTY is NOT_FOUND. [baseName=%s]",
+            baseName));
     }
 }
