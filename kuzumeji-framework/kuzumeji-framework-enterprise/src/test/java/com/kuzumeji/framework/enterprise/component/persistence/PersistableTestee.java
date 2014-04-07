@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
 import javax.persistence.NamedQueries;
@@ -26,8 +27,10 @@ public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
     /** 識別番号 */
     private static final long serialVersionUID = 4506075597459118931L;
     /** コード */
+    @Column(name = "code", nullable = false, insertable = true, updatable = true)
     private String code;
     /** なまえ */
+    @Column(name = "name", nullable = false, insertable = true, updatable = true)
     private String name;
     /** コンストラクタ */
     public PersistableTestee() {

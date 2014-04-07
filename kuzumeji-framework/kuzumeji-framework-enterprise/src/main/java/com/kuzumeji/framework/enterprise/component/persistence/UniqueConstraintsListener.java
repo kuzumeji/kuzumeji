@@ -17,20 +17,20 @@ public interface UniqueConstraintsListener<P extends Persistable> {
      */
     String queryName();
     /**
-     * 制約違反キーの取得
-     * @return 制約違反キー
-     */
-    String errorKey();
-    /**
-     * 制約オブジェクト配列の取得
-     * @param object 対象オブジェクト
-     * @return 制約オブジェクト配列
-     */
-    Object[] values(P object);
-    /**
      * 制約条件の作成
      * @param object 対象オブジェクト
      * @return 制約条件
      */
     Map<String, Object> filter(P object);
+    /**
+     * 制約違反キーの取得
+     * @return 制約違反キー
+     */
+    String errorKey();
+    /**
+     * 制約フィールド配列の取得
+     * @param object 対象オブジェクト
+     * @return 制約フィールド配列
+     */
+    Object[] values(P object);
 }

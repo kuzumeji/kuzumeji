@@ -14,12 +14,6 @@ import javax.persistence.PersistenceContext;
 public class SimpleRepositoryProducer {
     @PersistenceContext
     private EntityManager manager;
-    // @Inject
-    // @PersistableTesteeUKcode
-    // private UniqueConstraintsListener<PersistableTestee> listenerPersistableTesteeUKCode;
-    // @Inject
-    // @PersistableTesteeUKname
-    // private UniqueConstraintsListener<PersistableTestee> listenerPersistableTesteeUKname;
     /** コンストラクタ */
     public SimpleRepositoryProducer() {
     }

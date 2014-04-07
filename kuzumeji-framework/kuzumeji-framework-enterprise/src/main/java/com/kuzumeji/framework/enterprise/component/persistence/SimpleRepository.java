@@ -73,9 +73,8 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
         if (uniqueListeners != null) {
             final Map<String, Object[]> messageMap = new LinkedHashMap<>();
             for (final UniqueConstraintsListener<P> listener : uniqueListeners) {
-                final Map<String, Object> filter = listener.filter(entity);
                 try {
-                    final P other = findOne(listener.queryName(), filter);
+                    final P other = findOne(listener.queryName(), listener.filter(entity));
                     if (!entity.isPersisted() || !other.identity().equals(entity.identity())) {
                         messageMap.put(listener.errorKey(), listener.values(entity));
                     }
@@ -106,9 +105,9 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     /** {@inheritDoc} */
     @Override
     public P findOne(final String name, final Map<String, Object> filter) {
-        final String queryName = !name.startsWith(clazz.getSimpleName()) ? clazz.getSimpleName()
-            + "." + name : name;
-        final TypedQuery<P> query = manager.createNamedQuery(queryName, clazz);
+        // final String queryName = !name.startsWith(clazz.getSimpleName()) ? clazz.getSimpleName()
+        // + "." + name : name;
+        final TypedQuery<P> query = manager.createNamedQuery(name, clazz);
         for (final Entry<String, Object> entry : filter.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
         }

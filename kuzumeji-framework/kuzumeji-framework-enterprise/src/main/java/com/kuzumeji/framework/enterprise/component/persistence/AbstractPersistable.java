@@ -41,7 +41,7 @@ public abstract class AbstractPersistable<P extends AbstractPersistable<P>> exte
     private static final long serialVersionUID = 1365773187648802997L;
     /** 識別子(ID) */
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id", nullable = false, insertable = true, updatable = false)
     private BigDecimal id;
     /** 永続管理FG (TRUE:管理中,FALSE:未管理) */

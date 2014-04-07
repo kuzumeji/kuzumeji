@@ -5,7 +5,6 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +12,10 @@ import org.apache.commons.beanutils.PropertyUtils;
 import com.kuzumeji.framework.enterprise.component.EnterpriseRuntimeException;
 /**
  * (デフォルト)一意キー制約リスナー
+ * <dl>
+ * <dt>使用条件
+ * <dd>JPQLクエリ名、エンティティ項目、制約違反キーを指定した、一意キー制約リスナーとして使用すること。
+ * </dl>
  * @param <P> エンティティ型
  * @author nilcy
  */
@@ -26,9 +29,9 @@ public class DefaultUniqueConstraintsListener<P extends Persistable> implements
     private final String[] fields;
     /**
      * コンストラクタ
-     * @param queryName {@link #queryName}
-     * @param errorKey {@link #errorKey}
-     * @param fields {@link #fields}
+     * @param queryName {@link #queryName クエリ名}
+     * @param errorKey {@link #errorKey 制約違反キー}
+     * @param fields {@link #fields 制約フィールド配列}
      */
     public DefaultUniqueConstraintsListener(final String queryName, final String errorKey,
         final String... fields) {
@@ -41,25 +44,13 @@ public class DefaultUniqueConstraintsListener<P extends Persistable> implements
     public String queryName() {
         return queryName;
     }
-    /** {@inheritDoc} */
-    @Override
-    public String errorKey() {
-        return errorKey;
-    }
-    /** {@inheritDoc} */
-    @Override
-    public Object[] values(final P object) {
-        final Collection<Object> values = new ArrayList<>();
-        for (final String field : fields) {
-            try {
-                values.add(PropertyUtils.getSimpleProperty(object, field));
-            } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                throw new EnterpriseRuntimeException(e.getLocalizedMessage());
-            }
-        }
-        return values.toArray(new Object[values.size()]);
-    }
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * <dl>
+     * <dt>使用条件
+     * <dd>制約フィールド分の対象オブジェクトを制約条件マップとして返却すること。
+     * </dl>
+     */
     @Override
     public Map<String, Object> filter(final P object) {
         final Map<String, Object> filter = new HashMap<>();
@@ -71,5 +62,22 @@ public class DefaultUniqueConstraintsListener<P extends Persistable> implements
             }
         }
         return filter;
+    }
+    /** {@inheritDoc} */
+    @Override
+    public String errorKey() {
+        return errorKey;
+    }
+    /**
+     * {@inheritDoc}
+     * <dl>
+     * <dt>使用条件
+     * <dd>制約フィールド分の対象オブジェクト配列を返却すること。
+     * </dl>
+     */
+    @Override
+    public Object[] values(final P object) {
+        final Collection<Object> values = filter(object).values();
+        return values.toArray(new Object[values.size()]);
     }
 }
