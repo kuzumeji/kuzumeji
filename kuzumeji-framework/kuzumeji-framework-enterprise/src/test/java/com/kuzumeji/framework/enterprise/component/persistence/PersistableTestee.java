@@ -19,7 +19,9 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "PersitenceTestee", indexes = { @Index(columnList = "code"),
     @Index(columnList = "name") }, uniqueConstraints = {
     @UniqueConstraint(columnNames = { "code" }), @UniqueConstraint(columnNames = { "name" }) })
-@NamedQueries({ @NamedQuery(name = "PersistableTestee.findUK", query = "SELECT pt FROM PersistableTestee pt WHERE pt.code=:code") })
+@NamedQueries({
+    @NamedQuery(name = "PersistableTestee.findUK_code", query = "SELECT pt FROM PersistableTestee pt WHERE pt.code=:code"),
+    @NamedQuery(name = "PersistableTestee.findUK_name", query = "SELECT pt FROM PersistableTestee pt WHERE pt.name=:name") })
 public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
     /** 識別番号 */
     private static final long serialVersionUID = 4506075597459118931L;

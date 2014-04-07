@@ -5,7 +5,6 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.enterprise.inject.Produces;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
@@ -15,14 +14,21 @@ import javax.persistence.PersistenceContext;
 public class SimpleRepositoryProducer {
     @PersistenceContext
     private EntityManager manager;
-    @Inject
-    private UniqueConstraintsListener<PersistableTestee> repositoryListener;
+    // @Inject
+    // @PersistableTesteeUKcode
+    // private UniqueConstraintsListener<PersistableTestee> listenerPersistableTesteeUKCode;
+    // @Inject
+    // @PersistableTesteeUKname
+    // private UniqueConstraintsListener<PersistableTestee> listenerPersistableTesteeUKname;
     /** コンストラクタ */
     public SimpleRepositoryProducer() {
     }
     @Produces
-    public SimpleRepository<PersistableTestee> createSimpleRepository_PersistableTestee() {
+    public SimpleRepository<PersistableTestee> createPersistableTesteeUKcode() {
         return new SimpleRepository<PersistableTestee>(PersistableTestee.class, manager,
-            repositoryListener);
+            new DefaultUniqueConstraintsListener<PersistableTestee>(
+                "PersistableTestee.findUK_code", "PersistableTestee.UK_code", "code"),
+            new DefaultUniqueConstraintsListener<PersistableTestee>(
+                "PersistableTestee.findUK_name", "PersistableTestee.UK_name", "name"));
     }
 }

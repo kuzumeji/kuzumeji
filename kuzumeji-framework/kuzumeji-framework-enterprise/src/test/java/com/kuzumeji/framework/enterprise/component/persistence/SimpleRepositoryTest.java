@@ -28,8 +28,6 @@ public class SimpleRepositoryTest {
     @Inject
     private SimpleRepository<PersistableTestee> testee;
     @Inject
-    private UniqueConstraintsListener<PersistableTestee> repositoryListener;
-    @Inject
     private Logger log;
     @Deployment
     public static JavaArchive deploy() {
@@ -73,7 +71,8 @@ public class SimpleRepositoryTest {
             testee.save(new PersistableTestee("code#01", "name#01"));
             fail();
         } catch (final PersistenceException e) {
-            assertThat(e.getApplicationMessage(), is("一意キー制約の違反です。テストエンティティ[コード=code#01]"));
+            assertThat(e.getApplicationMessage(),
+                is("一意キー制約の違反です。テストエンティティ[コード=code#01]\t一意キー制約の違反です。テストエンティティ[なまえ=name#01]"));
         }
     }
 }

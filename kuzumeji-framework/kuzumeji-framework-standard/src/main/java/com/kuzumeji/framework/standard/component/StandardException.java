@@ -122,7 +122,7 @@ public class StandardException extends Exception {
         while (iter.hasNext()) {
             final Entry<String, Object[]> entry = iter.next();
             if (builder.length() > 0) {
-                builder.append(" ");
+                builder.append("\t");
             }
             builder.append(props.getText(entry.getKey(), entry.getValue()));
         }

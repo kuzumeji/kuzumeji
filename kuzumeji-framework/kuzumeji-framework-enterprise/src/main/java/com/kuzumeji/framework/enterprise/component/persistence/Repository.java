@@ -14,11 +14,12 @@ import java.util.Map;
 public interface Repository<P extends Persistable> {
     /**
      * エンティティの保存
+     * @param <S> エンティティ型(サブタイプでも可能)
      * @param entity エンティティ
      * @return 保存後エンティティ
      * @throws PersistenceException 保存の失敗
      */
-    P save(P entity) throws PersistenceException;
+    <S extends P> S save(S entity) throws PersistenceException;
     /**
      * エンティティの保存
      * @param <S> エンティティ型(サブタイプでも可能)

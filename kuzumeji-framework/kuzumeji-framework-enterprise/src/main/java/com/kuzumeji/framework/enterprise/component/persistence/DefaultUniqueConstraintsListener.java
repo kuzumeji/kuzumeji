@@ -12,7 +12,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import com.kuzumeji.framework.enterprise.component.EnterpriseRuntimeException;
 /**
- * 一意キー制約リスナー
+ * (デフォルト)一意キー制約リスナー
  * @param <P> エンティティ型
  * @author nilcy
  */

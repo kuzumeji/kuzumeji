@@ -43,14 +43,14 @@ public class EnterpriseExceptionTest {
             assertThat(e.getApplicationMessage(), is("testee"));
         }
         try {
-            throw new EnterpriseException("Country_UK_code", "81");
+            throw new EnterpriseException("Country.UK_code", "81");
         } catch (final EnterpriseException e) {
             assertThat(e.getApplicationMessage(), is("一意キー制約の違反です。国[国コード=81]"));
         }
         try {
             final Map<String, Object[]> messageMap = new LinkedHashMap<>();
-            messageMap.put("Country_UK_code", new Object[] { "81" });
-            messageMap.put("Country_UK_name", new Object[] { "Japan" });
+            messageMap.put("Country.UK_code", new Object[] { "81" });
+            messageMap.put("Country.UK_name", new Object[] { "Japan" });
             throw new EnterpriseException(messageMap);
         } catch (final EnterpriseException e) {
             assertThat(e.getApplicationMessage(),

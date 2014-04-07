@@ -6,86 +6,95 @@
 package com.kuzumeji.framework.enterprise.component.persistence;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * 簡単リポジトリ
  * @param <P> エンティティ型
  * @author nilcy
  */
 public class SimpleRepository<P extends Persistable> implements Repository<P> {
-    // /** 一意キー制約違反キー */
-    // private static final String ERR_UK = "ERR_KFE_UK";
-    // /** ロガー */
-    // private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
+    /** ロガー */
+    private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
     /** エンティティクラス */
     private final Class<P> clazz;
     /** エンティティマネージャ */
     private final EntityManager manager;
-    /** UK制約条件 */
-    private final UniqueConstraintsListener<P> listener;
+    /** 一意キー制約リスナー */
+    private final UniqueConstraintsListener<P>[] uniqueListeners;
+    // /**
+    // * コンストラクタ
+    // * @param clazz {@link #clazz エンティティクラス}
+    // * @param manager {@link #manager エンティティマネージャ}
+    // */
+    // public SimpleRepository(final Class<P> clazz, final EntityManager manager) {
+    // this.clazz = clazz;
+    // this.manager = manager;
+    // uniqueListeners = null;
+    // }
     /**
      * コンストラクタ
      * @param clazz {@link #clazz エンティティクラス}
      * @param manager {@link #manager エンティティマネージャ}
+     * @param uniqueListeners {@link #uniqueListeners 一意キー制約リスナー}
      */
-    public SimpleRepository(final Class<P> clazz, final EntityManager manager) {
-        this.clazz = clazz;
-        this.manager = manager;
-        listener = null;
-    }
-    /**
-     * コンストラクタ
-     * @param clazz {@link #clazz エンティティクラス}
-     * @param manager {@link #manager エンティティマネージャ}
-     * @param uniqueFilterFactory {@link #listener UK制約条件}
-     */
+    @SafeVarargs
     public SimpleRepository(final Class<P> clazz, final EntityManager manager,
-        final UniqueConstraintsListener<P> uniqueFilterFactory) {
+        final UniqueConstraintsListener<P>... uniqueListeners) {
         this.clazz = clazz;
         this.manager = manager;
-        this.listener = uniqueFilterFactory;
+        this.uniqueListeners = uniqueListeners;
     }
     /** {@inheritDoc} */
     @Override
-    public P save(final P entity) throws PersistenceException {
-        P other = null;
-        if (listener != null) {
-            final Map<String, Object> filter = listener.filter(entity);
-            try {
-                other = findOne(listener.queryName(), filter);
-            } catch (final NoResultException e) {
-            }
-        }
+    public <S extends P> S save(final S entity) throws PersistenceException {
+        beforeSave(entity);
         if (!entity.isPersisted()) {
-            if (other != null) {
-                throw new PersistenceException(listener.errorKey(), listener.values(entity));
-            }
             manager.persist(entity);
         } else {
-            if ((other != null) && !other.identity().equals(entity.identity())) {
-                throw new PersistenceException(listener.errorKey(), listener.values(entity));
-            }
             manager.merge(entity);
         }
         manager.flush();
         return entity;
+    }
+    /**
+     * エンティティの保存前処理
+     * @param entity エンティティ
+     * @throws PersistenceException 保存の失敗
+     */
+    private void beforeSave(final P entity) throws PersistenceException {
+        if (uniqueListeners != null) {
+            final Map<String, Object[]> messageMap = new LinkedHashMap<>();
+            for (final UniqueConstraintsListener<P> listener : uniqueListeners) {
+                final Map<String, Object> filter = listener.filter(entity);
+                try {
+                    final P other = findOne(listener.queryName(), filter);
+                    if (!entity.isPersisted() || !other.identity().equals(entity.identity())) {
+                        messageMap.put(listener.errorKey(), listener.values(entity));
+                    }
+                } catch (final NoResultException e) {
+                }
+            }
+            if (!messageMap.isEmpty()) {
+                final PersistenceException ex = new PersistenceException(messageMap);
+                LOG.warn(ex.getApplicationMessage());
+                throw ex;
+            }
+        }
     }
     /** {@inheritDoc} */
     @Override
     public <S extends P> Collection<S> save(final Iterable<S> entities) throws PersistenceException {
         final List<S> results = new ArrayList<>();
         for (final S entity : entities) {
-            if (!entity.isPersisted()) {
-                manager.persist(entity);
-                results.add(entity);
-            } else {
-                results.add(manager.merge(entity));
-            }
+            results.add(save(entity));
         }
         return results;
     }
