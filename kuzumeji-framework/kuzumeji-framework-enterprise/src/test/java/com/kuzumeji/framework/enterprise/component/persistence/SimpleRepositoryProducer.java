@@ -16,7 +16,7 @@ public class SimpleRepositoryProducer {
     @PersistenceContext
     private EntityManager manager;
     @Inject
-    private RepositoryListener<PersistableTestee> repositoryListener;
+    private UniqueConstraintsListener<PersistableTestee> repositoryListener;
     /** コンストラクタ */
     public SimpleRepositoryProducer() {
     }

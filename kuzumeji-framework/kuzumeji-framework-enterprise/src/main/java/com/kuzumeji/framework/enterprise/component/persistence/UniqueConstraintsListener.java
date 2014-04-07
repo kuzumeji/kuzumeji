@@ -6,26 +6,31 @@
 package com.kuzumeji.framework.enterprise.component.persistence;
 import java.util.Map;
 /**
- * リポジトリリスナーI/F
+ * 一意キー制約リスナーI/F
  * @param <P> エンティティ型
  * @author nilcy
  */
-public interface RepositoryListener<P extends Persistable> {
+public interface UniqueConstraintsListener<P extends Persistable> {
     /**
-     * UK制約違反キーの取得
-     * @return UK制約違反キー
+     * クエリ名の取得
+     * @return クエリ名
      */
-    String uniqueKey();
+    String queryName();
     /**
-     * UK制約違反オブジェクト配列の取得
+     * 制約違反キーの取得
+     * @return 制約違反キー
+     */
+    String errorKey();
+    /**
+     * 制約オブジェクト配列の取得
      * @param object 対象オブジェクト
-     * @return UK制約違反オブジェクト配列
+     * @return 制約オブジェクト配列
      */
-    Object[] uniqueValues(P object);
+    Object[] values(P object);
     /**
-     * UK制約条件の作成
+     * 制約条件の作成
      * @param object 対象オブジェクト
-     * @return UK制約条件
+     * @return 制約条件
      */
-    Map<String, Object> uniqueFilter(P object);
+    Map<String, Object> filter(P object);
 }

@@ -27,7 +27,7 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     /** エンティティマネージャ */
     private final EntityManager manager;
     /** UK制約条件 */
-    private final RepositoryListener<P> listener;
+    private final UniqueConstraintsListener<P> listener;
     /**
      * コンストラクタ
      * @param clazz {@link #clazz エンティティクラス}
@@ -45,7 +45,7 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
      * @param uniqueFilterFactory {@link #listener UK制約条件}
      */
     public SimpleRepository(final Class<P> clazz, final EntityManager manager,
-        final RepositoryListener<P> uniqueFilterFactory) {
+        final UniqueConstraintsListener<P> uniqueFilterFactory) {
         this.clazz = clazz;
         this.manager = manager;
         this.listener = uniqueFilterFactory;
@@ -55,20 +55,20 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     public P save(final P entity) throws PersistenceException {
         P other = null;
         if (listener != null) {
-            final Map<String, Object> filter = listener.uniqueFilter(entity);
+            final Map<String, Object> filter = listener.filter(entity);
             try {
-                other = findOne("findUK", filter);
+                other = findOne(listener.queryName(), filter);
             } catch (final NoResultException e) {
             }
         }
         if (!entity.isPersisted()) {
             if (other != null) {
-                throw new PersistenceException(listener.uniqueKey(), listener.uniqueValues(entity));
+                throw new PersistenceException(listener.errorKey(), listener.values(entity));
             }
             manager.persist(entity);
         } else {
             if ((other != null) && !other.identity().equals(entity.identity())) {
-                throw new PersistenceException(listener.uniqueKey(), listener.uniqueValues(entity));
+                throw new PersistenceException(listener.errorKey(), listener.values(entity));
             }
             manager.merge(entity);
         }

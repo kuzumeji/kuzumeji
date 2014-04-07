@@ -28,7 +28,7 @@ public class SimpleRepositoryTest {
     @Inject
     private SimpleRepository<PersistableTestee> testee;
     @Inject
-    private RepositoryListener<PersistableTestee> repositoryListener;
+    private UniqueConstraintsListener<PersistableTestee> repositoryListener;
     @Inject
     private Logger log;
     @Deployment
