@@ -103,6 +103,11 @@
 				<version>1.10</version>
 			</dependency>
 			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>1.9.1</version>
+			</dependency>
+			<dependency>
 				<groupId>ch.qos.logback</groupId>
 				<artifactId>logback-classic</artifactId>
 				<version>1.1.1</version>
@@ -325,10 +330,10 @@
 							<name>net.sourceforge.cobertura.datafile</name>
 							<value>target/cobertura/cobertura.ser</value>
 						</property>
-<!-- 						<property> -->
-<!-- 							<name>java.util.logging.config.file</name> -->
-<!-- 							<value>${basedir}/src/test/resources/logging.properties</value> -->
-<!-- 						</property> -->
+						<!-- <property> -->
+						<!-- <name>java.util.logging.config.file</name> -->
+						<!-- <value>${basedir}/src/test/resources/logging.properties</value> -->
+						<!-- </property> -->
 						<property>
 							<name>logback.configurationFile</name>
 							<value>${basedir}/src/test/resources/logback-test.xml</value>
@@ -518,8 +523,7 @@
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
 				<configuration>
-					<message>Creating site for ${project.artifactId},
-						${project.version}</message>
+					<message>Creating site for ${project.artifactId}, ${project.version}</message>
 					<path>${project.distributionManagement.site.url}</path>
 					<merge>true</merge>
 					<noJekyll>true</noJekyll>
