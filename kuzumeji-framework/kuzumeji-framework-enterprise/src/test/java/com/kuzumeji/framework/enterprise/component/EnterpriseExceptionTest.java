@@ -54,7 +54,7 @@ public class EnterpriseExceptionTest {
             throw new EnterpriseException(messageMap);
         } catch (final EnterpriseException e) {
             assertThat(e.getApplicationMessage(),
-                is("一意キー制約の違反です。国[国コード=81] 一意キー制約の違反です。国[国名=Japan]"));
+                is("一意キー制約の違反です。国[国コード=81]\t一意キー制約の違反です。国[国名=Japan]"));
         }
     }
 }
