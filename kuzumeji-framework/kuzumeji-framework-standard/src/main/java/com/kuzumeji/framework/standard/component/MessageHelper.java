@@ -4,71 +4,36 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
-import static org.apache.commons.lang3.StringUtils.*;
 import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import org.apache.commons.lang3.Validate;
 /**
  * メッセージヘルパー
- * <dl>
- * <dt>使用条件
- * <dd>
- * <ol>
- * <li>テンプレート定義(message_*.properties)へ、メッセージのキーとテンプレートを準備すること。</li>
- * <li>テンプレート定義は、JVMインスタンスのデフォルトロケール分が取得できること。</li>
- * <li>テンプレート定義は、実行時スレッドのコンテキストクラスローダから取得できること。</li>
- * <li>テンプレート定義がないとき、{@link ExceptionInInitializerError} が返却されること。</li>
- * </ol>
- * </dl>
  * @author nilcy
  */
 public final class MessageHelper {
-    /** テンプレート */
-    private static final ResourceBundle TMPL;
-    /** 初期処理 */
-    static {
-        TMPL = ResourceBundle.getBundle("message", Locale.getDefault(), Thread.currentThread()
-            .getContextClassLoader());
-    }
+    /** メッセージ定義 */
+    private static final PropertiesHelper TMPL = new PropertiesHelper("messages");
     /** 非公開コンストラクタ */
     private MessageHelper() {
     }
     /**
      * メッセージ構築
-     * <dl>
-     * <dt>使用条件
-     * <dd>
-     * <ol>
-     * <li>テンプレートキーが空でないこと。(違反時は {@link AssertionError} が返却されること)</li>
-     * <li>テンプレートキーから該当テンプレートメッセージを取得して、オブジェクトを展開したメッセージが構築されること。</li>
-     * <li>該当テンプレートメッセージが取得できないときは {@link java.util.MissingResourceException} が返却されること。</li>
-     * </ol>
-     * </dl>
-     * @param templateKey テンプレートキー
-     * @param arguments オブジェクト(可変長引数)
+     * @param message メッセージ
+     * @param values 展開オブジェクト
      * @return メッセージ
      */
-    public static String templateMessage(final String templateKey, final Object... arguments) {
-        assert isNotBlank(templateKey);
-        return createMessage(TMPL.getString(templateKey), arguments);
+    public static String createMessage(final String message, final Object... values) {
+        Validate.notBlank(message);
+        return MessageFormat.format(message, values);
     }
     /**
      * メッセージ構築
-     * <dl>
-     * <dt>使用条件
-     * <dd>
-     * <ol>
-     * <li>テンプレートメッセージが空でないこと。(違反したときは {@link AssertionError} が返却されること)</li>
-     * <li>テンプレートメッセージへオブジェクトを展開したメッセージが構築されること。</li>
-     * <li>テンプレートメッセージが間違っているときは {@link IllegalArgumentException} が返却されること。</li>
-     * </ol>
-     * </dl>
-     * @param templateMessage テンプレートメッセージ
-     * @param arguments オブジェクト(可変長引数)
+     * @param key メッセージ定義キー
+     * @param values 展開オブジェクト
      * @return メッセージ
      */
-    public static String createMessage(final String templateMessage, final Object... arguments) {
-        assert isNotBlank(templateMessage);
-        return MessageFormat.format(templateMessage, arguments);
+    public static String templateMessage(final String key, final Object... values) {
+        Validate.notBlank(key);
+        return createMessage(TMPL.getText(key), values);
     }
 }
