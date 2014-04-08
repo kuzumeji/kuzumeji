@@ -8,6 +8,7 @@ import static com.kuzumeji.framework.standard.component.SpecHelper.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import com.kuzumeji.framework.testing.CoverageHelper;
 /**
  * @see AbstractSpec
  * @see SpecHelper
@@ -26,6 +27,10 @@ public class AbstractSpecTest {
             return false;
         }
     };
+    @Test
+    public void testConstructor() {
+        CoverageHelper.privateConstructor(SpecHelper.class);
+    }
     @Test
     public void testAnd() {
         assertThat(trueSpec.and(trueSpec).isSatisfiedBy(null), is(true));

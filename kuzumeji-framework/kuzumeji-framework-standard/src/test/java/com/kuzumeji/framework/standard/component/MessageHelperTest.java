@@ -7,6 +7,7 @@ package com.kuzumeji.framework.standard.component;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
+import com.kuzumeji.framework.testing.CoverageHelper;
 /**
  * @see MessageHelper
  * @author nilcy
@@ -14,6 +15,7 @@ import org.junit.Test;
 public class MessageHelperTest {
     @Test
     public void test() {
+        CoverageHelper.privateConstructor(MessageHelper.class);
         assertThat(MessageHelper.createMessage("国を保存しました。(ID={0})", 1), is("国を保存しました。(ID=1)"));
         assertThat(MessageHelper.templateMessage("Country.SAVED_detail", 1), is("国を保存しました。(ID=1)"));
         assertThat(MessageHelper.templateMessage("Country.SAVED"), is("国を保存しました。"));

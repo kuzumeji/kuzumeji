@@ -4,12 +4,14 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.mail.Message;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang3.Validate;
@@ -26,6 +28,8 @@ import org.apache.commons.lang3.Validate;
  * @author nilcy
  */
 public class MailServiceImpl implements MailService {
+    /** 文字セット */
+    private static final String CHARSET = "UTF-8";
     /** メールセッション */
     private final Session session;
     /**
@@ -38,10 +42,11 @@ public class MailServiceImpl implements MailService {
     }
     /** {@inheritDoc} */
     @Override
-    public final void send(final String from, final String to, final String subject,
+    public final void send(final InternetAddress from,
+        final Map<RecipientType, InternetAddress> recipients, final String subject,
         final Object objectBody, final String contentType) throws EnterpriseException {
         try {
-            final Message message = createMessage(from, to, subject);
+            final Message message = createMessage(from, recipients, subject);
             message.setContent(objectBody, contentType);
             send(message);
         } catch (final MessagingException e) {
@@ -50,11 +55,12 @@ public class MailServiceImpl implements MailService {
     }
     /** {@inheritDoc} */
     @Override
-    public final void send(final String from, final String to, final String subject,
+    public final void send(final InternetAddress from,
+        final Map<RecipientType, InternetAddress> recipients, final String subject,
         final String textBody) throws EnterpriseException {
         try {
-            final Message message = createMessage(from, to, subject);
-            message.setContent(textBody, "text/plain");
+            final Message message = createMessage(from, recipients, subject);
+            message.setContent(textBody, "text/plain;charset=UTF-8");
             send(message);
         } catch (final MessagingException e) {
             throw new EnterpriseException(e.getLocalizedMessage());
@@ -62,10 +68,11 @@ public class MailServiceImpl implements MailService {
     }
     /** {@inheritDoc} */
     @Override
-    public final void send(final String from, final String to, final String subject,
+    public final void send(final InternetAddress from,
+        final Map<RecipientType, InternetAddress> recipients, final String subject,
         final Multipart multipartBody) throws EnterpriseException {
         try {
-            final Message message = createMessage(from, to, subject);
+            final Message message = createMessage(from, recipients, subject);
             message.setContent(multipartBody);
             send(message);
         } catch (final MessagingException e) {
@@ -75,21 +82,25 @@ public class MailServiceImpl implements MailService {
     /**
      * メッセージの作成
      * @param from FROMアドレス
-     * @param to TOアドレス
+     * @param recipients 宛先アドレス
      * @param subject メール件名
      * @return メッセージ
-     * @throws EnterpriseException 指定アドレス、メッセージの例外
+     * @throws EnterpriseException メッセージの例外
      */
-    private Message createMessage(final String from, final String to, final String subject)
+    private Message createMessage(final InternetAddress from,
+        final Map<RecipientType, InternetAddress> recipients, final String subject)
         throws EnterpriseException {
+        Validate.isTrue(recipients.size() > 0);
         try {
-            final Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(subject);
+            final MimeMessage message = new MimeMessage(session);
+            if (from != null) {
+                message.setFrom(from);
+            }
+            for (final Entry<RecipientType, InternetAddress> recipient : recipients.entrySet()) {
+                message.addRecipient(recipient.getKey(), recipient.getValue());
+            }
+            message.setSubject(subject, CHARSET);
             return message;
-        } catch (final AddressException e) {
-            throw new EnterpriseException(e.getLocalizedMessage());
         } catch (final MessagingException e) {
             throw new EnterpriseException(e.getLocalizedMessage());
         }
@@ -100,6 +111,7 @@ public class MailServiceImpl implements MailService {
      * @throws EnterpriseException メッセージの例外
      */
     private static void send(final Message message) throws EnterpriseException {
+        Validate.notNull(message);
         try {
             Transport.send(message);
         } catch (final MessagingException e) {

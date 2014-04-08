@@ -4,31 +4,32 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
+import javax.annotation.Resource;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
-import javax.enterprise.inject.spi.InjectionPoint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import javax.mail.Session;
 /**
- * ロガーのファクトリー
+ * メールサービスのプロデューサー
  * <dl>
  * <dt>使用条件
- * <dd><code>@Inject Logger log;</code>のようにDIで使用すること。
+ * <dd><code>@Inject MailService mailService;</code>のようにDIで使用すること。
  * </dl>
  * @author nilcy
  */
-public class LoggerProducer {
+public class MailServiceProducer {
+    /** メールセッション */
+    @Resource(name = "mail/session")
+    private Session session;
     /** コンストラクタ */
-    public LoggerProducer() {
+    public MailServiceProducer() {
     }
     /**
-     * ロガーの作成
-     * @param point 注入ポイント
-     * @return ロガー
+     * メールサービスの作成
+     * @return メールサービス
      */
     @Produces
     @Default
-    public Logger createLogger(final InjectionPoint point) {
-        return LoggerFactory.getLogger(point.getMember().getDeclaringClass());
+    public MailService createMailService() {
+        return new MailServiceImpl(session);
     }
 }

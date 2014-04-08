@@ -34,5 +34,10 @@
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.kuzumeji</groupId>
+			<artifactId>kuzumeji-framework-testing</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

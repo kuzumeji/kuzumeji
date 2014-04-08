@@ -7,14 +7,14 @@ package com.kuzumeji.framework.testing;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.framework.testing.Hello;
 /**
  * @see Hello
  * @author nilcy
  */
 public class HelloTest {
     @Test
-    public void testSayHello() {
+    public void test() {
+        CoverageHelper.privateConstructor(Hello.class);
         assertThat(Hello.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }
 }
