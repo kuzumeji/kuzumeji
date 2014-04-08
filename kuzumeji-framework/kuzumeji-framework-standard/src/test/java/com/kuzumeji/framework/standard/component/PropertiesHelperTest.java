@@ -17,6 +17,11 @@ import org.junit.Test;
 public class PropertiesHelperTest {
     @Test
     public final void testSimple() throws ConfigurationException {
+        try {
+            new PropertiesHelper("xxxx");
+            fail();
+        } catch (final StandardRuntimeException e) {
+        }
         final PropertiesHelper testee = new PropertiesHelper("usergui");
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.getText("colors.background"), is("#FFFFFF"));
@@ -34,6 +39,10 @@ public class PropertiesHelperTest {
         final PropertiesHelper testee = new PropertiesHelper("application");
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.getText("application.title"), is("Kuzumeji Framework 0.1.0-SNAPSHOT"));
+        assertArrayEquals(testee.getTexts("vars"), new Object[] { "foo", "bar", "baz" });
+        testee.save();
+        testee.setProperty("vars", "fuga,hoge");
+        assertArrayEquals(testee.getTexts("vars"), new Object[] { "fuga", "hoge" });
     }
     @Test
     public final void testMessage() throws ConfigurationException {

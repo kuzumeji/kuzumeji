@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.ResourceBundle.Control;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang.Validate;
 import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,18 +22,14 @@ public final class PropertiesHelper {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(PropertiesHelper.class);
     /** コンフィグ */
-    private PropertiesConfiguration config;
+    private final PropertiesConfiguration config;
     /**
      * コンストラクタ
      * @param baseName プロパティ定義ベース名
      */
     public PropertiesHelper(final String baseName) {
-        try {
-            config = new PropertiesConfiguration(createFileName(baseName));
-        } catch (final ConfigurationException e) {
-            LOG.warn(e.getLocalizedMessage(), e);
-            config = null;
-        }
+        config = getPropertiesConfiguration(baseName);
+        config.setThrowExceptionOnMissing(true);
     }
     /**
      * テキスト値の取得
@@ -40,7 +37,6 @@ public final class PropertiesHelper {
      * @return テキスト値
      */
     public String getText(final String key) {
-        assert config != null;
         return config.getString(key);
     }
     /**
@@ -50,9 +46,8 @@ public final class PropertiesHelper {
      * @return テキスト値
      */
     public String getText(final String key, final Object... arguments) {
-        assert config != null;
         final String text = config.getString(key);
-        assert text != null;
+        Validate.notNull(text);
         return MessageFormat.format(text, arguments);
     }
     /**
@@ -61,7 +56,6 @@ public final class PropertiesHelper {
      * @return テキスト値
      */
     public String[] getTexts(final String key) {
-        assert config != null;
         return config.getStringArray(key);
     }
     /**
@@ -70,7 +64,6 @@ public final class PropertiesHelper {
      * @return 数値
      */
     public int getNumeric(final String key) {
-        assert config != null;
         return config.getInt(key);
     }
     /**
@@ -79,7 +72,6 @@ public final class PropertiesHelper {
      * @param value プロパティ値
      */
     public void setProperty(final String key, final Object value) {
-        assert config != null;
         config.setProperty(key, value);
     }
     /**
@@ -87,7 +79,6 @@ public final class PropertiesHelper {
      * @throws ConfigurationException コンフィグ例外
      */
     public void save() throws ConfigurationException {
-        assert config != null;
         config.save();
     }
     /**
@@ -95,7 +86,7 @@ public final class PropertiesHelper {
      * @param baseName ベース名
      * @return ファイル名
      */
-    private static String createFileName(final String baseName) {
+    private static PropertiesConfiguration getPropertiesConfiguration(final String baseName) {
         final String languageTag = String.format("%s-%s", SystemUtils.USER_LANGUAGE,
             SystemUtils.USER_COUNTRY);
         final Control control = Control.getControl(Control.FORMAT_DEFAULT);
@@ -105,9 +96,9 @@ public final class PropertiesHelper {
             try {
                 final String bundleName = control.toBundleName(baseName, locale);
                 final String resourceName = control.toResourceName(bundleName, "properties");
-                new PropertiesConfiguration(resourceName);
-                return resourceName;
+                return new PropertiesConfiguration(resourceName);
             } catch (final ConfigurationException e) {
+                LOG.debug(e.getLocalizedMessage());
             }
         }
         throw new StandardRuntimeException(String.format("PROPERTY is NOT_FOUND. [baseName=%s]",
