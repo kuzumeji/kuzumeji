@@ -19,8 +19,6 @@ import java.util.Map.Entry;
 public class StandardException extends Exception {
     /** 識別番号 */
     private static final long serialVersionUID = 7615078242077460244L;
-    /** メッセージ定義ベース名 */
-    private static final String MESSAGE_BASENAME = "throwable-messages";
     /**
      * メッセージマップ
      * <dl>
@@ -84,7 +82,7 @@ public class StandardException extends Exception {
      * @param values オブジェクト配列
      */
     public StandardException(final String key, final Object... values) {
-        super(new PropertiesHelper(MESSAGE_BASENAME).getText(key, values));
+        super(new PropertiesHelper(ConfigHelper.ERROR_MESSAGE_BASENAME).getText(key, values));
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
     }
@@ -116,7 +114,7 @@ public class StandardException extends Exception {
      * @return アプリケーションメッセージ
      */
     public final String getApplicationMessage() {
-        final PropertiesHelper props = new PropertiesHelper(MESSAGE_BASENAME);
+        final PropertiesHelper props = new PropertiesHelper(ConfigHelper.ERROR_MESSAGE_BASENAME);
         final StringBuilder builder = new StringBuilder();
         final Iterator<Entry<String, Object[]>> iter = getMessageMap().entrySet().iterator();
         while (iter.hasNext()) {

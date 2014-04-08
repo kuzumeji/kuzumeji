@@ -12,7 +12,8 @@ import org.apache.commons.lang3.Validate;
  */
 public final class MessageHelper {
     /** メッセージ定義 */
-    private static final PropertiesHelper TMPL = new PropertiesHelper("messages");
+    private static final PropertiesHelper DEF = new PropertiesHelper(
+        ConfigHelper.MESSAGE_BASENAME);
     /** 非公開コンストラクタ */
     private MessageHelper() {
     }
@@ -34,6 +35,6 @@ public final class MessageHelper {
      */
     public static String templateMessage(final String key, final Object... values) {
         Validate.notBlank(key);
-        return createMessage(TMPL.getText(key), values);
+        return createMessage(DEF.getText(key), values);
     }
 }
