@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
+import static com.kuzumeji.framework.standard.component.ConfigHelper.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import java.io.UnsupportedEncodingException;
@@ -35,10 +36,13 @@ public class MailServiceImplTest {
     @Test
     public void test() throws EnterpriseException, AddressException, UnsupportedEncodingException {
         assertThat(testee, is(not(nullValue())));
-        final InternetAddress from = new InternetAddress("kuzumeji@gmail.com", "苦集滅道", "UTF-8");
+        final InternetAddress from = createInetAddress("kuzumeji@gmail.com", "苦集滅道");
         final Map<RecipientType, InternetAddress> recipients = new LinkedHashMap<>();
-        recipients.put(RecipientType.TO, new InternetAddress("shimokawa@mamezou.com", "下川岳洋",
-            "UTF-8"));
+        recipients.put(RecipientType.TO, createInetAddress("shimokawa@mamezou.com", "下川岳洋"));
         testee.send(from, recipients, "テストメール題名", "テストメール本文");
+    }
+    private InternetAddress createInetAddress(final String address, final String personal)
+        throws UnsupportedEncodingException {
+        return new InternetAddress(address, personal, INET_ADDRESS_CHARSET);
     }
 }

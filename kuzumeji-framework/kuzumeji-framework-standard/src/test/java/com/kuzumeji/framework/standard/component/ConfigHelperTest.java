@@ -20,6 +20,7 @@ public class ConfigHelperTest {
         CoverageHelper.privateConstructor(ConfigHelper.class);
         assertThat(ConfigHelper.MESSAGE_BASENAME, is("messages"));
         assertThat(ConfigHelper.ERROR_MESSAGE_BASENAME, is("error-messages"));
+        assertThat(ConfigHelper.INET_ADDRESS_CHARSET, is("UTF-8"));
         assertThat(ConfigHelper.getText("colors.background"), is("#FFFFFF"));
         assertThat(ConfigHelper.getText("colors.foreground"), is("#000080"));
         assertThat(

@@ -36,7 +36,8 @@ public final class ArchiveFactory {
         } else {
             jar.addPackages(true, packages);
         }
-        jar.addAsResource("throwable-messages.properties");
+        jar.addAsResource("configs.properties");
+        jar.addAsResource("error-messages.properties");
         jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
         return jar;
     }

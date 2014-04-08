@@ -13,11 +13,14 @@ public final class ConfigHelper {
     public static final String MESSAGE_BASENAME;
     /** 例外メッセージ定義のベース名 */
     public static final String ERROR_MESSAGE_BASENAME;
+    /** インターネットアドレスの文字セット */
+    public static final String INET_ADDRESS_CHARSET;
     /** コンフィグ */
     private static final PropertiesHelper CONFIG = new PropertiesHelper("configs");
     static {
         MESSAGE_BASENAME = CONFIG.getText("MESSAGE_BASENAME");
         ERROR_MESSAGE_BASENAME = CONFIG.getText("ERROR_MESSAGE_BASENAME");
+        INET_ADDRESS_CHARSET = CONFIG.getText("INET_ADDRESS_CHARSET");
     }
     /** 非公開コンストラクタ */
     private ConfigHelper() {
