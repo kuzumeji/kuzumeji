@@ -97,11 +97,12 @@ public final class PropertiesHelper {
             try {
                 final String bundleName = control.toBundleName(baseName, locale);
                 final String resourceName = control.toResourceName(bundleName, "properties");
-                LOG.debug(resourceName);
                 final URL url = ClassLoader.getSystemResource(resourceName);
                 if (url != null) {
-                    LOG.debug("url={}", url.getPath());
+                    LOG.debug("FOUNDED. -> {}", url.getPath());
                     return new PropertiesConfiguration(url);
+                } else {
+                    LOG.debug("NOT-FOUND. -> {}", resourceName);
                 }
             } catch (final ConfigurationException e) {
                 LOG.debug(e.toString(), e);

@@ -4,13 +4,19 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.testing;
+import java.util.Iterator;
+import org.jboss.shrinkwrap.api.ArchivePath;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * アーカイブのファクトリー
  * @author nilcy
  */
 public final class ArchiveFactory {
+    /** ロガー */
+    private static final Logger LOG = LoggerFactory.getLogger(ArchiveFactory.class);
     /** ベースパッケージ */
     private static final String BASE_PACKAGE = "com.kuzumeji";
     /** CDI定義ソース */
@@ -39,6 +45,15 @@ public final class ArchiveFactory {
         jar.addAsResource("configs.properties");
         jar.addAsResource("error-messages.properties");
         jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
+        final Iterator<ArchivePath> iter = jar.getContent().keySet().iterator();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(String.format("\n%s\n", jar.toString()));
+        LOG.trace("jar : {}", jar);
+        while (iter.hasNext()) {
+            final ArchivePath path = iter.next();
+            builder.append(String.format("%s\n", path.get()));
+        }
+        LOG.trace(builder.toString());
         return jar;
     }
     /**
