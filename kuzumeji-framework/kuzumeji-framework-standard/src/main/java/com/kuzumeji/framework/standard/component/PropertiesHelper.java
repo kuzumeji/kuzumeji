@@ -106,7 +106,8 @@ public final class PropertiesHelper {
                     LOG.debug("NOT-FOUND. -> {}", resourceName);
                 }
             } catch (final ConfigurationException e) {
-                LOG.debug(e.toString(), e);
+                LOG.warn(e.toString(), e);
+                throw new StandardRuntimeException(e);
             }
         }
         throw new StandardRuntimeException(String.format("PROPERTY is NOT_FOUND. [baseName=%s]",
