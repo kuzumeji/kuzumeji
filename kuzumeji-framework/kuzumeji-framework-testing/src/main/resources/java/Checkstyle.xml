@@ -73,7 +73,10 @@
     <module name="ParameterNumber"/>
     <module name="OuterTypeNumber"/>
     <module name="MethodCount"/>
-    <module name="GenericWhitespace"/>
+    <module name="GenericWhitespace">
+      <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
+    </module>
     <module name="EmptyForInitializerPad"/>
     <module name="EmptyForIteratorPad"/>
     <module name="NoWhitespaceAfter"/>

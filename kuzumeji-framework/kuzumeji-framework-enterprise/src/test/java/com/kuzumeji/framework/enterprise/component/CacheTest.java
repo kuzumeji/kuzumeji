@@ -4,22 +4,20 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import javax.cache.CacheManager;
-import javax.cache.Caching;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import net.sf.ehcache.CacheManager;
 /**
  * @see CacheManager
  * @author nilcy
  */
 public class CacheTest {
+    private static final Logger LOG = LoggerFactory.getLogger(CacheTest.class);
     @Test
     public void test() {
-        assertThat(Caching.getCacheManager(), is(not(nullValue())));
-        assertThat(Caching.getCacheManager("application"), is(not(nullValue())));
-        assertThat(Caching.getCacheManager("session"), is(not(nullValue())));
-        assertThat(Caching.getCacheManager("conversation"), is(not(nullValue())));
-        assertThat(Caching.getCacheManager("request"), is(not(nullValue())));
+        for (final String name : CacheManager.getInstance().getCacheNames()) {
+            LOG.debug("name={}", name);
+        }
     }
 }
