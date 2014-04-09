@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration>
+<!DOCTYPE logback>
 <configuration debug="false">
-  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <encoder>
-      <pattern>%date [%thread] %-5level %logger - %message%n</pattern>
-    </encoder>
-    <file>target/logs/application.log</file>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <fileNamePattern>target/logs/application_%d{yyyy-MM-dd}.zip</fileNamePattern>
-    </rollingPolicy>
-  </appender>
-  <logger name="com.kuzumeji" level="TRACE">
-  </logger>
-  <root level="INFO">
-    <appender-ref ref="FILE" />
-  </root>
+	<!-- <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> -->
+	<!-- <encoder> -->
+	<!-- <pattern>%date [%thread] %-5level %logger - %message%n</pattern> -->
+	<!-- </encoder> -->
+	<!-- </appender> -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder>
+			<pattern>%date [%thread] %-5level %logger - %message%n</pattern>
+		</encoder>
+		<file>target/logs/application.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>target/logs/application_%d{yyyy-MM-dd}.zip</fileNamePattern>
+		</rollingPolicy>
+	</appender>
+	<logger name="com.kuzumeji" level="TRACE">
+	</logger>
+	<root level="INFO">
+		<!-- <appender-ref ref="CONSOLE" /> -->
+		<appender-ref ref="FILE" />
+	</root>
 </configuration>
