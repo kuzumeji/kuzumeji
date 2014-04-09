@@ -34,7 +34,7 @@ public final class CoverageHelper {
             constructor.setAccessible(false);
         } catch (NoSuchMethodException | SecurityException | InstantiationException
             | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            LOG.warn(e.getLocalizedMessage());
+            LOG.warn(e.toString());
             throw new RuntimeException(e);
         }
     }
