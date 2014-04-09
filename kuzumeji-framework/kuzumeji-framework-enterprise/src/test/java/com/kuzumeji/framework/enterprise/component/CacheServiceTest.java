@@ -9,17 +9,17 @@ import static org.junit.Assert.*;
 import javax.cache.Cache;
 import org.junit.Test;
 /**
- * @see CacheHelper
+ * @see CacheService
  * @author nilcy
  */
-public class CacheHelperTest {
+public class CacheServiceTest {
     @Test
     public void test() {
-        final CacheHelper<String, String> helper = new CacheHelper<>();
-        assertThat(helper, is(not(nullValue())));
-        Cache<String, String> var = helper.getCache("var");
+        final CacheService<String, String> testee = new CacheService<>();
+        assertThat(testee, is(not(nullValue())));
+        Cache<String, String> var = testee.getCache("var");
         assertThat(var, is(nullValue()));
-        var = helper.createCache("var");
+        var = testee.createCache("var");
         assertThat(var, is(not(nullValue())));
         var.put("foo", "foo#01");
         assertThat(var.get("foo"), is("foo#01"));

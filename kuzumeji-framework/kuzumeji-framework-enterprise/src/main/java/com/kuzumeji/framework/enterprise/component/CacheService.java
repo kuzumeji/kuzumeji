@@ -8,32 +8,26 @@ import javax.cache.Cache;
 import javax.cache.CacheManager;
 import javax.cache.Caching;
 /**
- * キャッシュヘルパー
+ * キャッシュサービス
  * @param <K> キー型
  * @param <V> バリュー型
  * @author nilcy
  */
-public final class CacheHelper<K, V> {
-    /** アプリケーションスコープのキャッシュ領域名 */
-    public static final String APPLICATION_AREA = "application";
-    /** セッションスコープのキャッシュ領域名 */
-    public static final String SESSION_AREA = "session";
-    /** カンバセーションスコープのキャッシュ領域名 */
-    public static final String CONVERSATION_AREA = "conversation";
-    /** リクエストスコープのキャッシュ領域名 */
-    public static final String REQUEST_AREA = "request";
+public final class CacheService<K, V> {
     /** キャッシュマネージャ */
     private final CacheManager manager;
-    /** コンストラクタ */
-    public CacheHelper() {
+    /**
+     * コンストラクタ
+     */
+    public CacheService() {
         manager = Caching.getCacheManager();
     }
     /**
      * コンストラクタ
-     * @param name キャッシュ領域名
+     * @param area キャッシュエリア
      */
-    public CacheHelper(final String name) {
-        manager = Caching.getCacheManager(name);
+    public CacheService(final CacheArea area) {
+        manager = Caching.getCacheManager(area.name().toLowerCase());
     }
     /**
      * キャッシュの取得
