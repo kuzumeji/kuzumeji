@@ -97,7 +97,8 @@ public final class PropertiesHelper {
             try {
                 final String bundleName = control.toBundleName(baseName, locale);
                 final String resourceName = control.toResourceName(bundleName, "properties");
-                final URL url = ClassLoader.getSystemResource(resourceName);
+                final URL url = getClass().getResource("/" + resourceName);
+                // final URL url = ClassLoader.getSystemResource(resourceName);
                 if (url != null) {
                     LOG.debug("FOUNDED. -> {}", url.getPath());
                     return new PropertiesConfiguration(url);

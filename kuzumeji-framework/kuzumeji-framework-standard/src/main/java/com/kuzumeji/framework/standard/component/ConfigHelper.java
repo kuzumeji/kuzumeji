@@ -16,7 +16,7 @@ public final class ConfigHelper {
     /** インターネットアドレスの文字セット */
     public static final String INET_ADDRESS_CHARSET;
     /** コンフィグ */
-    private static final PropertiesHelper CONFIG = new PropertiesHelper("configs");
+    private static final PropertiesHelper CONFIG = new PropertiesHelper("config");
     static {
         MESSAGE_BASENAME = CONFIG.getText("MESSAGE_BASENAME");
         ERROR_MESSAGE_BASENAME = CONFIG.getText("ERROR_MESSAGE_BASENAME");

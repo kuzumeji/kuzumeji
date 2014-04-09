@@ -42,7 +42,7 @@ public final class ArchiveFactory {
         } else {
             jar.addPackages(true, packages);
         }
-        jar.addAsResource("configs.properties");
+        jar.addAsResource("config.properties");
         jar.addAsResource("error-messages.properties");
         jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
         final Iterator<ArchivePath> iter = jar.getContent().keySet().iterator();
