@@ -4,6 +4,8 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
+import static com.kuzumeji.framework.standard.component.ConfigHelper.*;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.mail.Message;
@@ -117,5 +119,11 @@ public class MailServiceImpl implements MailService {
         } catch (final MessagingException e) {
             throw new EnterpriseException(e.getLocalizedMessage());
         }
+    }
+    /** {@inheritDoc} */
+    @Override
+    public InternetAddress createAddress(final String address, final String personal)
+        throws UnsupportedEncodingException {
+        return new InternetAddress(address, personal, INET_ADDRESS_CHARSET);
     }
 }

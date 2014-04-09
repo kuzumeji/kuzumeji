@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import javax.mail.Message.RecipientType;
 import javax.mail.Multipart;
@@ -54,4 +55,13 @@ public interface MailService extends Service {
      */
     void send(final InternetAddress from, final Map<RecipientType, InternetAddress> recipients,
         final String subject, final Multipart multipartBody) throws EnterpriseException;
+    /**
+     * インターネットアドレスの作成
+     * @param address メールアドレス(RFC833形式)
+     * @param personal 個人名
+     * @return インターネットアドレス
+     * @throws UnsupportedEncodingException エンコーディング例外
+     */
+    InternetAddress createAddress(final String address, final String personal)
+        throws UnsupportedEncodingException;
 }

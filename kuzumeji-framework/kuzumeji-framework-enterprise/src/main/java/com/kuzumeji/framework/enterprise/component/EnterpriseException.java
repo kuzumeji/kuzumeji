@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component;
+import static com.kuzumeji.framework.standard.component.ConfigHelper.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.ejb.ApplicationException;
@@ -21,8 +22,6 @@ import com.kuzumeji.framework.standard.component.StandardException;
 public class EnterpriseException extends StandardException {
     /** 識別番号 */
     private static final long serialVersionUID = -4686970986421722935L;
-    /** メッセージ定義ベース名 */
-    private static final String MESSAGE_BASENAME = "throwable-messages";
     /**
      * メッセージマップ
      * <dl>
@@ -125,7 +124,7 @@ public class EnterpriseException extends StandardException {
      * @param values オブジェクト配列
      */
     public EnterpriseException(final String key, final Object... values) {
-        super(new PropertiesHelper(MESSAGE_BASENAME).getText(key, values));
+        super(new PropertiesHelper(ERROR_MESSAGE_BASENAME).getText(key, values));
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
     }

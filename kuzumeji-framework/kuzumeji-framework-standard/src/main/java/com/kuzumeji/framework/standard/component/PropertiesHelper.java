@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
+import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Locale;
@@ -86,7 +87,7 @@ public final class PropertiesHelper {
      * @param baseName ベース名
      * @return ファイル名
      */
-    private static PropertiesConfiguration getPropertiesConfiguration(final String baseName) {
+    private PropertiesConfiguration getPropertiesConfiguration(final String baseName) {
         final String languageTag = String.format("%s-%s", SystemUtils.USER_LANGUAGE,
             SystemUtils.USER_COUNTRY);
         final Control control = Control.getControl(Control.FORMAT_DEFAULT);
@@ -96,9 +97,14 @@ public final class PropertiesHelper {
             try {
                 final String bundleName = control.toBundleName(baseName, locale);
                 final String resourceName = control.toResourceName(bundleName, "properties");
-                return new PropertiesConfiguration(resourceName);
+                LOG.debug(resourceName);
+                final URL url = ClassLoader.getSystemResource(resourceName);
+                if (url != null) {
+                    LOG.debug("url={}", url.getPath());
+                    return new PropertiesConfiguration(url);
+                }
             } catch (final ConfigurationException e) {
-                LOG.debug(e.getLocalizedMessage());
+                LOG.debug(e.toString(), e);
             }
         }
         throw new StandardRuntimeException(String.format("PROPERTY is NOT_FOUND. [baseName=%s]",

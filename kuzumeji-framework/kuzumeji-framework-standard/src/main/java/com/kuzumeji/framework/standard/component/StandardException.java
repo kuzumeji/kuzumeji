@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
+import static com.kuzumeji.framework.standard.component.ConfigHelper.*;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -82,7 +83,7 @@ public class StandardException extends Exception {
      * @param values オブジェクト配列
      */
     public StandardException(final String key, final Object... values) {
-        super(new PropertiesHelper(ConfigHelper.ERROR_MESSAGE_BASENAME).getText(key, values));
+        super(new PropertiesHelper(ERROR_MESSAGE_BASENAME).getText(key, values));
         messageMap = new LinkedHashMap<>();
         messageMap.put(key, values);
     }
@@ -114,7 +115,7 @@ public class StandardException extends Exception {
      * @return アプリケーションメッセージ
      */
     public final String getApplicationMessage() {
-        final PropertiesHelper props = new PropertiesHelper(ConfigHelper.ERROR_MESSAGE_BASENAME);
+        final PropertiesHelper props = new PropertiesHelper(ERROR_MESSAGE_BASENAME);
         final StringBuilder builder = new StringBuilder();
         final Iterator<Entry<String, Object[]>> iter = getMessageMap().entrySet().iterator();
         while (iter.hasNext()) {

@@ -46,7 +46,7 @@ public class PropertiesHelperTest {
     }
     @Test
     public final void testMessage() throws ConfigurationException {
-        final PropertiesHelper testee = new PropertiesHelper("throwable-messages");
+        final PropertiesHelper testee = new PropertiesHelper("error-messages");
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.getText("UK", "設定", "name=日本,key=国番号"),
             is("一意キー制約の違反です。設定[name=日本,key=国番号]"));
