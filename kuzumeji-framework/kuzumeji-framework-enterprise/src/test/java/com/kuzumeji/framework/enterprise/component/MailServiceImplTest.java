@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
@@ -31,7 +32,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  * @author nilcy
  */
 @RunWith(Arquillian.class)
-// @SuppressWarnings("all")
+@SuppressWarnings("all")
 public class MailServiceImplTest {
     @Inject
     private MailService testee;
@@ -48,7 +49,8 @@ public class MailServiceImplTest {
             from = testee.createAddress("kuzumeji@gmail.com", "苦集滅道");
             recipients = new LinkedHashMap<>();
             recipients.put(RecipientType.TO, testee.createAddress("shimokawa@mamezou.com", "下川岳洋"));
-        } catch (final UnsupportedEncodingException e) {
+            recipients.put(RecipientType.CC, testee.createAddress("kuzumeji@gmail.com"));
+        } catch (final UnsupportedEncodingException | AddressException e) {
             fail(e.toString());
         }
     }

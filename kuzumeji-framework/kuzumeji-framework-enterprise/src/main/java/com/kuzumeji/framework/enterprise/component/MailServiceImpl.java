@@ -14,6 +14,7 @@ import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang3.Validate;
@@ -44,11 +45,11 @@ public class MailServiceImpl implements MailService {
     }
     /** {@inheritDoc} */
     @Override
-    public final void send(final InternetAddress from,
+    public final void send(final InternetAddress originator,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
         final String body) throws EnterpriseException {
         try {
-            final Message message = createMessage(from, recipients, subject);
+            final Message message = createMessage(originator, recipients, subject);
             message.setContent(body, "text/plain;charset=UTF-8");
             send(message);
         } catch (final MessagingException e) {
@@ -57,11 +58,11 @@ public class MailServiceImpl implements MailService {
     }
     /** {@inheritDoc} */
     @Override
-    public final void send(final InternetAddress from,
+    public final void send(final InternetAddress originator,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
         final Object body, final String type) throws EnterpriseException {
         try {
-            final Message message = createMessage(from, recipients, subject);
+            final Message message = createMessage(originator, recipients, subject);
             message.setContent(body, type);
             send(message);
         } catch (final MessagingException e) {
@@ -70,11 +71,11 @@ public class MailServiceImpl implements MailService {
     }
     /** {@inheritDoc} */
     @Override
-    public final void send(final InternetAddress from,
+    public final void send(final InternetAddress originator,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
         final Multipart body) throws EnterpriseException {
         try {
-            final Message message = createMessage(from, recipients, subject);
+            final Message message = createMessage(originator, recipients, subject);
             message.setContent(body);
             send(message);
         } catch (final MessagingException e) {
@@ -83,20 +84,20 @@ public class MailServiceImpl implements MailService {
     }
     /**
      * メッセージの作成
-     * @param from FROMアドレス
-     * @param recipients 宛先アドレス
+     * @param originator 発信者アドレス
+     * @param recipients 受信者アドレス
      * @param subject メール件名
      * @return メッセージ
      * @throws EnterpriseException メッセージの例外
      */
-    private Message createMessage(final InternetAddress from,
+    private Message createMessage(final InternetAddress originator,
         final Map<RecipientType, InternetAddress> recipients, final String subject)
         throws EnterpriseException {
         Validate.isTrue(recipients.size() > 0);
         try {
             final MimeMessage message = new MimeMessage(session);
-            if (from != null) {
-                message.setFrom(from);
+            if (originator != null) {
+                message.setFrom(originator);
             }
             for (final Entry<RecipientType, InternetAddress> recipient : recipients.entrySet()) {
                 message.addRecipient(recipient.getKey(), recipient.getValue());
@@ -119,6 +120,14 @@ public class MailServiceImpl implements MailService {
         } catch (final MessagingException e) {
             throw new EnterpriseException(e);
         }
+    }
+    /**
+     * {@inheritDoc}
+     * @throws AddressException
+     */
+    @Override
+    public InternetAddress createAddress(final String address) throws AddressException {
+        return new InternetAddress(address);
     }
     /** {@inheritDoc} */
     @Override
