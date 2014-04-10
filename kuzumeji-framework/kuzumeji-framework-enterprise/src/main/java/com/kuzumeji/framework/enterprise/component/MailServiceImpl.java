@@ -46,39 +46,39 @@ public class MailServiceImpl implements MailService {
     @Override
     public final void send(final InternetAddress from,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
-        final Object objectBody, final String contentType) throws EnterpriseException {
+        final Object body, final String mimeType) throws EnterpriseException {
         try {
             final Message message = createMessage(from, recipients, subject);
-            message.setContent(objectBody, contentType);
+            message.setContent(body, mimeType);
             send(message);
         } catch (final MessagingException e) {
-            throw new EnterpriseException(e.getLocalizedMessage());
+            throw new EnterpriseException(e);
         }
     }
     /** {@inheritDoc} */
     @Override
     public final void send(final InternetAddress from,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
-        final String textBody) throws EnterpriseException {
+        final String body) throws EnterpriseException {
         try {
             final Message message = createMessage(from, recipients, subject);
-            message.setContent(textBody, "text/plain;charset=UTF-8");
+            message.setContent(body, "text/plain;charset=UTF-8");
             send(message);
         } catch (final MessagingException e) {
-            throw new EnterpriseException(e.getLocalizedMessage());
+            throw new EnterpriseException(e);
         }
     }
     /** {@inheritDoc} */
     @Override
     public final void send(final InternetAddress from,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
-        final Multipart multipartBody) throws EnterpriseException {
+        final Multipart body) throws EnterpriseException {
         try {
             final Message message = createMessage(from, recipients, subject);
-            message.setContent(multipartBody);
+            message.setContent(body);
             send(message);
         } catch (final MessagingException e) {
-            throw new EnterpriseException(e.getLocalizedMessage());
+            throw new EnterpriseException(e);
         }
     }
     /**
@@ -104,7 +104,7 @@ public class MailServiceImpl implements MailService {
             message.setSubject(subject, CHARSET);
             return message;
         } catch (final MessagingException e) {
-            throw new EnterpriseException(e.getLocalizedMessage());
+            throw new EnterpriseException(e);
         }
     }
     /**
@@ -117,7 +117,7 @@ public class MailServiceImpl implements MailService {
         try {
             Transport.send(message);
         } catch (final MessagingException e) {
-            throw new EnterpriseException(e.getLocalizedMessage());
+            throw new EnterpriseException();
         }
     }
     /** {@inheritDoc} */

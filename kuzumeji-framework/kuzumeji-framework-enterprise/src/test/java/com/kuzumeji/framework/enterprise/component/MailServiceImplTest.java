@@ -11,11 +11,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
@@ -24,20 +24,32 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  * @author nilcy
  */
 @RunWith(Arquillian.class)
-@SuppressWarnings("all")
+// @SuppressWarnings("all")
 public class MailServiceImplTest {
     @Inject
     private MailService testee;
+    private InternetAddress from;
+    private Map<RecipientType, InternetAddress> recipients;
     @Deployment
     public static JavaArchive deploy() {
         return ArchiveFactory.createJar();
     }
-    @Test
-    public void test() throws EnterpriseException, AddressException, UnsupportedEncodingException {
+    @Before
+    public void before() {
         assertThat(testee, is(not(nullValue())));
-        final InternetAddress from = testee.createAddress("kuzumeji@gmail.com", "苦集滅道");
-        final Map<RecipientType, InternetAddress> recipients = new LinkedHashMap<>();
-        recipients.put(RecipientType.TO, testee.createAddress("shimokawa@mamezou.com", "下川岳洋"));
-        testee.send(from, recipients, "テストメール題名", "テストメール本文");
+        try {
+            from = testee.createAddress("kuzumeji@gmail.com", "苦集滅道");
+            recipients = new LinkedHashMap<>();
+            recipients.put(RecipientType.TO, testee.createAddress("shimokawa@mamezou.com", "下川岳洋"));
+        } catch (final UnsupportedEncodingException e) {
+            fail(e.toString());
+        }
+    }
+    /**
+     * @see MailServiceImpl#send(InternetAddress, Map, String, String)
+     */
+    @Test
+    public void test() throws EnterpriseException {
+        testee.send(from, recipients, "テストメール", "ふがふが…\nほげほげ…\nぶろろろろ~。");
     }
 }
