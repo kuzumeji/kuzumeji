@@ -46,10 +46,10 @@ public class MailServiceImpl implements MailService {
     @Override
     public final void send(final InternetAddress from,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
-        final Object body, final String mimeType) throws EnterpriseException {
+        final String body) throws EnterpriseException {
         try {
             final Message message = createMessage(from, recipients, subject);
-            message.setContent(body, mimeType);
+            message.setContent(body, "text/plain;charset=UTF-8");
             send(message);
         } catch (final MessagingException e) {
             throw new EnterpriseException(e);
@@ -59,10 +59,10 @@ public class MailServiceImpl implements MailService {
     @Override
     public final void send(final InternetAddress from,
         final Map<RecipientType, InternetAddress> recipients, final String subject,
-        final String body) throws EnterpriseException {
+        final Object body, final String type) throws EnterpriseException {
         try {
             final Message message = createMessage(from, recipients, subject);
-            message.setContent(body, "text/plain;charset=UTF-8");
+            message.setContent(body, type);
             send(message);
         } catch (final MessagingException e) {
             throw new EnterpriseException(e);
@@ -117,7 +117,7 @@ public class MailServiceImpl implements MailService {
         try {
             Transport.send(message);
         } catch (final MessagingException e) {
-            throw new EnterpriseException();
+            throw new EnterpriseException(e);
         }
     }
     /** {@inheritDoc} */

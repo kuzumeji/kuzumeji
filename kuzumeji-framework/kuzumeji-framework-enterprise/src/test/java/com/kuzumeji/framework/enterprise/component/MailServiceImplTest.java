@@ -9,9 +9,16 @@ import static org.junit.Assert.*;
 import java.io.UnsupportedEncodingException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.inject.Inject;
 import javax.mail.Message.RecipientType;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -49,7 +56,33 @@ public class MailServiceImplTest {
      * @see MailServiceImpl#send(InternetAddress, Map, String, String)
      */
     @Test
-    public void test() throws EnterpriseException {
-        testee.send(from, recipients, "テストメール", "ふがふが…\nほげほげ…\nぶろろろろ~。");
+    public void testText() throws EnterpriseException {
+        testee.send(from, recipients, "テキストメール", "ふがふが…\nほげほげ…\nぶろろろろ~。");
+    }
+    /**
+     * @see MailServiceImpl#send(InternetAddress, Map, String, Object, String)
+     */
+    @Test
+    public void testMime() throws EnterpriseException {
+        testee.send(from, recipients, "MIMEタイプ指定メール", "ふがふが…\nほげほげ…\nぶろろろろ~。",
+            "text/plain;charset=UTF-8");
+    }
+    /**
+     * @see MailServiceImpl#send(InternetAddress, Map, String, javax.mail.Multipart)
+     */
+    @Test
+    public void testMultipart() throws EnterpriseException, MessagingException,
+        UnsupportedEncodingException {
+        final Multipart part = new MimeMultipart();
+        final MimeBodyPart body = new MimeBodyPart();
+        body.setText("添付ファイルを確認お願いします。", "ISO-2022-JP");
+        part.addBodyPart(body);
+        final MimeBodyPart file = new MimeBodyPart();
+        final FileDataSource source = new FileDataSource(getClass().getResource(
+            "/" + "config.properties").getPath());
+        file.setDataHandler(new DataHandler(source));
+        file.setFileName(MimeUtility.encodeWord(source.getName()));
+        part.addBodyPart(file);
+        testee.send(from, recipients, "マルチパートメール", part);
     }
 }
