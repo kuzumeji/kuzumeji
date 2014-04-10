@@ -4,6 +4,8 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.service;
+import java.util.concurrent.TimeUnit;
+import javax.ejb.AccessTimeout;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Lock;
@@ -16,6 +18,7 @@ import javax.ejb.Singleton;
 @Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 @Lock(LockType.READ)
+@AccessTimeout(value = 10, unit = TimeUnit.SECONDS)
 public class SingletonSessionServiceImpl implements SingletonSessionService,
     SingletonSessionServiceRemote {
     /** コンストラクタ */
