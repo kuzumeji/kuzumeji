@@ -4,12 +4,21 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.service;
+import java.util.concurrent.TimeUnit;
+import javax.ejb.AccessTimeout;
+import javax.ejb.ConcurrencyManagement;
+import javax.ejb.ConcurrencyManagementType;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 import javax.ejb.Stateful;
 /**
  * ステートフルセッションBeanサービス
  * @author nilcy
  */
 @Stateful
+@ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
+@Lock(LockType.READ)
+@AccessTimeout(value = 10, unit = TimeUnit.SECONDS)
 public class StatefulSessionServiceImpl implements StatefulSessionService,
     StatefulSessionServiceRemote {
     /** コンストラクタ */
