@@ -31,7 +31,8 @@ public class SimpleRepositoryTest {
     private Logger log;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithJpa();
+        return ArchiveFactory.createJarWithJpa(null, new String[] { "config.properties",
+            "error-messages.properties" });
     }
     @Test
     public final void test() throws PersistenceException {

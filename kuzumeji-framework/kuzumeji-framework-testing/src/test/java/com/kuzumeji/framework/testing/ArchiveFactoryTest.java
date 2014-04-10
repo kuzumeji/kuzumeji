@@ -13,10 +13,25 @@ import org.junit.Test;
  */
 public class ArchiveFactoryTest {
     @Test
-    public void test() {
+    public void testConstructor() {
         CoverageHelper.privateConstructor(ArchiveFactory.class);
-        assertThat(ArchiveFactory.createJar(), is(not(nullValue())));
-        assertThat(ArchiveFactory.createJar("com.kuzumeji.framework.testing"), is(not(nullValue())));
-        assertThat(ArchiveFactory.createJarWithJpa(), is(not(nullValue())));
+    }
+    @Test
+    public void testCreateJar() {
+        assertThat(ArchiveFactory.createJar(null, null), is(not(nullValue())));
+        assertThat(
+            ArchiveFactory.createJar(new String[] { "com.kuzumeji.framework.testing" }, null),
+            is(not(nullValue())));
+        assertThat(ArchiveFactory.createJar(new String[] { "com.kuzumeji.framework.testing" },
+            new String[] { "config.properties" }), is(not(nullValue())));
+    }
+    @Test
+    public void testCreateJarWithJpa() {
+        assertThat(ArchiveFactory.createJarWithJpa(null, null), is(not(nullValue())));
+        assertThat(ArchiveFactory.createJarWithJpa(
+            new String[] { "com.kuzumeji.framework.testing" }, null), is(not(nullValue())));
+        assertThat(
+            ArchiveFactory.createJarWithJpa(new String[] { "com.kuzumeji.framework.testing" },
+                new String[] { "config.properties" }), is(not(nullValue())));
     }
 }

@@ -27,7 +27,7 @@ public class PersistableTesteeTest {
     private EntityManager manager;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithJpa();
+        return ArchiveFactory.createJarWithJpa(null, null);
     }
     @Test
     public final void test() {

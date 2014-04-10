@@ -25,7 +25,7 @@ public class LoggerProducerTest {
     private Logger testee;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar();
+        return ArchiveFactory.createJar(null, null);
     }
     @Test
     public final void test() {

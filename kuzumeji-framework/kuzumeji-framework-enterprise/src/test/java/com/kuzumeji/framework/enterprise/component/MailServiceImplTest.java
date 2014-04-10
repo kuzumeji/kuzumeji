@@ -40,7 +40,7 @@ public class MailServiceImplTest {
     private Map<RecipientType, InternetAddress> recipients;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar();
+        return ArchiveFactory.createJar(null, new String[] { "config.properties" });
     }
     @Before
     public void before() {

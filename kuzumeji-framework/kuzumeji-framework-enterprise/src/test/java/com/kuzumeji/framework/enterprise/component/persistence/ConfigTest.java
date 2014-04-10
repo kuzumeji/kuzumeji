@@ -34,7 +34,7 @@ public class ConfigTest {
     private Logger log;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithJpa();
+        return ArchiveFactory.createJarWithJpa(null, null);
     }
     @Test
     public final void test() throws PersistenceException {

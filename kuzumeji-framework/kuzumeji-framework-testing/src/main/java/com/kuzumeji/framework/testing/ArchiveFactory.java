@@ -33,22 +33,28 @@ public final class ArchiveFactory {
     /**
      * JARの作成
      * @param packages パッケージ
+     * @param resources リソース
      * @return JAR
      */
-    public static JavaArchive createJar(final String... packages) {
+    public static JavaArchive createJar(final String[] packages, final String[] resources) {
         final JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
-        if (packages.length == 0) {
+        if ((packages == null) || (packages.length == 0)) {
             jar.addPackages(true, BASE_PACKAGE);
         } else {
             jar.addPackages(true, packages);
         }
-        jar.addAsResource("config.properties");
-        jar.addAsResource("error-messages.properties");
+        if ((resources != null) && (resources.length > 0)) {
+            for (final String resource : resources) {
+                jar.addAsResource(resource);
+            }
+        }
+        // jar.addAsResource("config.properties");
+        // jar.addAsResource("error-messages.properties");
         jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
         final Iterator<ArchivePath> iter = jar.getContent().keySet().iterator();
         final StringBuilder builder = new StringBuilder();
         builder.append(String.format("\n%s\n", jar.toString()));
-        LOG.trace("jar : {}", jar);
+        // LOG.trace("jar : {}", jar);
         while (iter.hasNext()) {
             final ArchivePath path = iter.next();
             builder.append(String.format("%s\n", path.get()));
@@ -59,10 +65,11 @@ public final class ArchiveFactory {
     /**
      * JARの作成
      * @param packages パッケージ
+     * @param resources リソース
      * @return JAR
      */
-    public static JavaArchive createJarWithJpa(final String... packages) {
-        final JavaArchive jar = createJar(packages);
+    public static JavaArchive createJarWithJpa(final String[] packages, final String[] resources) {
+        final JavaArchive jar = createJar(packages, resources);
         jar.addAsManifestResource(JPA_SOURCE, JPA_TARGET);
         return jar;
     }
