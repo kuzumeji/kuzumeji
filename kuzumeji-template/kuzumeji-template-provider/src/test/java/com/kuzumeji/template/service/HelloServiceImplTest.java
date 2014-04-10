@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see HelloService
+ * @see HelloServiceRemote
  * @see HelloServiceImpl
  * @author nilcy
  */
@@ -25,6 +26,8 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 public class HelloServiceImplTest {
     @EJB
     private HelloService testee;
+    @EJB
+    private HelloServiceRemote testeeRemote;
     @Deployment
     public static JavaArchive deploy() {
         return ArchiveFactory.createJar(null, null);
@@ -33,5 +36,7 @@ public class HelloServiceImplTest {
     public final void test() {
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.sayHello("nilcy"), is("こんにちは nilcy さん。"));
+        assertThat(testeeRemote, is(not(nullValue())));
+        assertThat(testeeRemote.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }
 }

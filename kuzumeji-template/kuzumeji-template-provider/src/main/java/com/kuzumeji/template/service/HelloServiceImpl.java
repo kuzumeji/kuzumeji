@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
  * @author nilcy
  */
 @Stateless
-public class HelloServiceImpl implements HelloService {
+public class HelloServiceImpl implements HelloService, HelloServiceRemote {
     /** コンストラクタ */
     public HelloServiceImpl() {
     }
