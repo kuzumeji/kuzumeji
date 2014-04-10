@@ -7,9 +7,9 @@ package com.kuzumeji.template.consumer;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.template.service.StatelessService;
+import com.kuzumeji.template.service.StatelessSessionService;
 /**
- * @see StatelessService
+ * @see StatelessSessionService
  * @author nilcy
  */
 public class HelloTest {

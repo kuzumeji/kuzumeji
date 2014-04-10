@@ -16,18 +16,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
- * @see StatelessService
- * @see StatelessServiceRemote
- * @see StatelessServiceImpl
+ * @see StatefulSessionService
+ * @see StatefulSessionServiceRemote
+ * @see StatefulSessionServiceImpl
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-public class StatelessServiceImplTest {
+public class StatefulSessionServiceImplTest {
     @EJB
-    private StatelessService testee;
+    private StatefulSessionService testee;
     @EJB
-    private StatelessServiceRemote testeeRemote;
+    private StatefulSessionServiceRemote testeeRemote;
     @Deployment
     public static JavaArchive deploy() {
         return ArchiveFactory.createJar(null, null);

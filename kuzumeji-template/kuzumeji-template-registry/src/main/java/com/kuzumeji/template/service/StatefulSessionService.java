@@ -4,13 +4,13 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.service;
-import javax.ejb.Remote;
+import javax.ejb.Local;
 /**
- * ステートフルサービスI/F(リモート)
+ * ステートフルセッションBeanサービスI/F
  * @author nilcy
  */
-@Remote
-public interface StatefulServiceRemote {
+@Local
+public interface StatefulSessionService {
     /**
      * 挨拶メソッド
      * @param name 名前

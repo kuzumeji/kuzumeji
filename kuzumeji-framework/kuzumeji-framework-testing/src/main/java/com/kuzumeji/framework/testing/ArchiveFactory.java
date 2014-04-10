@@ -48,13 +48,10 @@ public final class ArchiveFactory {
                 jar.addAsResource(resource);
             }
         }
-        // jar.addAsResource("config.properties");
-        // jar.addAsResource("error-messages.properties");
         jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
         final Iterator<ArchivePath> iter = jar.getContent().keySet().iterator();
         final StringBuilder builder = new StringBuilder();
         builder.append(String.format("\n%s\n", jar.toString()));
-        // LOG.trace("jar : {}", jar);
         while (iter.hasNext()) {
             final ArchivePath path = iter.next();
             builder.append(String.format("%s\n", path.get()));

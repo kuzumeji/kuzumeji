@@ -4,15 +4,16 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.service;
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 /**
- * ステートレスサービス
+ * ステートフルセッションBeanサービス
  * @author nilcy
  */
-@Stateless
-public class StatelessServiceImpl implements StatelessService, StatelessServiceRemote {
+@Stateful
+public class StatefulSessionServiceImpl implements StatefulSessionService,
+    StatefulSessionServiceRemote {
     /** コンストラクタ */
-    public StatelessServiceImpl() {
+    public StatefulSessionServiceImpl() {
     }
     /** {@inheritDoc} */
     @Override
