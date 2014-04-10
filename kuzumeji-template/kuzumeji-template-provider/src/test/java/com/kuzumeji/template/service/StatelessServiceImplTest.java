@@ -16,18 +16,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
- * @see HelloService
- * @see HelloServiceRemote
- * @see HelloServiceImpl
+ * @see StatelessService
+ * @see StatelessServiceRemote
+ * @see StatelessServiceImpl
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-public class HelloServiceImplTest {
+public class StatelessServiceImplTest {
     @EJB
-    private HelloService testee;
+    private StatelessService testee;
     @EJB
-    private HelloServiceRemote testeeRemote;
+    private StatelessServiceRemote testeeRemote;
     @Deployment
     public static JavaArchive deploy() {
         return ArchiveFactory.createJar(null, null);
@@ -36,6 +36,9 @@ public class HelloServiceImplTest {
     public final void test() {
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.sayHello("nilcy"), is("こんにちは nilcy さん。"));
+    }
+    @Test
+    public final void testRemote() {
         assertThat(testeeRemote, is(not(nullValue())));
         assertThat(testeeRemote.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }

@@ -4,17 +4,19 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.service;
-import javax.ejb.Remote;
+import javax.ejb.Stateless;
 /**
- * 挨拶サービスI/F(リモート)
+ * ステートレスサービス
  * @author nilcy
  */
-@Remote
-public interface HelloServiceRemote {
-    /**
-     * 挨拶メソッド
-     * @param name 名前
-     * @return 挨拶文(例:こんにちは %s さん。)
-     */
-    String sayHello(final String name);
+@Stateless
+public class StatelessServiceImpl implements StatelessService, StatelessServiceRemote {
+    /** コンストラクタ */
+    public StatelessServiceImpl() {
+    }
+    /** {@inheritDoc} */
+    @Override
+    public String sayHello(final String name) {
+        return String.format("こんにちは %s さん。", name);
+    }
 }
