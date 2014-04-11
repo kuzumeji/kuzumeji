@@ -10,6 +10,11 @@
 	<artifactId>kuzumeji-template-consumer</artifactId>
 	<dependencies>
 		<dependency>
+			<groupId>com.kuzumeji</groupId>
+			<artifactId>kuzumeji-framework-testing</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<scope>provided</scope>
@@ -21,11 +26,6 @@
 		<dependency>
 			<groupId>com.kuzumeji</groupId>
 			<artifactId>kuzumeji-template-registry</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.kuzumeji</groupId>
-			<artifactId>kuzumeji-framework-testing</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	<packaging>war</packaging>

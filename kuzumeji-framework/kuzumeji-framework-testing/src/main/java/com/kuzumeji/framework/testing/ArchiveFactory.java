@@ -8,6 +8,7 @@ import java.util.Iterator;
 import org.jboss.shrinkwrap.api.ArchivePath;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
@@ -69,5 +70,34 @@ public final class ArchiveFactory {
         final JavaArchive jar = createJar(packages, resources);
         jar.addAsManifestResource(JPA_SOURCE, JPA_TARGET);
         return jar;
+    }
+    /**
+     * WARの作成
+     * @param packages パッケージ
+     * @param resources リソース
+     * @return WAR
+     */
+    public static WebArchive createWar(final String[] packages, final String[] resources) {
+        final WebArchive war = ShrinkWrap.create(WebArchive.class);
+        if ((packages == null) || (packages.length == 0)) {
+            war.addPackages(true, BASE_PACKAGE);
+        } else {
+            war.addPackages(true, packages);
+        }
+        if ((resources != null) && (resources.length > 0)) {
+            for (final String resource : resources) {
+                war.addAsResource(resource);
+            }
+        }
+        war.addAsWebInfResource(CDI_SOURCE, CDI_TARGET);
+        final Iterator<ArchivePath> iter = war.getContent().keySet().iterator();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(String.format("\n%s\n", war.toString()));
+        while (iter.hasNext()) {
+            final ArchivePath path = iter.next();
+            builder.append(String.format("%s\n", path.get()));
+        }
+        LOG.trace(builder.toString());
+        return war;
     }
 }
