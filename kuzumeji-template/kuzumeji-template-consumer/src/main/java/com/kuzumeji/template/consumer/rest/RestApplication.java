@@ -10,7 +10,7 @@ import javax.ws.rs.core.Application;
  * RESTアプリケーション
  * @author nilcy
  */
-@ApplicationPath("/rest/*")
+@ApplicationPath("/resources/*")
 public class RestApplication extends Application {
     /** コンストラクタ */
     public RestApplication() {
