@@ -66,8 +66,10 @@
       <property name="tokens" value="INSTANCE_INIT,STATIC_INIT,METHOD_DEF,CTOR_DEF"/>
     </module>
     <module name="LineLength">
+      <property name="severity" value="ignore"/>
       <property name="max" value="120"/>
       <property name="tabWidth" value="4"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="MethodLength"/>
     <module name="ParameterNumber"/>
@@ -135,6 +137,7 @@
     <module name="JUnitTestCase"/>
     <module name="MagicNumber">
       <property name="severity" value="ignore"/>
+      <metadata name="net.sf.eclipsecs.core.lastEnabledSeverity" value="inherit"/>
     </module>
     <module name="MissingCtor"/>
     <module name="MissingSwitchDefault"/>
