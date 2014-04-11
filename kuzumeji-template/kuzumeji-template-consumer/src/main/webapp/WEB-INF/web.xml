@@ -33,22 +33,22 @@
 	<!-- <url-pattern>*.xhtml</url-pattern> -->
 	<!-- </servlet-mapping> -->
 	<!-- NG -->
-	<servlet>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<init-param>
-			<param-name>jersey.config.server.provider.packages</param-name>
-			<param-value>com.kuzumeji.template.consumer.rest</param-value>
-		</init-param>
-        <init-param>
-            <param-name>jersey.config.server.tracing</param-name>
-            <param-value>ALL</param-value>
-        </init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>javax.ws.rs.core.Application</servlet-name>
-		<url-pattern>/rest/*</url-pattern>
-	</servlet-mapping>
+	<!-- <servlet> -->
+	<!-- <servlet-name>javax.ws.rs.core.Application</servlet-name> -->
+	<!-- <init-param> -->
+	<!-- <param-name>jersey.config.server.provider.packages</param-name> -->
+	<!-- <param-value>com.kuzumeji.template.consumer.rest</param-value> -->
+	<!-- </init-param> -->
+	<!-- <init-param> -->
+	<!-- <param-name>jersey.config.server.tracing</param-name> -->
+	<!-- <param-value>ALL</param-value> -->
+	<!-- </init-param> -->
+	<!-- <load-on-startup>1</load-on-startup> -->
+	<!-- </servlet> -->
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>javax.ws.rs.core.Application</servlet-name> -->
+	<!-- <url-pattern>/rest/*</url-pattern> -->
+	<!-- </servlet-mapping> -->
 	<!-- <servlet> -->
 	<!-- <servlet-name>RestApplication</servlet-name> -->
 	<!-- <servlet-class>com.kuzumeji.template.consumer.rest.RestApplication</servlet-class> -->
