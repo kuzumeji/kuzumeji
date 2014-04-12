@@ -1,3 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-cmd /c asadmin list-applications
+cygwin=false
+case `uname` in
+    CYGWIN*) cygwin=true;;
+esac
+
+if $cygwin; then
+    cmd /c asadmin list-applications;
+else
+    asadmin list-applications;
+fi
+

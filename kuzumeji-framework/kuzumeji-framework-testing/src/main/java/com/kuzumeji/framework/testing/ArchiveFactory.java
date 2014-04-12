@@ -5,19 +5,18 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.testing;
 import java.util.Iterator;
+import java.util.logging.Logger;
 import org.jboss.shrinkwrap.api.ArchivePath;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
  * アーカイブのファクトリー
  * @author nilcy
  */
 public final class ArchiveFactory {
     /** ロガー */
-    private static final Logger LOG = LoggerFactory.getLogger(ArchiveFactory.class);
+    private static final Logger LOG = Logger.getGlobal();
     /** ベースパッケージ */
     private static final String BASE_PACKAGE = "com.kuzumeji";
     /** CDI定義ソース */
@@ -57,7 +56,7 @@ public final class ArchiveFactory {
             final ArchivePath path = iter.next();
             builder.append(String.format("%s\n", path.get()));
         }
-        LOG.trace(builder.toString());
+        LOG.finest(builder.toString());
         return jar;
     }
     /**
@@ -97,7 +96,7 @@ public final class ArchiveFactory {
             final ArchivePath path = iter.next();
             builder.append(String.format("%s\n", path.get()));
         }
-        LOG.trace(builder.toString());
+        LOG.finest(builder.toString());
         return war;
     }
 }

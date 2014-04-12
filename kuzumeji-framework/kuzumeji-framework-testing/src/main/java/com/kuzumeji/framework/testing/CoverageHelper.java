@@ -6,15 +6,14 @@
 package com.kuzumeji.framework.testing;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 /**
  * カバレッジヘルパー
  * @author nilcy
  */
 public final class CoverageHelper {
     /** ロガー */
-    private static final Logger LOG = LoggerFactory.getLogger(CoverageHelper.class);
+    private static final Logger LOG = Logger.getGlobal();
     /** 非公開コンストラクタ */
     private CoverageHelper() {
     }
@@ -34,7 +33,7 @@ public final class CoverageHelper {
             constructor.setAccessible(false);
         } catch (NoSuchMethodException | SecurityException | InstantiationException
             | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            LOG.warn(e.toString());
+            LOG.warning(e.toString());
             throw new RuntimeException(e);
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE logback>
 <configuration debug="false">
-	<!-- <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> -->
-	<!-- <encoder> -->
-	<!-- <pattern>%date [%thread] %-5level %logger - %message%n</pattern> -->
-	<!-- </encoder> -->
-	<!-- </appender> -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date [%thread] %-5level %logger - %message%n</pattern>
+		</encoder>
+	</appender>
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder>
 			<pattern>%date [%thread] %-5level %logger - %message%n</pattern>
@@ -18,7 +18,7 @@
 	<logger name="com.kuzumeji" level="TRACE">
 	</logger>
 	<root level="INFO">
-		<!-- <appender-ref ref="CONSOLE" /> -->
+		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="FILE" />
 	</root>
 </configuration>
