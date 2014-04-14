@@ -13,6 +13,7 @@ import com.kuzumeji.template.service.StatelessSessionService;
  * @author nilcy
  */
 public class HelloTest {
+    /** @see Hello#sayHello(String) */
     @Test
     public void testSayHello() {
         assertThat(Hello.sayHello("nilcy"), is("こんにちは nilcy さん。"));

@@ -5,22 +5,18 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.provider.rest;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Collection;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.kuzumeji.framework.testing.AbstractResourceClientTest;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see VariableResource
@@ -28,12 +24,13 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class VariableResourceITest {
+public class VariableResourceTest extends AbstractResourceClientTest {
     /** ロガー */
-    private static final Logger LOG = LoggerFactory.getLogger(VariableResourceITest.class);
-    /** 基点URL */
-    @ArquillianResource
-    private URL base;
+    private static final Logger LOG = LoggerFactory.getLogger(VariableResourceTest.class);
+    /** コンストラクタ */
+    public VariableResourceTest() {
+        super("resources/variables/");
+    }
     /**
      * デプロイ
      * @return WAR
@@ -46,12 +43,9 @@ public class VariableResourceITest {
     @SuppressWarnings("javadoc")
     @Test
     public void test() throws URISyntaxException {
-        final Client client = ClientBuilder.newClient();
-        final WebTarget root = client.target(base.toURI() + "resources/variables/");
-        final Collection<Variable> variables = root.request(MediaType.APPLICATION_XML_TYPE).get(
+        final Collection<Variable> variables = root().request(MediaType.APPLICATION_XML_TYPE).get(
             new GenericType<Collection<Variable>>() {
             });
-        client.close();
         LOG.debug("variables={}", variables);
     }
 }
