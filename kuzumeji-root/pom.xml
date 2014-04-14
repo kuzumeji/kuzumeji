@@ -62,8 +62,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<site.encoding>UTF-8</site.encoding>
 		<github.global.server>github</github.global.server>
-		<kuzumeji.release.url>file:///home.nilcy/git/kuzumeji-pages/release</kuzumeji.release.url>
-		<kuzumeji.snapshot.url>file:///home.nilcy/git/kuzumeji-pages/snapshot</kuzumeji.snapshot.url>
+		<kuzumeji.release.url>file:///home.nilcy/git/kuzumeji.github.com/maven/release</kuzumeji.release.url>
+		<kuzumeji.snapshot.url>file:///home.nilcy/git/kuzumeji.github.com/maven/snapshot</kuzumeji.snapshot.url>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -457,7 +457,8 @@
 							<artifactId>maven-checkstyle-plugin</artifactId>
 							<version>2.9.1</version>
 							<configuration>
-								<configLocation>kuzumeji-support/kuzumeji-support-testing/src/main/config/Java/Checkstyle.xml</configLocation>
+								<configLocation>java/Checkstyle.xml</configLocation>
+								<encoding>${project.build.sourceEncoding}</encoding>
 							</configuration>
 						</plugin>
 					</reportPlugins>
@@ -554,5 +555,12 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<extensions>
+			<extension>
+				<groupId>com.kuzumeji</groupId>
+				<artifactId>kuzumeji-framework-testing</artifactId>
+				<version>0.1.0-SNAPSHOT</version>
+			</extension>
+		</extensions>
 	</build>
 </project>
