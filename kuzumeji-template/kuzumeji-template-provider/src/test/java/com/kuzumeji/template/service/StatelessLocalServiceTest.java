@@ -23,12 +23,18 @@ import com.kuzumeji.template.provider.StatelessLocalService;
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 public class StatelessLocalServiceTest {
+    /** @see StatelessLocalService */
     @EJB
     private StatelessLocalService testee;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar(null, null);
+        return ArchiveFactory.createJarWithCdi();
     }
+    /** @see StatelessLocalService#sayHello(String) */
     @Test
     public final void test() {
         assertThat(testee, is(not(nullValue())));

@@ -25,19 +25,27 @@ import com.kuzumeji.template.provider.SingletonSessionServiceImpl;
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 public class SingletonSessionServiceImplTest {
+    /** @see SingletonSessionService */
     @EJB
     private SingletonSessionService testee;
+    /** @see SingletonSessionServiceRemote */
     @EJB
     private SingletonSessionServiceRemote testeeRemote;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar(null, null);
+        return ArchiveFactory.createJarWithCdi();
     }
+    /** @see SingletonSessionService#sayHello(String) */
     @Test
     public final void test() {
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }
+    /** @see SingletonSessionServiceRemote#sayHello(String) */
     @Test
     public final void testRemote() {
         assertThat(testeeRemote, is(not(nullValue())));

@@ -25,19 +25,27 @@ import com.kuzumeji.template.provider.StatelessSessionServiceImpl;
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 public class StatelessSessionServiceImplTest {
+    /** @see StatelessSessionService */
     @EJB
     private StatelessSessionService testee;
+    /** @see StatelessSessionServiceRemote */
     @EJB
     private StatelessSessionServiceRemote testeeRemote;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar(null, null);
+        return ArchiveFactory.createJarWithCdi();
     }
+    /** @see StatelessSessionService#sayHello(String) */
     @Test
     public final void test() {
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }
+    /** @see StatelessSessionServiceRemote#sayHello(String) */
     @Test
     public final void testRemote() {
         assertThat(testeeRemote, is(not(nullValue())));
