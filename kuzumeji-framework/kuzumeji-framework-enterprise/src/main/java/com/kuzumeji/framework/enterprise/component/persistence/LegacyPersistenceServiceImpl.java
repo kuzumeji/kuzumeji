@@ -20,8 +20,8 @@ import javax.persistence.criteria.CriteriaUpdate;
  * <dt>使用条件
  * <dd>
  * <ol>
- * <li>{@link TypedPersistenceService 型付けデータ永続化サービスI/F} が実装されること。</li>
- * <li>{@link PersistenceServiceImpl データ永続化サービス} が継承されること。</li>
+ * <li>{@link LegacyPersistenceService 型付けデータ永続化サービスI/F} が実装されること。</li>
+ * <li>{@link AbstractPersistenceService データ永続化サービス} が継承されること。</li>
  * <li>{@link #LegacyPersistenceServiceImpl(EntityManager) コンストラクタ} でインスタンス化すること。</li>
  * </ol>
  * </dl>

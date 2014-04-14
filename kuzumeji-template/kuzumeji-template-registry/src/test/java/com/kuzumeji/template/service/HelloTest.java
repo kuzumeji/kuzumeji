@@ -7,12 +7,12 @@ package com.kuzumeji.template.service;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.template.service.Hello;
 /**
  * @see Hello
  * @author nilcy
  */
 public class HelloTest {
+    /** @see Hello#sayHello(String) */
     @Test
     public void testSayHello() {
         assertThat(Hello.sayHello("nilcy"), is("こんにちは nilcy さん。"));

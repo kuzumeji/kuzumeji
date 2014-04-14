@@ -96,7 +96,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * <dt>使用条件
      * <dd>{@link EnterpriseException#EnterpriseException(Map)} へ委譲されること。
      * </dl>
-     * @param messageMap {@link #messageMap}
+     * @param messageMap {@link EnterpriseException#getMessageMap() メッセージマップ}
      */
     public EnterpriseWarning(final Map<String, Object[]> messageMap) {
         super(messageMap);

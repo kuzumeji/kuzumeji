@@ -121,10 +121,7 @@ public class MailServiceImpl implements MailService {
             throw new EnterpriseException(e);
         }
     }
-    /**
-     * {@inheritDoc}
-     * @throws AddressException
-     */
+    /** {@inheritDoc} */
     @Override
     public InternetAddress createAddress(final String address) throws AddressException {
         return new InternetAddress(address);
