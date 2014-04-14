@@ -5,12 +5,15 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.provider.rest;
 import javax.xml.bind.annotation.XmlRootElement;
+import com.kuzumeji.framework.standard.component.AbstractDataObject;
 /**
  * 変数
  * @author nilcy
  */
 @XmlRootElement
-public class Variable {
+public class Variable extends AbstractDataObject<Variable> {
+    /** 識別番号 */
+    private static final long serialVersionUID = -8070242521884495985L;
     /** foo */
     private String foo;
     /** bar */

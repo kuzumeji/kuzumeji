@@ -4,6 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.provider.rest;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Collection;
 import javax.ws.rs.client.Client;
@@ -12,6 +13,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -26,8 +28,9 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  * @author nilcy
  */
 @RunWith(Arquillian.class)
-public class VariableResourceTest {
-    private static final Logger LOG = LoggerFactory.getLogger(VariableResourceTest.class);
+@RunAsClient
+public class VariableResourceITest {
+    private static final Logger LOG = LoggerFactory.getLogger(VariableResourceITest.class);
     @ArquillianResource
     private URL base;
     private Client client;
@@ -37,15 +40,16 @@ public class VariableResourceTest {
         return ArchiveFactory.createWar(null, null);
     }
     @Before
-    public void initClient() {
+    public void initClient() throws URISyntaxException {
         client = ClientBuilder.newClient();
-        root = client.target("http://localhost:8080/template-registry/resources/variables/");
+        root = client.target(base.toURI() + "resources/variables/");
     }
     @Test
     public void test() {
         final Collection<Variable> variables = root.request(MediaType.APPLICATION_XML_TYPE).get(
             new GenericType<Collection<Variable>>() {
             });
+        client.close();
         LOG.debug("variables={}", variables);
     }
 }

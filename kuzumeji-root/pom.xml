@@ -164,6 +164,14 @@
 			<!-- <artifactId>postgresql</artifactId> -->
 			<!-- <version>9.2-1003-jdbc4</version> -->
 			<!-- </dependency> -->
+			<!-- TODO Glassfish4 PATCHES(JAX-RS/Jersey) -->
+			<dependency>
+				<groupId>org.glassfish.jersey</groupId>
+				<artifactId>jersey-bom</artifactId>
+				<version>2.0-rc1</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<repositories>
