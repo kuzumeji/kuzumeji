@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.service;
+package com.kuzumeji.template.service.timer;
 import java.util.Date;
 import javax.annotation.Resource;
 import javax.ejb.Singleton;
@@ -17,12 +17,10 @@ import org.slf4j.Logger;
  * @author nilcy
  */
 @Singleton
-public class ProgramaticTimerService {
+public class ProgramaticTimerService extends AbstractTimerService {
     /** タイマーサービス */
     @Resource
     private TimerService timerService;
-    /** 最終実行日時 */
-    private Date lastTimeout;
     /** ロガー */
     @Inject
     private Logger log;
@@ -45,19 +43,5 @@ public class ProgramaticTimerService {
     public void timeout(final Timer timer) {
         setLastTimeout(new Date());
         log.info("手動タイマーサービスが終了しました。[{}]", timer.getInfo());
-    }
-    /**
-     * {@link #lastTimeout} の取得
-     * @return {@link #lastTimeout}
-     */
-    public String getLastTimeout() {
-        return lastTimeout != null ? lastTimeout.toString() : "N/A";
-    }
-    /**
-     * {@link #lastTimeout} の設定
-     * @param lastTimeout {@link #lastTimeout}
-     */
-    public void setLastTimeout(final Date lastTimeout) {
-        this.lastTimeout = lastTimeout;
     }
 }
