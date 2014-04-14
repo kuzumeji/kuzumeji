@@ -13,6 +13,7 @@ import com.kuzumeji.framework.testing.CoverageHelper;
  * @author nilcy
  */
 public class HelloTest {
+    /** @see Hello#sayHello(String) */
     @Test
     public void testSayHello() {
         CoverageHelper.privateConstructor(Hello.class);

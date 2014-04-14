@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.logging.Logger;
 import org.jboss.shrinkwrap.api.ArchivePath;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 /**
@@ -15,88 +16,91 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
  * @author nilcy
  */
 public final class ArchiveFactory {
+    /** CDI定義ファイル */
+    private static final String CDI_TARGET = "beans.xml";
     /** ロガー */
     private static final Logger LOG = Logger.getGlobal();
     /** ベースパッケージ */
     private static final String BASE_PACKAGE = "com.kuzumeji";
-    /** CDI定義ソース */
-    private static final String CDI_SOURCE = "META-INF/beans.xml";
-    /** CDI定義ターゲット */
-    private static final String CDI_TARGET = "beans.xml";
-    /** JPA定義ソース */
-    private static final String JPA_SOURCE = "META-INF/persistence.xml";
-    /** JPA定義ターゲット */
-    private static final String JPA_TARGET = "persistence.xml";
     /** 非公開コンストラクタ */
     private ArchiveFactory() {
     }
     /**
      * JARの作成
-     * @param packages パッケージ
-     * @param resources リソース
+     * <dl>
+     * <dt>使用条件
+     * <dd>パッケージ未指定のとき{@value #BASE_PACKAGE}を再帰的に追加する。
+     * </dl>
+     * @param packages パッケージ(サブパッケージを再帰的に追加)
      * @return JAR
      */
-    public static JavaArchive createJar(final String[] packages, final String[] resources) {
+    public static JavaArchive createJar(final String... packages) {
         final JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
-        if ((packages == null) || (packages.length == 0)) {
+        if (packages.length == 0) {
             jar.addPackages(true, BASE_PACKAGE);
         } else {
             jar.addPackages(true, packages);
         }
-        if ((resources != null) && (resources.length > 0)) {
-            for (final String resource : resources) {
-                jar.addAsResource(resource);
-            }
-        }
-        jar.addAsManifestResource(CDI_SOURCE, CDI_TARGET);
-        final Iterator<ArchivePath> iter = jar.getContent().keySet().iterator();
-        final StringBuilder builder = new StringBuilder();
-        builder.append(String.format("\n%s\n", jar.toString()));
-        while (iter.hasNext()) {
-            final ArchivePath path = iter.next();
-            builder.append(String.format("%s\n", path.get()));
-        }
-        LOG.finest(builder.toString());
+        traceArchivePath(jar.getContent().keySet().iterator());
         return jar;
     }
     /**
      * JARの作成
-     * @param packages パッケージ
-     * @param resources リソース
+     * <dl>
+     * <dt>使用条件
+     * <dd>{@link #createJar(String...)}へ委譲して、空のCDI定義("beans.xml")を追加する。
+     * </dl>
+     * @param packages パッケージ(サブパッケージを再帰的に追加)
      * @return JAR
      */
-    public static JavaArchive createJarWithJpa(final String[] packages, final String[] resources) {
-        final JavaArchive jar = createJar(packages, resources);
-        jar.addAsManifestResource(JPA_SOURCE, JPA_TARGET);
+    public static JavaArchive createJarWithCdi(final String... packages) {
+        final JavaArchive jar = createJar(packages);
+        jar.addAsManifestResource(EmptyAsset.INSTANCE, CDI_TARGET);
         return jar;
     }
     /**
      * WARの作成
-     * @param packages パッケージ
-     * @param resources リソース
+     * <dl>
+     * <dt>使用条件
+     * <dd>パッケージ未指定のとき{@value #BASE_PACKAGE}を再帰的に追加する。
+     * </dl>
+     * @param packages パッケージ(サブパッケージを再帰的に追加)
      * @return WAR
      */
-    public static WebArchive createWar(final String[] packages, final String[] resources) {
+    public static WebArchive createWar(final String... packages) {
         final WebArchive war = ShrinkWrap.create(WebArchive.class);
-        if ((packages == null) || (packages.length == 0)) {
+        if (packages.length == 0) {
             war.addPackages(true, BASE_PACKAGE);
         } else {
             war.addPackages(true, packages);
         }
-        if ((resources != null) && (resources.length > 0)) {
-            for (final String resource : resources) {
-                war.addAsResource(resource);
-            }
-        }
-        war.addAsWebInfResource(CDI_SOURCE, CDI_TARGET);
-        final Iterator<ArchivePath> iter = war.getContent().keySet().iterator();
+        traceArchivePath(war.getContent().keySet().iterator());
+        return war;
+    }
+    /**
+     * WARの作成
+     * <dl>
+     * <dt>使用条件
+     * <dd>{@link #createWar(String...)}へ委譲して、空のCDI定義("beans.xml")を追加する。
+     * </dl>
+     * @param packages パッケージ(サブパッケージを再帰的に追加)
+     * @return JAR
+     */
+    public static WebArchive createWarWithCdi(final String... packages) {
+        final WebArchive war = createWar(packages);
+        war.addAsWebInfResource(EmptyAsset.INSTANCE, CDI_TARGET);
+        return war;
+    }
+    /**
+     * アーカイブパスのトレース
+     * @param iter アーカイブパスのイテレータ
+     */
+    private static void traceArchivePath(final Iterator<ArchivePath> iter) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(String.format("\n%s\n", war.toString()));
         while (iter.hasNext()) {
             final ArchivePath path = iter.next();
             builder.append(String.format("%s\n", path.get()));
         }
         LOG.finest(builder.toString());
-        return war;
     }
 }

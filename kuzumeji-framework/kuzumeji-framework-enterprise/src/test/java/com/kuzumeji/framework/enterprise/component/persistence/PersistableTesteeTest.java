@@ -18,17 +18,27 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
+ * @see PersistableTestee
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 public class PersistableTesteeTest {
+    /** エンティティマネージャ */
     @PersistenceContext
     private EntityManager manager;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithJpa(null, null);
+        return ArchiveFactory.createJarWithCdi(null, null);
     }
+    /**
+     * @see EntityManager#persist(Object)
+     * @see EntityManager#createQuery(String, Class)
+     */
     @Test
     public final void test() {
         assertThat(manager, is(not(nullValue())));

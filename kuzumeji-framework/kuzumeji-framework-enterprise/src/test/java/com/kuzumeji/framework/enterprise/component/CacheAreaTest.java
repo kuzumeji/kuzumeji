@@ -12,6 +12,7 @@ import org.junit.Test;
  * @author nilcy
  */
 public class CacheAreaTest {
+    /** @see CacheArea */
     @Test
     public void test() {
         assertThat(CacheArea.APPLICATION.name().toLowerCase(), is("application"));

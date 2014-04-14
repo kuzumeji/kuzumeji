@@ -7,7 +7,6 @@ package com.kuzumeji.framework.enterprise.component.persistence;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import javax.annotation.Resource;
-import javax.inject.Inject;
 import javax.sql.DataSource;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.DatabaseConfiguration;
@@ -18,7 +17,6 @@ import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see Config
@@ -26,18 +24,21 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-@SuppressWarnings("all")
 public class ConfigTest {
+    /** データソース */
     @Resource
     private DataSource dataSource;
-    @Inject
-    private Logger log;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithJpa(null, null);
+        return ArchiveFactory.createJarWithCdi();
     }
+    /** @see DatabaseConfiguration */
     @Test
-    public final void test() throws PersistenceException {
+    public final void test() {
         final Configuration testee = new DatabaseConfiguration(dataSource, "config", "name", "key",
             "value", "testee");
         assertThat(testee, is(not(nullValue())));

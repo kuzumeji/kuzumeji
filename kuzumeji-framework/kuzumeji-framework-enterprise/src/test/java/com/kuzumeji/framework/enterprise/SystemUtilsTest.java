@@ -13,7 +13,9 @@ import org.slf4j.LoggerFactory;
  * @author nilcy
  */
 public class SystemUtilsTest {
+    /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(SystemUtilsTest.class);
+    /** #see {@link SystemUtils#JAVA_IO_TMPDIR} */
     @Test
     public void test() {
         LOG.debug("{}", SystemUtils.JAVA_IO_TMPDIR);

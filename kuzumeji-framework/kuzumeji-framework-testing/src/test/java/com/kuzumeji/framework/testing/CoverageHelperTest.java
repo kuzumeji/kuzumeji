@@ -11,6 +11,9 @@ import org.junit.Test;
  * @author nilcy
  */
 public class CoverageHelperTest {
+    /**
+     * @see CoverageHelper#privateConstructor(Class)
+     */
     @Test
     public void test() {
         CoverageHelper.privateConstructor(CoverageHelper.class);
@@ -20,7 +23,9 @@ public class CoverageHelperTest {
         } catch (final RuntimeException e) {
         }
     }
+    /** プライベートクラス */
     private class PrivateTestee {
+        /** プライベートコンストラクタ */
         private PrivateTestee() {
         }
     }

@@ -32,21 +32,28 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  * @author nilcy
  */
 @RunWith(Arquillian.class)
-@SuppressWarnings("all")
 public class MailServiceImplTest {
+    /** メールサービスI/F */
     @Inject
     private MailService testee;
-    private InternetAddress from;
+    /** 送付元アドレス */
+    private InternetAddress originator;
+    /** 送付先アドレス */
     private Map<RecipientType, InternetAddress> recipients;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar(null, new String[] { "config.properties" });
+        return ArchiveFactory.createJarWithCdi().addAsResource("config.properties");
     }
+    /** テスト前処理 */
     @Before
     public void before() {
         assertThat(testee, is(not(nullValue())));
         try {
-            from = testee.createAddress("kuzumeji@gmail.com", "苦集滅道");
+            originator = testee.createAddress("kuzumeji@gmail.com", "苦集滅道");
             recipients = new LinkedHashMap<>();
             recipients.put(RecipientType.TO, testee.createAddress("shimokawa@mamezou.com", "下川岳洋"));
             recipients.put(RecipientType.CC, testee.createAddress("kuzumeji@gmail.com"));
@@ -57,21 +64,24 @@ public class MailServiceImplTest {
     /**
      * @see MailServiceImpl#send(InternetAddress, Map, String, String)
      */
+    @SuppressWarnings("javadoc")
     @Test
     public void testText() throws EnterpriseException {
-        testee.send(from, recipients, "テキストメール", "ふがふが…\nほげほげ…\nぶろろろろ~。");
+        testee.send(originator, recipients, "テキストメール", "ふがふが…\nほげほげ…\nぶろろろろ~。");
     }
     /**
      * @see MailServiceImpl#send(InternetAddress, Map, String, Object, String)
      */
+    @SuppressWarnings("javadoc")
     @Test
     public void testMime() throws EnterpriseException {
-        testee.send(from, recipients, "MIMEタイプ指定メール", "ふがふが…\nほげほげ…\nぶろろろろ~。",
+        testee.send(originator, recipients, "MIMEタイプ指定メール", "ふがふが…\nほげほげ…\nぶろろろろ~。",
             "text/plain;charset=UTF-8");
     }
     /**
      * @see MailServiceImpl#send(InternetAddress, Map, String, javax.mail.Multipart)
      */
+    @SuppressWarnings("javadoc")
     @Test
     public void testMultipart() throws EnterpriseException, MessagingException,
         UnsupportedEncodingException {
@@ -85,6 +95,6 @@ public class MailServiceImplTest {
         file.setDataHandler(new DataHandler(source));
         file.setFileName(MimeUtility.encodeWord(source.getName()));
         part.addBodyPart(file);
-        testee.send(from, recipients, "マルチパートメール", part);
+        testee.send(originator, recipients, "マルチパートメール", part);
     }
 }

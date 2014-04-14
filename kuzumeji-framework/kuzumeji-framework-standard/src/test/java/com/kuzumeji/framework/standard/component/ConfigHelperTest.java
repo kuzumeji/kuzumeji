@@ -14,6 +14,11 @@ import com.kuzumeji.framework.testing.CoverageHelper;
  * @author nilcy
  */
 public class ConfigHelperTest {
+    /**
+     * @see ConfigHelper#getText(String)
+     * @see ConfigHelper#getTexts(String)
+     */
+    @SuppressWarnings("javadoc")
     @Test
     public final void testSimple() throws ConfigurationException {
         CoverageHelper.privateConstructor(ConfigHelper.class);

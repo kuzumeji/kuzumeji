@@ -11,8 +11,15 @@ import org.junit.Test;
  * @see EnterpriseRuntimeException
  * @author nilcy
  */
-@SuppressWarnings("all")
 public class EnterpriseRuntimeExceptionTest {
+    /**
+     * @see EnterpriseRuntimeException#EnterpriseRuntimeException()
+     * @see EnterpriseRuntimeException#EnterpriseRuntimeException(String)
+     * @see EnterpriseRuntimeException#EnterpriseRuntimeException(Throwable)
+     * @see EnterpriseRuntimeException#EnterpriseRuntimeException(String, Throwable)
+     * @see EnterpriseRuntimeException#EnterpriseRuntimeException(String, Throwable, boolean,
+     *      boolean)
+     */
     @Test
     public final void test() {
         try {

@@ -15,6 +15,16 @@ import org.junit.Test;
  */
 @SuppressWarnings("all")
 public class EnterpriseWarningTest {
+    /**
+     * @see EnterpriseWarning#EnterpriseWarning()
+     * @see EnterpriseWarning#EnterpriseWarning(String)
+     * @see EnterpriseWarning#EnterpriseWarning(Throwable)
+     * @see EnterpriseWarning#EnterpriseWarning(String, Throwable)
+     * @see EnterpriseWarning#EnterpriseWarning(String, Throwable, boolean, boolean)
+     * @see EnterpriseWarning#EnterpriseWarning(String, Object...)
+     * @see EnterpriseWarning#EnterpriseWarning(Map)
+     * @see EnterpriseWarning#getApplicationMessage()
+     */
     @Test
     public final void test() {
         try {

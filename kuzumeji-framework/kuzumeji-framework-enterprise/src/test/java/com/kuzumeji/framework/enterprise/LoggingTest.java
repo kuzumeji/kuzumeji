@@ -7,14 +7,20 @@ package com.kuzumeji.framework.enterprise;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.kuzumeji.framework.enterprise.Hello;
 /**
  * @see Hello
  * @author nilcy
  */
-@SuppressWarnings("all")
 public class LoggingTest {
+    /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(LoggingTest.class);
+    /**
+     * @see Logger#trace(String, Object...)
+     * @see Logger#debug(String, Object...)
+     * @see Logger#info(String, Object...)
+     * @see Logger#warn(String, Object...)
+     * @see Logger#error(String, Object...)
+     */
     @Test
     public void test() {
         LOG.trace("[追跡] {},{},{}", "T1", "T2", "T3");

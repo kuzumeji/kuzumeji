@@ -13,6 +13,10 @@ import com.kuzumeji.framework.testing.CoverageHelper;
  * @author nilcy
  */
 public class MessageHelperTest {
+    /**
+     * @see MessageHelper#createMessage(String, Object...)
+     * @see MessageHelper#templateMessage(String, Object...)
+     */
     @Test
     public void test() {
         CoverageHelper.privateConstructor(MessageHelper.class);

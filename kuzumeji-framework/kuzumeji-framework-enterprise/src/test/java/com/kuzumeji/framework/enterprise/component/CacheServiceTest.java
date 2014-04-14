@@ -13,6 +13,10 @@ import org.junit.Test;
  * @author nilcy
  */
 public class CacheServiceTest {
+    /**
+     * @see CacheService#getCache(String)
+     * @see CacheService#createCache(String)
+     */
     @Test
     public void test() {
         final CacheService<String, String> testee = new CacheService<>();

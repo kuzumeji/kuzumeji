@@ -19,14 +19,25 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  * @author nilcy
  */
 @RunWith(Arquillian.class)
-@SuppressWarnings("all")
 public class LoggerProducerTest {
+    /** ロガー */
     @Inject
     private Logger testee;
+    /**
+     * デプロイ
+     * @return JAR
+     */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJar(null, null);
+        return ArchiveFactory.createJarWithCdi();
     }
+    /**
+     * @see Logger#trace(String, Object...)
+     * @see Logger#debug(String, Object...)
+     * @see Logger#info(String, Object...)
+     * @see Logger#warn(String, Object...)
+     * @see Logger#error(String, Object...)
+     */
     @Test
     public final void test() {
         assertThat(testee, is(not(nullValue())));

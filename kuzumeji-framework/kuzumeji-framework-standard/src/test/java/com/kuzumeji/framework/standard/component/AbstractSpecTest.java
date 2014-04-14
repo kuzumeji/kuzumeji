@@ -15,22 +15,26 @@ import com.kuzumeji.framework.testing.CoverageHelper;
  * @author nilcy
  */
 public class AbstractSpecTest {
+    /** true specification */
     private final Spec<Object> trueSpec = new AbstractSpec<Object>() {
         @Override
         public boolean isSatisfiedBy(final Object object) {
             return true;
         }
     };
+    /** false specification */
     private final Spec<Object> falseSpec = new AbstractSpec<Object>() {
         @Override
         public boolean isSatisfiedBy(final Object object) {
             return false;
         }
     };
+    /** 非公開コンストラクタ */
     @Test
     public void testConstructor() {
         CoverageHelper.privateConstructor(SpecHelper.class);
     }
+    /** @see AbstractSpec#and(Spec) */
     @Test
     public void testAnd() {
         assertThat(trueSpec.and(trueSpec).isSatisfiedBy(null), is(true));
@@ -38,6 +42,7 @@ public class AbstractSpecTest {
         assertThat(falseSpec.and(trueSpec).isSatisfiedBy(null), is(false));
         assertThat(falseSpec.and(falseSpec).isSatisfiedBy(null), is(false));
     }
+    /** @see AbstractSpec#or(Spec) */
     @Test
     public void testOr() {
         assertThat(trueSpec.or(trueSpec).isSatisfiedBy(null), is(true));
@@ -45,6 +50,7 @@ public class AbstractSpecTest {
         assertThat(falseSpec.or(trueSpec).isSatisfiedBy(null), is(true));
         assertThat(falseSpec.or(falseSpec).isSatisfiedBy(null), is(false));
     }
+    /** @see AbstractSpec#xor(Spec) */
     @Test
     public void testXor() {
         assertThat(trueSpec.xor(trueSpec).isSatisfiedBy(null), is(false));
@@ -52,6 +58,7 @@ public class AbstractSpecTest {
         assertThat(falseSpec.xor(trueSpec).isSatisfiedBy(null), is(true));
         assertThat(falseSpec.xor(falseSpec).isSatisfiedBy(null), is(false));
     }
+    /** @see AbstractSpec#nand(Spec) */
     @Test
     public void testNand() {
         assertThat(trueSpec.nand(trueSpec).isSatisfiedBy(null), is(false));
@@ -59,6 +66,7 @@ public class AbstractSpecTest {
         assertThat(falseSpec.nand(trueSpec).isSatisfiedBy(null), is(true));
         assertThat(falseSpec.nand(falseSpec).isSatisfiedBy(null), is(true));
     }
+    /** @see AbstractSpec#nor(Spec) */
     @Test
     public void testNor() {
         assertThat(trueSpec.nor(trueSpec).isSatisfiedBy(null), is(false));
@@ -66,6 +74,7 @@ public class AbstractSpecTest {
         assertThat(falseSpec.nor(trueSpec).isSatisfiedBy(null), is(false));
         assertThat(falseSpec.nor(falseSpec).isSatisfiedBy(null), is(true));
     }
+    /** @see SpecHelper#not(Spec) */
     @Test
     public void testNot() {
         assertThat(not(trueSpec.and(trueSpec)).isSatisfiedBy(null), is(false));

@@ -13,8 +13,17 @@ import org.junit.Test;
  * @see EnterpriseException
  * @author nilcy
  */
-@SuppressWarnings("all")
 public class EnterpriseExceptionTest {
+    /**
+     * @see EnterpriseException#EnterpriseException()
+     * @see EnterpriseException#EnterpriseException(String)
+     * @see EnterpriseException#EnterpriseException(Throwable)
+     * @see EnterpriseException#EnterpriseException(String, Throwable)
+     * @see EnterpriseException#EnterpriseException(String, Throwable, boolean, boolean)
+     * @see EnterpriseException#EnterpriseException(String, Object...)
+     * @see EnterpriseException#EnterpriseException(Map)
+     * @see EnterpriseException#getApplicationMessage()
+     */
     @Test
     public final void test() {
         try {

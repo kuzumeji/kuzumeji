@@ -12,6 +12,9 @@ import org.junit.Test;
  * @author nilcy
  */
 public class HelloTest {
+    /**
+     * @see Hello#sayHello(String)
+     */
     @Test
     public void test() {
         CoverageHelper.privateConstructor(Hello.class);

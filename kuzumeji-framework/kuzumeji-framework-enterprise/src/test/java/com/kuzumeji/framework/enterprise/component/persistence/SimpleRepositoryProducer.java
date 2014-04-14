@@ -12,11 +12,16 @@ import javax.persistence.PersistenceContext;
  * @author nilcy
  */
 public class SimpleRepositoryProducer {
+    /** エンティティマネージャ */
     @PersistenceContext
     private EntityManager manager;
     /** コンストラクタ */
     public SimpleRepositoryProducer() {
     }
+    /**
+     * リポジトリ(テストエンティティ)の作成
+     * @return リポジトリ(テストエンティティ)
+     */
     @Produces
     public SimpleRepository<PersistableTestee> createPersistableTesteeUKcode() {
         return new SimpleRepository<PersistableTestee>(PersistableTestee.class, manager,

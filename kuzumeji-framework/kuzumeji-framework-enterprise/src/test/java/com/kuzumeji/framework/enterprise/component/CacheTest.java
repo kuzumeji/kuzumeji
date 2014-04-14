@@ -13,7 +13,9 @@ import net.sf.ehcache.CacheManager;
  * @author nilcy
  */
 public class CacheTest {
+    /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(CacheTest.class);
+    /** @see CacheManager#getInstance() */
     @Test
     public void test() {
         for (final String name : CacheManager.getInstance().getCacheNames()) {
