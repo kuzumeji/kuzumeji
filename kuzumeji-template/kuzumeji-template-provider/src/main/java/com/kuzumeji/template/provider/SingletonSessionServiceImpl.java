@@ -3,28 +3,34 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.service;
+package com.kuzumeji.template.provider;
 import java.util.concurrent.TimeUnit;
 import javax.ejb.AccessTimeout;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
 import javax.ejb.Lock;
 import javax.ejb.LockType;
-import javax.ejb.Stateful;
+import javax.ejb.Singleton;
+import com.kuzumeji.template.service.SingletonSessionService;
+import com.kuzumeji.template.service.SingletonSessionServiceRemote;
 /**
- * ステートフルセッションBeanサービス
+ * シングルトンセッションBeanサービス
  * @author nilcy
  */
-@Stateful
+@Singleton
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 @Lock(LockType.READ)
 @AccessTimeout(value = 10, unit = TimeUnit.SECONDS)
-public class StatefulSessionServiceImpl implements StatefulSessionService,
-    StatefulSessionServiceRemote {
+public class SingletonSessionServiceImpl implements SingletonSessionService,
+    SingletonSessionServiceRemote {
     /** コンストラクタ */
-    public StatefulSessionServiceImpl() {
+    public SingletonSessionServiceImpl() {
     }
-    /** {@inheritDoc} */
+    /**
+     * 挨拶メソッド
+     * @param name 名前
+     * @return 挨拶文(例:こんにちは %s さん。)
+     */
     @Override
     public String sayHello(final String name) {
         return String.format("こんにちは %s さん。", name);

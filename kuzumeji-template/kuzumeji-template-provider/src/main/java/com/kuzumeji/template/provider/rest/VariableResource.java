@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.consumer.rest;
+package com.kuzumeji.template.provider.rest;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.annotation.PostConstruct;

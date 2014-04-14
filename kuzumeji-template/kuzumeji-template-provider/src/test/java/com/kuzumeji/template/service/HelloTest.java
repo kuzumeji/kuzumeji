@@ -7,7 +7,7 @@ package com.kuzumeji.template.service;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.template.service.Hello;
+import com.kuzumeji.template.provider.Hello;
 /**
  * @see Hello
  * @author nilcy

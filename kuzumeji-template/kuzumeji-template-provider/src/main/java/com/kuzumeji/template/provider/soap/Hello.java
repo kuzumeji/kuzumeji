@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.service.soap;
+package com.kuzumeji.template.provider.soap;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 /**
@@ -11,9 +11,9 @@ import javax.jws.WebService;
  * @author nilcy
  */
 @WebService
-public class HelloService {
+public class Hello {
     /** コンストラクタ */
-    public HelloService() {
+    public Hello() {
     }
     /**
      * 挨拶オペレーション

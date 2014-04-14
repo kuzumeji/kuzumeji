@@ -15,6 +15,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
+import com.kuzumeji.template.provider.StatefulLocalService;
 /**
  * @see StatefulLocalService
  * @author nilcy
