@@ -285,6 +285,30 @@
 					<artifactId>site-maven-plugin</artifactId>
 					<version>0.8</version>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-checkstyle-plugin</artifactId>
+					<version>2.12</version>
+					<dependencies>
+						<dependency>
+							<groupId>com.kuzumeji</groupId>
+							<artifactId>kuzumeji-framework-testing</artifactId>
+							<version>0.1.0-SNAPSHOT</version>
+						</dependency>
+					</dependencies>
+					<configuration>
+						<configLocation>java/Checkstyle.xml</configLocation>
+						<includeTestSourceDirectory>false</includeTestSourceDirectory>
+					</configuration>
+					<executions>
+						<execution>
+							<phase>process-sources</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 		<plugins>
@@ -455,11 +479,7 @@
 						</plugin>
 						<plugin>
 							<artifactId>maven-checkstyle-plugin</artifactId>
-							<version>2.9.1</version>
-							<configuration>
-								<configLocation>java/Checkstyle.xml</configLocation>
-								<encoding>${project.build.sourceEncoding}</encoding>
-							</configuration>
+							<version>2.12</version>
 						</plugin>
 					</reportPlugins>
 					<skipDeploy>true</skipDeploy>
@@ -555,12 +575,5 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<extensions>
-			<extension>
-				<groupId>com.kuzumeji</groupId>
-				<artifactId>kuzumeji-framework-testing</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
-			</extension>
-		</extensions>
 	</build>
 </project>
