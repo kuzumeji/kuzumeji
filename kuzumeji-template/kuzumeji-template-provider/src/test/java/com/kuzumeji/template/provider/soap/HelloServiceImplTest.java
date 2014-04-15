@@ -23,6 +23,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 @RunAsClient
 public class HelloServiceImplTest {
     @WebServiceRef(wsdlLocation = "META-INF/wsdl/localhost_8080/HelloService.wsdl")
+    // @WebServiceRef(wsdlLocation = "http://localhost:8080/template-registry/HelloService?wsdl")
     private HelloService testee;
     /**
      * デプロイ

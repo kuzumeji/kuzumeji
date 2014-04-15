@@ -10,7 +10,7 @@ import javax.jws.WebService;
  * 挨拶サービス
  * @author nilcy
  */
-@WebService(name = "HelloService", serviceName = "HelloService")
+@WebService(name = "HelloService", serviceName = "HelloService", endpointInterface = "com.kuzumeji.template.provider.soap.HelloService")
 public class HelloServiceImpl implements HelloService {
     /** コンストラクタ */
     public HelloServiceImpl() {
