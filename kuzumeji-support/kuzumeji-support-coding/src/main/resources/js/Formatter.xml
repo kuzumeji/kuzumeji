@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="false" context="org.eclipse.jsdt.gettercomment_context" deleted="false" description="Comment for getter function" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.gettercomment" name="gettercomment">/**
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE eclipse>
+<templates><template autoinsert="false" context="org.eclipse.jsdt.gettercomment_context" deleted="false" description="Comment for getter function" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.gettercomment" name="gettercomment">/**
  * {@link #${bare_field_name}} の取得
  * @return {@link #${bare_field_name}}
  */</template><template autoinsert="false" context="org.eclipse.jsdt.settercomment_context" deleted="false" description="Comment for setter function" enabled="true" id="org.eclipse.wst.jsdt.ui.text.codetemplates.settercomment" name="settercomment">/**
