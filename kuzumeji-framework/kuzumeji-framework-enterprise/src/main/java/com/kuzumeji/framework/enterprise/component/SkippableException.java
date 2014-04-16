@@ -7,7 +7,7 @@ package com.kuzumeji.framework.enterprise.component;
 import java.util.Map;
 import javax.ejb.ApplicationException;
 /**
- * 基幹キャッチ例外
+ * スキップ例外
  * <dl>
  * <dt>使用条件
  * <dd>{@link EnterpriseException}へ準拠すること。ロールバックなし、継承あり。
@@ -15,9 +15,9 @@ import javax.ejb.ApplicationException;
  * @author nilcy
  */
 @ApplicationException(rollback = false, inherited = true)
-public class EnterpriseWarning extends EnterpriseException {
+public class SkippableException extends EnterpriseException {
     /** 識別番号 */
-    private static final long serialVersionUID = -6004059900614805028L;
+    private static final long serialVersionUID = -2081775658030836650L;
     /**
      * コンストラクタ
      * <dl>
@@ -25,8 +25,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * <dd>{@link EnterpriseException#EnterpriseException()}へ委譲されること。
      * </dl>
      */
-    public EnterpriseWarning() {
-        super();
+    public SkippableException() {
     }
     /**
      * コンストラクタ
@@ -36,7 +35,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * </dl>
      * @param message メッセージ
      */
-    public EnterpriseWarning(final String message) {
+    public SkippableException(final String message) {
         super(message);
     }
     /**
@@ -47,7 +46,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * </dl>
      * @param cause 例外オブジェクト
      */
-    public EnterpriseWarning(final Throwable cause) {
+    public SkippableException(final Throwable cause) {
         super(cause);
     }
     /**
@@ -59,7 +58,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * @param message メッセージ
      * @param cause 例外オブジェクト
      */
-    public EnterpriseWarning(final String message, final Throwable cause) {
+    public SkippableException(final String message, final Throwable cause) {
         super(message, cause);
     }
     /**
@@ -74,7 +73,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * @param enableSuppression 抑制の有無
      * @param writableStackTrace スタックトレース書込の可否
      */
-    public EnterpriseWarning(final String message, final Throwable cause,
+    public SkippableException(final String message, final Throwable cause,
         final boolean enableSuppression, final boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
@@ -87,7 +86,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * @param key キー
      * @param values オブジェクト配列
      */
-    public EnterpriseWarning(final String key, final Object... values) {
+    public SkippableException(final String key, final Object... values) {
         super(key, values);
     }
     /**
@@ -98,7 +97,7 @@ public class EnterpriseWarning extends EnterpriseException {
      * </dl>
      * @param messageMap {@link EnterpriseException#getMessageMap() メッセージマップ}
      */
-    public EnterpriseWarning(final Map<String, Object[]> messageMap) {
+    public SkippableException(final Map<String, Object[]> messageMap) {
         super(messageMap);
     }
 }
