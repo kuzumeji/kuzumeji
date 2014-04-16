@@ -39,6 +39,10 @@ public class ArchiveFactoryTest {
             .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "persistence.xml");
         assertThat(jar, is(not(nullValue())));
+        jar = ArchiveFactory.createJarWithCdi();
+        assertThat(jar, is(not(nullValue())));
+        jar = ArchiveFactory.createJarWithJpa();
+        assertThat(jar, is(not(nullValue())));
     }
     /**
      * @see ArchiveFactory#createWar(String...)
@@ -58,6 +62,10 @@ public class ArchiveFactoryTest {
         war = ArchiveFactory.createWar("com.kuzumeji.framework.testing")
             .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
             .addAsManifestResource(EmptyAsset.INSTANCE, "persistence.xml");
+        assertThat(war, is(not(nullValue())));
+        war = ArchiveFactory.createWarWithCdi();
+        assertThat(war, is(not(nullValue())));
+        war = ArchiveFactory.createWarWithJpa();
         assertThat(war, is(not(nullValue())));
     }
 }

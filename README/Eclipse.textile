@@ -56,3 +56,14 @@ h4. Setting Eclipse
 Window > Preferences > General > Appearance > Colors and Fonts
 Basic > Text Font > Edit...
 Select "Inconsolata"
+
+h3. Mock Library
+
+h4. Setting Eclipse
+ 
+Window > Preferences > Java > Installed JREs > Edit...
+Default VM arguments:
+<pre>
+-javaagent:C:/Users/shimokawa/.m2/repository/com/googlecode/jmockit/jmockit/1.7/jmockit-1.7.jar
+</pre>
+
