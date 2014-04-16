@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * テンプレートサービス | プロバイダ | タイマー
+ * テンプレートサービス
  * @author nilcy
  */
-package com.kuzumeji.template.provider.timer;
+package com.kuzumeji.template;

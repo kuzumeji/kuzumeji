@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * 雛型サービス | REST
+ * テンプレートサービス | プロバイダ | REST
  * @author nilcy
  */
 package com.kuzumeji.template.provider.rest;

@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.service;
+package com.kuzumeji.template.provider.ejb;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import javax.ejb.EJB;
@@ -15,7 +15,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
-import com.kuzumeji.template.provider.StatefulLocalService;
+import com.kuzumeji.template.provider.ejb.StatefulLocalService;
 /**
  * @see StatefulLocalService
  * @author nilcy

@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.service;
+package com.kuzumeji.template.provider.ejb;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import javax.ejb.EJB;
@@ -15,22 +15,24 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
-import com.kuzumeji.template.provider.SingletonSessionServiceImpl;
+import com.kuzumeji.template.provider.ejb.StatelessSessionServiceImpl;
+import com.kuzumeji.template.registry.ejb.StatelessSessionService;
+import com.kuzumeji.template.registry.ejb.StatelessSessionServiceRemote;
 /**
- * @see SingletonSessionService
- * @see SingletonSessionServiceRemote
- * @see SingletonSessionServiceImpl
+ * @see StatelessSessionService
+ * @see StatelessSessionServiceRemote
+ * @see StatelessSessionServiceImpl
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-public class SingletonSessionServiceImplTest {
-    /** @see SingletonSessionService */
+public class StatelessSessionServiceImplTest {
+    /** @see StatelessSessionService */
     @EJB
-    private SingletonSessionService testee;
-    /** @see SingletonSessionServiceRemote */
+    private StatelessSessionService testee;
+    /** @see StatelessSessionServiceRemote */
     @EJB
-    private SingletonSessionServiceRemote testeeRemote;
+    private StatelessSessionServiceRemote testeeRemote;
     /**
      * デプロイ
      * @return JAR
@@ -39,13 +41,13 @@ public class SingletonSessionServiceImplTest {
     public static JavaArchive deploy() {
         return ArchiveFactory.createJarWithCdi();
     }
-    /** @see SingletonSessionService#sayHello(String) */
+    /** @see StatelessSessionService#sayHello(String) */
     @Test
     public final void test() {
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }
-    /** @see SingletonSessionServiceRemote#sayHello(String) */
+    /** @see StatelessSessionServiceRemote#sayHello(String) */
     @Test
     public final void testRemote() {
         assertThat(testeeRemote, is(not(nullValue())));

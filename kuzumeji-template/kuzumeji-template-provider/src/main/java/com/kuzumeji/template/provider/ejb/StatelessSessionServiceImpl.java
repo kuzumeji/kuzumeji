@@ -3,10 +3,10 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.provider;
+package com.kuzumeji.template.provider.ejb;
 import javax.ejb.Stateless;
-import com.kuzumeji.template.service.StatelessSessionService;
-import com.kuzumeji.template.service.StatelessSessionServiceRemote;
+import com.kuzumeji.template.registry.ejb.StatelessSessionService;
+import com.kuzumeji.template.registry.ejb.StatelessSessionServiceRemote;
 /**
  * ステートレスセッションBeanサービス
  * @author nilcy

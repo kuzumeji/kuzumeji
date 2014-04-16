@@ -7,7 +7,7 @@ package com.kuzumeji.template.consumer;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.template.service.StatelessSessionService;
+import com.kuzumeji.template.registry.ejb.StatelessSessionService;
 /**
  * @see StatelessSessionService
  * @author nilcy

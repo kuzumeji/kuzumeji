@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * 雛型コンシューマ
+ * テンプレートサービス | コンシューマ
  * @author nilcy
  */
 package com.kuzumeji.template.consumer;
