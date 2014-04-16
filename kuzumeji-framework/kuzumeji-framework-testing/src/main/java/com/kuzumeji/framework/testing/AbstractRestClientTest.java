@@ -14,7 +14,7 @@ import org.jboss.arquillian.test.api.ArquillianResource;
  * RESTクライアント基底テスト
  * @author nilcy
  */
-public abstract class AbstractResourceClientTest {
+public abstract class AbstractRestClientTest {
     /** RESTパス */
     private final String path;
     /** RESTクライアント */
@@ -28,7 +28,7 @@ public abstract class AbstractResourceClientTest {
      * コンストラクタ
      * @param path {@link #path}
      */
-    public AbstractResourceClientTest(final String path) {
+    public AbstractRestClientTest(final String path) {
         this.path = path;
     }
     /**

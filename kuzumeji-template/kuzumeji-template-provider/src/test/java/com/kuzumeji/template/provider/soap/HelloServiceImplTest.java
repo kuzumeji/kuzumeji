@@ -6,13 +6,14 @@
 package com.kuzumeji.template.provider.soap;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import javax.xml.ws.WebServiceRef;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import com.kuzumeji.framework.testing.AbstractSoapClientTest;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see HelloService
@@ -21,10 +22,13 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class HelloServiceImplTest {
-    @WebServiceRef(wsdlLocation = "META-INF/wsdl/localhost_8080/HelloService.wsdl")
-    // @WebServiceRef(wsdlLocation = "http://localhost:8080/template-registry/HelloService?wsdl")
+public class HelloServiceImplTest extends AbstractSoapClientTest {
+    /** 挨拶サービスI/F */
     private HelloService testee;
+    /** コンストラクタ */
+    public HelloServiceImplTest() {
+        super("http://soap.provider.template.kuzumeji.com/", "HelloService");
+    }
     /**
      * デプロイ
      * @return WAR
@@ -33,8 +37,14 @@ public class HelloServiceImplTest {
     public static WebArchive deploy() {
         return ArchiveFactory.createWarWithCdi();
     }
+    /** テスト前処理 */
+    @Before
+    public void before() {
+        testee = getPort(HelloService.class);
+    }
+    /** @see HelloService#sayHello(String) */
     @Test
     public void test() {
-        assertThat(testee, is(not(nullValue())));
+        assertThat(testee.sayHello("nilcy"), is("こんにちは nilcy さん。"));
     }
 }

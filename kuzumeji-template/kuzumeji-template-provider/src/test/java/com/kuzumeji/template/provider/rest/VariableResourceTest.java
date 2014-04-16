@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.kuzumeji.framework.testing.AbstractResourceClientTest;
+import com.kuzumeji.framework.testing.AbstractRestClientTest;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see VariableResource
@@ -24,7 +24,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @RunAsClient
-public class VariableResourceTest extends AbstractResourceClientTest {
+public class VariableResourceTest extends AbstractRestClientTest {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(VariableResourceTest.class);
     /** コンストラクタ */

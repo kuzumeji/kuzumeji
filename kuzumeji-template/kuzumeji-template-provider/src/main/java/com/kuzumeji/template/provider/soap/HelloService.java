@@ -4,10 +4,12 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.provider.soap;
+import javax.jws.WebService;
 /**
  * 挨拶サービスI/F
  * @author nilcy
  */
+@WebService(name = "HelloService", serviceName = "HelloService")
 public interface HelloService {
     /**
      * 挨拶オペレーション
