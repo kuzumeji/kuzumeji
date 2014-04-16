@@ -93,6 +93,7 @@ public final class PropertiesHelper {
         final Control control = Control.getControl(Control.FORMAT_DEFAULT);
         final Collection<Locale> locales = control.getCandidateLocales("messages",
             Locale.forLanguageTag(languageTag));
+        final StringBuilder builder = new StringBuilder();
         for (final Locale locale : locales) {
             try {
                 final String bundleName = control.toBundleName(baseName, locale);
@@ -100,10 +101,14 @@ public final class PropertiesHelper {
                 final URL url = getClass().getResource("/" + resourceName);
                 // final URL url = ClassLoader.getSystemResource(resourceName);
                 if (url != null) {
-                    LOG.debug("FOUNDED. -> {}", url.getPath());
+                    if (builder.length() > 0) {
+                        LOG.debug("Resource could not be found ({}).", builder.toString());
+                    }
+                    LOG.debug("Resource could be found ({}).", resourceName);
                     return new PropertiesConfiguration(url);
                 } else {
-                    LOG.debug("NOT-FOUND. -> {}", resourceName);
+                    builder.append(" " + resourceName);
+                    // LOG.debug("NOT-FOUND. -> {}", resourceName);
                 }
             } catch (final ConfigurationException e) {
                 LOG.warn(e.toString(), e);
