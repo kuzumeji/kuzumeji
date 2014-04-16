@@ -13,7 +13,8 @@
 		<module>kuzumeji-template-registry</module>
 		<module>kuzumeji-template-provider</module>
 		<module>kuzumeji-template-consumer</module>
-		<module>kuzumeji-template-application</module>
+		<module>kuzumeji-template-backend</module>
+		<module>kuzumeji-template-frontend</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>

@@ -8,11 +8,11 @@ case `uname` in
     CYGWIN*) cygwin=true;;
 esac
 
-for d in kuzumeji-template-application-provider kuzumeji-template-application-consumer
+for d in kuzumeji-template-backend kuzumeji-template-frontend
 do
     if $cygwin; then
-	(cd "$KUZUMEJI_HOME/kuzumeji-template/kuzumeji-template-application/";cmd /c asadmin undeploy "$d-$KUZUMEJI_VER");
+		cmd /c asadmin undeploy "$d-$KUZUMEJI_VER";
     else
-	(cd "$KUZUMEJI_HOME/kuzumeji-template/kuzumeji-template-application/";asadmin undeploy "$d-$KUZUMEJI_VER");
+		asadmin undeploy "$d-$KUZUMEJI_VER";
     fi
 done;
