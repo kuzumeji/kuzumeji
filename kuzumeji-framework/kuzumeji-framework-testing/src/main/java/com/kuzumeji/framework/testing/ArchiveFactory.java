@@ -16,8 +16,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
  * @author nilcy
  */
 public final class ArchiveFactory {
-    /** CDI定義ファイル */
+    /** CDI定義ターゲット */
     private static final String CDI_TARGET = "beans.xml";
+    /** JPA定義ソース */
+    private static final String JPA_SOURCE = "META-INF/persistence.xml";
+    /** JPA定義ターゲット */
+    private static final String JPA_TARGET = "persistence.xml";
     /** ロガー */
     private static final Logger LOG = Logger.getGlobal();
     /** ベースパッケージ */
@@ -59,6 +63,20 @@ public final class ArchiveFactory {
         return jar;
     }
     /**
+     * JARの作成
+     * <dl>
+     * <dt>使用条件
+     * <dd>{@link #createJarWithCdi(String...)}へ委譲して、JPA定義("META-INF/persistence.xml")を追加する。
+     * </dl>
+     * @param packages パッケージ(サブパッケージを再帰的に追加)
+     * @return JAR
+     */
+    public static JavaArchive createJarWithJpa(final String... packages) {
+        final JavaArchive jar = createJarWithCdi(packages);
+        jar.addAsManifestResource(JPA_SOURCE, JPA_TARGET);
+        return jar;
+    }
+    /**
      * WARの作成
      * <dl>
      * <dt>使用条件
@@ -90,6 +108,20 @@ public final class ArchiveFactory {
         final WebArchive war = createWar(packages);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, CDI_TARGET);
         return war;
+    }
+    /**
+     * WARの作成
+     * <dl>
+     * <dt>使用条件
+     * <dd>{@link #createWarWithCdi(String...)}へ委譲して、JPA定義("META-INF/persistence.xml")を追加する。
+     * </dl>
+     * @param packages パッケージ(サブパッケージを再帰的に追加)
+     * @return WAR
+     */
+    public static WebArchive createWarWithJpa(final String... packages) {
+        final WebArchive jar = createWarWithCdi(packages);
+        jar.addAsManifestResource(JPA_SOURCE, JPA_TARGET);
+        return jar;
     }
     /**
      * アーカイブパスのトレース

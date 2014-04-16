@@ -13,7 +13,6 @@ import org.junit.Test;
  * @see EnterpriseWarning
  * @author nilcy
  */
-@SuppressWarnings("all")
 public class EnterpriseWarningTest {
     /**
      * @see EnterpriseWarning#EnterpriseWarning()

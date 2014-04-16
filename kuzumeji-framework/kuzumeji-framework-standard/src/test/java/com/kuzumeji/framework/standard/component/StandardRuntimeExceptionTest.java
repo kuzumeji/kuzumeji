@@ -11,7 +11,7 @@ import org.junit.Test;
  * @see StandardRuntimeException
  * @author nilcy
  */
-@SuppressWarnings("all")
+@SuppressWarnings("javadoc")
 public class StandardRuntimeExceptionTest {
     @Test
     public final void test() {

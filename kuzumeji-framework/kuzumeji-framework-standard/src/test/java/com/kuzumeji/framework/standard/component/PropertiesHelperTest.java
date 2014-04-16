@@ -13,7 +13,7 @@ import org.junit.Test;
  * @see PropertiesHelper
  * @author nilcy
  */
-@SuppressWarnings("all")
+@SuppressWarnings("javadoc")
 public class PropertiesHelperTest {
     @Test
     public final void testSimple() throws ConfigurationException {

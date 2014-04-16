@@ -23,7 +23,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-@SuppressWarnings("all")
+@SuppressWarnings("javadoc")
 public class SimpleRepositoryTest {
     @Inject
     private SimpleRepository<PersistableTestee> testee;
@@ -31,12 +31,12 @@ public class SimpleRepositoryTest {
     private Logger log;
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithCdi()
-            .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-            .addAsResource("config.properties").addAsResource("error-messages.properties");
+        return ArchiveFactory.createJarWithJpa().addAsResource("config.properties")
+            .addAsResource("error-messages.properties");
     }
     @Test
     public final void test() throws PersistenceException {
+        log.debug("testing");
         assertThat(testee, is(not(nullValue())));
         // 追加してID発番,永続管理ができることを確認する。
         PersistableTestee entity = new PersistableTestee("code#01", "name#01");

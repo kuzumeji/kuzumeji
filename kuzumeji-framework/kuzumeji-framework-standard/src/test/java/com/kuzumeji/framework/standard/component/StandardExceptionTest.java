@@ -13,7 +13,7 @@ import org.junit.Test;
  * @see StandardException
  * @author nilcy
  */
-@SuppressWarnings("all")
+@SuppressWarnings("javadoc")
 public class StandardExceptionTest {
     @Test
     public final void test() {

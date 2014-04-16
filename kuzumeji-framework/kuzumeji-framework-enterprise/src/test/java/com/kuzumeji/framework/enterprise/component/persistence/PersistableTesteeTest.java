@@ -33,7 +33,7 @@ public class PersistableTesteeTest {
      */
     @Deployment
     public static JavaArchive deploy() {
-        return ArchiveFactory.createJarWithCdi(null, null);
+        return ArchiveFactory.createJarWithJpa();
     }
     /**
      * @see EntityManager#persist(Object)

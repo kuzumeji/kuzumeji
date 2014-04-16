@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * @see AbstractDataObject
  * @author nilcy
  */
-@SuppressWarnings("all")
+@SuppressWarnings("javadoc")
 public class AbstractDataObjectTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDataObjectTest.class);
     @Test
@@ -23,6 +23,7 @@ public class AbstractDataObjectTest {
         assertThat(testee01, is(not(testee02)));
         LOG.debug("testee01 : {}", testee01);
     }
+    @SuppressWarnings("unused")
     private class TesteeDataObject extends AbstractDataObject<TesteeDataObject> {
         /** 識別番号 */
         private static final long serialVersionUID = 7533112117543810098L;
