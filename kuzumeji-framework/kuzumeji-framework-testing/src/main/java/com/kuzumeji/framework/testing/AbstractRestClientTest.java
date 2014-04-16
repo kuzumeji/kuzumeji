@@ -5,25 +5,20 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.testing;
 import java.net.URISyntaxException;
-import java.net.URL;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import org.jboss.arquillian.test.api.ArquillianResource;
 /**
  * RESTクライアント基底テスト
  * @author nilcy
  */
-public abstract class AbstractRestClientTest {
+public abstract class AbstractRestClientTest extends AbstractWsClientTest {
     /** RESTパス */
     private final String path;
     /** RESTクライアント */
     private Client client;
     /** RESTルート */
     private WebTarget root;
-    /** 基点URL */
-    @ArquillianResource
-    private URL base;
     /**
      * コンストラクタ
      * @param path {@link #path}
@@ -48,7 +43,7 @@ public abstract class AbstractRestClientTest {
      */
     protected synchronized WebTarget root() throws URISyntaxException {
         if (root == null) {
-            root = client().target(base.toURI() + path);
+            root = client().target(getBase().toURI() + path);
         }
         return root;
     }

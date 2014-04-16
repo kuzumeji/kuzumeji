@@ -9,19 +9,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-import org.jboss.arquillian.test.api.ArquillianResource;
 /**
  * SOAPクライアント基底テスト
  * @author nilcy
  */
-public abstract class AbstractSoapClientTest {
+public abstract class AbstractSoapClientTest extends AbstractWsClientTest {
     /** SOAPネームスペース */
     private final String uri;
     /** SOAPサービス名 */
     private final String name;
-    /** 基点URL */
-    @ArquillianResource
-    private URL base;
     /**
      * コンストラクタ
      * @param uri {@link #uri}
@@ -39,7 +35,7 @@ public abstract class AbstractSoapClientTest {
      */
     public <T> T getPort(final Class<T> endpoint) {
         try {
-            final URL url = new URL(base.toURI() + name + "?wsdl");
+            final URL url = new URL(getBase().toURI() + name + "?wsdl");
             final QName qname = new QName(uri, name);
             final Service service = Service.create(url, qname);
             return service.getPort(endpoint);
