@@ -8,32 +8,37 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 /**
- * @see AbstractDataObject
- * @author nilcy
+ * @see ValueObject
+ * @see AbstractValueObject
+ * @author shimokawa4955
  */
 @SuppressWarnings("javadoc")
-public class AbstractDataObjectTest {
+public class AbstractValueObjectTest {
     @Test
     public void test() {
-        final TesteeDataObject testee01 = new TesteeDataObject("foo#01");
-        final TesteeDataObject testee02 = new TesteeDataObject("foo#02");
-        assertThat(testee01, is(not(testee02)));
-        assertThat(testee01.hashCode(), is(not(testee02.hashCode())));
-        assertThat(testee01.toString(), is("AbstractDataObjectTest.TesteeDataObject[foo=foo#01]"));
-        assertThat(testee02.toString(), is("AbstractDataObjectTest.TesteeDataObject[foo=foo#02]"));
+        final TesteeValueObject testee01a = new TesteeValueObject("foo#01", "tmp#01");
+        final TesteeValueObject testee01b = new TesteeValueObject("foo#01", "tmp#02");
+        final TesteeValueObject testee02 = new TesteeValueObject("foo#02", "tmp#01");
+        assertThat(testee01a, is(not(testee01b)));
+        assertThat(testee01a.sameValueAs(testee01b), is(true));
+        assertThat(testee01a.sameValueAs(testee02), is(false));
     }
     @SuppressWarnings("unused")
-    private class TesteeDataObject extends AbstractDataObject<TesteeDataObject> {
+    private class TesteeValueObject extends AbstractValueObject<TesteeValueObject> {
         /** 識別番号 */
         private static final long serialVersionUID = 7533112117543810098L;
         /** foo */
         private String foo;
+        /** tmp */
+        private transient String tmp;
         /**
          * コンストラクタ
          * @param foo {@link #foo}
+         * @param tmp {@link #tmp}
          */
-        public TesteeDataObject(final String foo) {
+        public TesteeValueObject(final String foo, final String tmp) {
             this.foo = foo;
+            this.tmp = tmp;
         }
         /**
          * {@link #foo} の取得
@@ -48,6 +53,20 @@ public class AbstractDataObjectTest {
          */
         public void setFoo(final String foo) {
             this.foo = foo;
+        }
+        /**
+         * {@link #tmp} の取得
+         * @return {@link #tmp}
+         */
+        public String getTmp() {
+            return tmp;
+        }
+        /**
+         * {@link #tmp} の設定
+         * @param tmp {@link #tmp}
+         */
+        public void setTmp(final String tmp) {
+            this.tmp = tmp;
         }
     }
 }

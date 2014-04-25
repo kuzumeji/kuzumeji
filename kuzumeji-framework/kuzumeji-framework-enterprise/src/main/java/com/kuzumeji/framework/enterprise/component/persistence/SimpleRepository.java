@@ -29,16 +29,6 @@ public class SimpleRepository<P extends Persistable> implements Repository<P> {
     private final EntityManager manager;
     /** 一意キー制約リスナー */
     private final UniqueConstraintsListener<P>[] uniqueListeners;
-    // /**
-    // * コンストラクタ
-    // * @param clazz {@link #clazz エンティティクラス}
-    // * @param manager {@link #manager エンティティマネージャ}
-    // */
-    // public SimpleRepository(final Class<P> clazz, final EntityManager manager) {
-    // this.clazz = clazz;
-    // this.manager = manager;
-    // uniqueListeners = null;
-    // }
     /**
      * コンストラクタ
      * @param clazz {@link #clazz エンティティクラス}

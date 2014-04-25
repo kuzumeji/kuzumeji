@@ -11,11 +11,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-/**
- * テストエンティティ
- * @see AbstractPersistable
- * @author nilcy
- */
 @Entity
 @Table(name = "PersitenceTestee", indexes = { @Index(columnList = "code"),
     @Index(columnList = "name") }, uniqueConstraints = {
@@ -71,5 +66,13 @@ public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
      */
     public void setName(final String name) {
         this.name = name;
+    }
+    /**
+     * <dl>
+     * <dt>使用条件
+     * <dd>TODO 事前条件(必要事項)と事後条件(保証要件)を表明すること。
+     * </dl>
+     */
+    private void foo() {
     }
 }

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.kuzumeji</groupId>
-		<artifactId>kuzumeji-framework</artifactId>
+		<artifactId>kuzumeji-support</artifactId>
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>kuzumeji-support-coding</artifactId>
