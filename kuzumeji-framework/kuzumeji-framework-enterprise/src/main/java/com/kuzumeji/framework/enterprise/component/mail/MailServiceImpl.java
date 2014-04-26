@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.framework.enterprise.component;
+package com.kuzumeji.framework.enterprise.component.mail;
 import static com.kuzumeji.framework.standard.component.ConfigHelper.*;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -18,6 +18,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang3.Validate;
+import com.kuzumeji.framework.enterprise.component.EnterpriseException;
 /**
  * メールサービス
  * <dl>

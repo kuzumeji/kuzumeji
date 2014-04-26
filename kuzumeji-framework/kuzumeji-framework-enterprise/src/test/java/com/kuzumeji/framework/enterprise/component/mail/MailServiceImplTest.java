@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.framework.enterprise.component;
+package com.kuzumeji.framework.enterprise.component.mail;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import java.io.UnsupportedEncodingException;
@@ -26,12 +26,15 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import com.kuzumeji.framework.enterprise.component.EnterpriseException;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
+ * @see MailService
  * @see MailServiceImpl
  * @author nilcy
  */
 @RunWith(Arquillian.class)
+@SuppressWarnings("javadoc")
 public class MailServiceImplTest {
     /** メールサービスI/F */
     @Inject
@@ -64,7 +67,6 @@ public class MailServiceImplTest {
     /**
      * @see MailServiceImpl#send(InternetAddress, Map, String, String)
      */
-    @SuppressWarnings("javadoc")
     @Test
     public void testText() throws EnterpriseException {
         testee.send(originator, recipients, "テキストメール", "ふがふが…\nほげほげ…\nぶろろろろ~。");
@@ -72,7 +74,6 @@ public class MailServiceImplTest {
     /**
      * @see MailServiceImpl#send(InternetAddress, Map, String, Object, String)
      */
-    @SuppressWarnings("javadoc")
     @Test
     public void testMime() throws EnterpriseException {
         testee.send(originator, recipients, "MIMEタイプ指定メール", "ふがふが…\nほげほげ…\nぶろろろろ~。",
@@ -81,7 +82,6 @@ public class MailServiceImplTest {
     /**
      * @see MailServiceImpl#send(InternetAddress, Map, String, javax.mail.Multipart)
      */
-    @SuppressWarnings("javadoc")
     @Test
     public void testMultipart() throws EnterpriseException, MessagingException,
         UnsupportedEncodingException {

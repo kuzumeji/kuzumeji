@@ -4,7 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 /**
- * Standard Framework | Service Components | Persistence
+ * 基幹FW | コンポーネント | 永続化
  * @author nilcy
  */
 package com.kuzumeji.framework.enterprise.component.persistence;
