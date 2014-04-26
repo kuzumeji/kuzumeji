@@ -98,4 +98,18 @@ public class SimpleRepositoryImpl<P extends Persistable> implements SimpleReposi
      */
     protected <S extends P> void beforeDelete(final S entity) throws PersistenceException {
     }
+    /**
+     * {@link #clazz} の取得
+     * @return {@link #clazz}
+     */
+    protected final Class<P> getEntityClass() {
+        return clazz;
+    }
+    /**
+     * {@link #manager} の取得
+     * @return {@link #manager}
+     */
+    protected final EntityManager getManager() {
+        return manager;
+    }
 }

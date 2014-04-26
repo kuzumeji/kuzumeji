@@ -4,27 +4,28 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 /**
- * @see SimpleRepository
- * @see SimpleRepositoryImpl
+ * @see StandardRepository
+ * @see StandardRepositoryImpl
  * @author nilcy
  */
-public class SimpleRepositoryProducer {
+public class StandardRepositoryProducer {
     /** エンティティマネージャ */
     @PersistenceContext
     private EntityManager manager;
     /** コンストラクタ */
-    public SimpleRepositoryProducer() {
+    public StandardRepositoryProducer() {
     }
     /**
      * リポジトリ(テストエンティティ)の作成
      * @return リポジトリ(テストエンティティ)
      */
-    // @Produces
-    public SimpleRepository<PersistableTestee> createPersistableTesteeUKcode() {
+    @Produces
+    public StandardRepository<PersistableTestee> createPersistableTestee() {
         // manager.setFlushMode(FlushModeType.AUTO);
-        return new SimpleRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);
+        return new StandardRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);
     }
 }
