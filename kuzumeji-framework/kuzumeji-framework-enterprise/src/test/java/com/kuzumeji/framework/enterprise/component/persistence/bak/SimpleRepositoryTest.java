@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.framework.enterprise.component.persistence;
+package com.kuzumeji.framework.enterprise.component.persistence.bak;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import javax.inject.Inject;
@@ -15,6 +15,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
+import com.kuzumeji.framework.enterprise.component.persistence.PersistableTestee;
+import com.kuzumeji.framework.enterprise.component.persistence.PersistenceException;
+import com.kuzumeji.framework.enterprise.component.persistence.bak.Repository;
+import com.kuzumeji.framework.enterprise.component.persistence.bak.SimpleRepository;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see Repository

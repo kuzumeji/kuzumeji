@@ -4,126 +4,52 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 /**
- * 簡単リポジトリ
- * @param <P> エンティティ型
+ * 単純リポジトリI/F
+ * @param <P> 基点エンティティ型
  * @author nilcy
  */
-public class SimpleRepository<P extends Persistable> implements Repository<P> {
-    /** ロガー */
-    private static final Logger LOG = LoggerFactory.getLogger(SimpleRepository.class);
-    /** エンティティクラス */
-    private final Class<P> clazz;
-    /** エンティティマネージャ */
-    private final EntityManager manager;
-    /** 一意キー制約リスナー */
-    private final UniqueConstraintsListener<P>[] uniqueListeners;
+interface SimpleRepository<P extends Persistable> extends Repository {
     /**
-     * コンストラクタ
-     * @param clazz {@link #clazz エンティティクラス}
-     * @param manager {@link #manager エンティティマネージャ}
-     * @param uniqueListeners {@link #uniqueListeners 一意キー制約リスナー}
-     */
-    @SafeVarargs
-    public SimpleRepository(final Class<P> clazz, final EntityManager manager,
-        final UniqueConstraintsListener<P>... uniqueListeners) {
-        this.clazz = clazz;
-        this.manager = manager;
-        this.uniqueListeners = uniqueListeners;
-    }
-    /** {@inheritDoc} */
-    @Override
-    public <S extends P> S save(final S entity) throws PersistenceException {
-        beforeSave(entity);
-        if (!entity.isPersisted()) {
-            manager.persist(entity);
-        } else {
-            manager.merge(entity);
-        }
-        manager.flush();
-        return entity;
-    }
-    /**
-     * エンティティの保存前処理
+     * 保存
+     * @param <S> エンティティ型
      * @param entity エンティティ
+     * @return 保存後エンティティ
      * @throws PersistenceException 保存の失敗
      */
-    private void beforeSave(final P entity) throws PersistenceException {
-        if (uniqueListeners != null) {
-            final Map<String, Object[]> messageMap = new LinkedHashMap<>();
-            for (final UniqueConstraintsListener<P> listener : uniqueListeners) {
-                try {
-                    final P other = findOne(listener.queryName(), listener.filter(entity));
-                    if (!entity.isPersisted() || !other.identity().equals(entity.identity())) {
-                        messageMap.put(listener.errorKey(), listener.values(entity));
-                    }
-                } catch (final NoResultException e) {
-                }
-            }
-            if (!messageMap.isEmpty()) {
-                final PersistenceException ex = new PersistenceException(messageMap);
-                LOG.warn(ex.getApplicationMessage());
-                throw ex;
-            }
-        }
-    }
-    /** {@inheritDoc} */
-    @Override
-    public <S extends P> Collection<S> save(final Iterable<S> entities) throws PersistenceException {
-        final List<S> results = new ArrayList<>();
-        for (final S entity : entities) {
-            results.add(save(entity));
-        }
-        return results;
-    }
-    /** {@inheritDoc} */
-    @Override
-    public P find(final Object id) {
-        return manager.find(clazz, id);
-    }
-    /** {@inheritDoc} */
-    @Override
-    public P findOne(final String name, final Map<String, Object> filter) {
-        // final String queryName = !name.startsWith(clazz.getSimpleName()) ? clazz.getSimpleName()
-        // + "." + name : name;
-        final TypedQuery<P> query = manager.createNamedQuery(name, clazz);
-        for (final Entry<String, Object> entry : filter.entrySet()) {
-            query.setParameter(entry.getKey(), entry.getValue());
-        }
-        return query.getSingleResult();
-    }
-    /** {@inheritDoc} */
-    @Override
-    public Collection<P> findMany(final Object filter) {
-        return null;
-    }
-    /** {@inheritDoc} */
-    @Override
-    public <S extends P> void delete(final S entity) throws PersistenceException {
-        manager.remove(manager.merge(entity));
-        manager.flush();
-    }
-    /** {@inheritDoc} */
-    @Override
-    public <S extends P> void delete(final Iterable<S> entities) throws PersistenceException {
-        for (final S entity : entities) {
-            manager.remove(manager.merge(entity));
-        }
-    }
-    /** {@inheritDoc} */
-    @Override
-    public void flush() throws PersistenceException {
-        manager.flush();
-    }
+    <S extends P> S save(S entity) throws PersistenceException;
+    /**
+     * 保存
+     * @param <S> エンティティ型
+     * @param entities エンティティ集合
+     * @return 保存後エンティティ集合
+     * @throws PersistenceException 保存の失敗
+     */
+    <S extends P> Collection<S> save(Iterable<S> entities) throws PersistenceException;
+    /**
+     * 検索
+     * @param id 識別子(ID)
+     * @return 該当エンティティ
+     */
+    P find(Object id);
+    /**
+     * 削除
+     * @param <S> エンティティ型
+     * @param entity エンティティ
+     * @throws PersistenceException 削除の失敗
+     */
+    <S extends P> void delete(S entity) throws PersistenceException;
+    /**
+     * 削除
+     * @param <S> エンティティ型
+     * @param entities エンティティ
+     * @throws PersistenceException 削除の失敗
+     */
+    <S extends P> void delete(Iterable<S> entities) throws PersistenceException;
+    /**
+     * 反映
+     * @throws PersistenceException 反映の失敗
+     */
+    void flush() throws PersistenceException;
 }

@@ -15,6 +15,8 @@ import javax.persistence.PostPersist;
 import javax.persistence.PostUpdate;
 import javax.persistence.Transient;
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.kuzumeji.framework.standard.component.AbstractDataObject;
 import com.kuzumeji.framework.standard.component.ReferenceObject;
 /**
@@ -39,6 +41,8 @@ public abstract class AbstractPersistable<P extends AbstractPersistable<P>> exte
     AbstractDataObject<P> implements ReferenceObject<P>, Persistable {
     /** 識別番号 */
     private static final long serialVersionUID = 1365773187648802997L;
+    /** ロガー */
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractPersistable.class);
     /** 識別子(ID) */
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -101,6 +105,7 @@ public abstract class AbstractPersistable<P extends AbstractPersistable<P>> exte
     @PostUpdate
     @PostLoad
     private void setPersisted() {
+        LOG.debug("persistend-flag is ON.");
         persisted = true;
     }
 }

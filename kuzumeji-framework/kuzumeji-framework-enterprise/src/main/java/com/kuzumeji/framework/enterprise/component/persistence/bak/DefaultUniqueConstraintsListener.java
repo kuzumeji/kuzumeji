@@ -3,13 +3,15 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.framework.enterprise.component.persistence;
+package com.kuzumeji.framework.enterprise.component.persistence.bak;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import com.kuzumeji.framework.enterprise.component.EnterpriseRuntimeException;
+import com.kuzumeji.framework.enterprise.component.persistence.Persistable;
+import com.kuzumeji.framework.enterprise.component.persistence.UniqueConstraintsListener;
 /**
  * (デフォルト)一意キー制約リスナー
  * <dl>

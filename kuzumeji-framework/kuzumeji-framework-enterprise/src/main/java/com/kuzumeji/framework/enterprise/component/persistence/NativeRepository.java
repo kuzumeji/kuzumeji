@@ -5,8 +5,8 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 /**
- * リポジトリ
+ * 原始リポジトリ
  * @author nilcy
  */
-public interface Repository {
+public interface NativeRepository extends Repository {
 }
