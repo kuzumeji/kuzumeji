@@ -10,8 +10,13 @@
 	<artifactId>kuzumeji-framework-enterprise</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache-jcache</artifactId>
+			<groupId>com.kuzumeji</groupId>
+			<artifactId>kuzumeji-framework-testing</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.kuzumeji</groupId>
+			<artifactId>kuzumeji-framework-standard</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax</groupId>
@@ -19,13 +24,8 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.kuzumeji</groupId>
-			<artifactId>kuzumeji-framework-standard</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.kuzumeji</groupId>
-			<artifactId>kuzumeji-framework-testing</artifactId>
-			<scope>test</scope>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-jcache</artifactId>
 		</dependency>
 	</dependencies>
 </project>

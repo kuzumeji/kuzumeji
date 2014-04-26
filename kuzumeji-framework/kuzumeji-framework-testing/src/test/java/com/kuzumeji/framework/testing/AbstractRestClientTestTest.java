@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import mockit.Deencapsulation;
 import mockit.Mocked;
@@ -18,6 +19,7 @@ import mockit.Mocked;
  * @author nilcy
  */
 @SuppressWarnings("javadoc")
+@Ignore
 public class AbstractRestClientTestTest {
     private final AbstractRestClientTest testee = new AbstractRestClientTest("testee/") {
     };

@@ -64,6 +64,8 @@ h4. Setting Eclipse
 Window > Preferences > Java > Installed JREs > Edit...
 Default VM arguments:
 <pre>
+-javaagent:"${settings.localRepository}"/com/googlecode/jmockit/jmockit/1.7/jmockit-1.7.jar
 -javaagent:C:/Users/shimokawa/.m2/repository/com/googlecode/jmockit/jmockit/1.7/jmockit-1.7.jar
+-javaagent:/home.nilcy/git/kuzumeji.github.com/maven/mirror/com/googlecode/jmockit/jmockit/1.7/jmockit-1.7.jar
 </pre>
 

@@ -10,10 +10,6 @@
 	<artifactId>kuzumeji-framework-testing</artifactId>
 	<dependencies>
 		<dependency>
-			<groupId>com.googlecode.jmockit</groupId>
-			<artifactId>jmockit</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
@@ -28,6 +24,10 @@
 		<dependency>
 			<groupId>org.jboss.arquillian.container</groupId>
 			<artifactId>arquillian-glassfish-remote-3.1</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.jmockit</groupId>
+			<artifactId>jmockit</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey</groupId>
