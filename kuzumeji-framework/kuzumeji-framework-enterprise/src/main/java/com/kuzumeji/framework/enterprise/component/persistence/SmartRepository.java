@@ -5,10 +5,6 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import java.util.Collection;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 /**
  * 先進リポジトリI/F
  * @param <R> 基点エンティティ型
@@ -17,16 +13,27 @@ import javax.persistence.criteria.Root;
  */
 public interface SmartRepository<R extends Persistable, F> extends SimpleRepository<R> {
     /**
-     * {@link #builder} の取得
-     * @return {@link #builder}
+     * 単一検索
+     * @param filter 検索条件オブジェクト
+     * @return 該当エンティティ
+     * @throws PersistenceException 検索の失敗
      */
-    CriteriaBuilder getBuilder();
-    CriteriaQuery<R> query();
-    <T> CriteriaQuery<T> query(final Class<T> entityClass);
-    Root<R> root();
-    <T> Root<T> root(final Class<T> entityClass);
-    <T> TypedQuery<T> query(final CriteriaQuery<T> query, final int... range);
-    <T> T findOne(final TypedQuery<T> query) throws PersistenceException;
-    <T> Collection<T> findMany(final TypedQuery<T> query) throws PersistenceException;
-    TypedQuery<R> query(final F filter);
+    R findOne(final F filter) throws PersistenceException;
+    /**
+     * 複数検索
+     * @param filter 検索条件オブジェクト
+     * @return 該当エンティティ集合
+     * @throws PersistenceException 検索の失敗
+     */
+    Collection<R> findMany(final F filter) throws PersistenceException;
+    /**
+     * 複数検索
+     * @param filter 検索条件オブジェクト
+     * @param first 開始位置
+     * @param max 最大件数
+     * @return 該当エンティティ集合
+     * @throws PersistenceException 検索の失敗
+     */
+    Collection<R> findMany(final F filter, final int first, final int max)
+        throws PersistenceException;
 }

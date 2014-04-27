@@ -5,7 +5,6 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.inject.Inject;
-import javax.persistence.TypedQuery;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -44,9 +43,7 @@ public class SmartRepositoryImplTest {
     @Test
     public final void test() throws PersistenceException {
         final PersistableTestee filter = new PersistableTestee("code#01", "name#01");
-        final TypedQuery<PersistableTestee> query = testee.query(filter).setFirstResult(0)
-            .setMaxResults(100);
-        final PersistableTestee entity = testee.findOne(query);
+        final PersistableTestee entity = testee.findOne(filter);
         log.debug("entity : {}", entity);
     }
 }
