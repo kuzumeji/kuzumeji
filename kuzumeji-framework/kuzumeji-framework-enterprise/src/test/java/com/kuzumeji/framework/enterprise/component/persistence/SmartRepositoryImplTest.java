@@ -5,9 +5,7 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.inject.Inject;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.TypedQuery;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -30,7 +28,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 public class SmartRepositoryImplTest {
     @Inject
     @SmartRepositoryPersistableTestee
-    private SmartRepository<PersistableTestee> testee;
+    private SmartRepository<PersistableTestee, PersistableTestee> testee;
     @Inject
     private Logger log;
     @Deployment
@@ -45,12 +43,10 @@ public class SmartRepositoryImplTest {
     }
     @Test
     public final void test() throws PersistenceException {
-        final CriteriaBuilder b = testee.getBuilder();
-        final CriteriaQuery<PersistableTestee> q = testee.query();
-        final Root<PersistableTestee> r = testee.root();
-        q.select(r);
-        q.where(b.equal(r.get("code"), "code#01"));
-        final PersistableTestee entity = testee.findOne(testee.query(q, 0, 100));
+        final PersistableTestee filter = new PersistableTestee("code#01", "name#01");
+        final TypedQuery<PersistableTestee> query = testee.query(filter).setFirstResult(0)
+            .setMaxResults(100);
+        final PersistableTestee entity = testee.findOne(query);
         log.debug("entity : {}", entity);
     }
 }

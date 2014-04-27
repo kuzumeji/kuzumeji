@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.kuzumeji.framework.enterprise.component.persistence.Persistable;
 import com.kuzumeji.framework.enterprise.component.persistence.PersistenceException;
-import com.kuzumeji.framework.enterprise.component.persistence.UniqueConstraintsListener;
 /**
  * 簡単リポジトリ
  * @param <P> エンティティ型

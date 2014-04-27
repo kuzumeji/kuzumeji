@@ -7,6 +7,9 @@ package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.SmartRepositoryPersistableTestee;
 /**
  * @see SmartRepository
@@ -26,7 +29,17 @@ public class SmartRepositoryProducer {
      */
     @Produces
     @SmartRepositoryPersistableTestee
-    public SmartRepository<PersistableTestee> createPersistableTestee() {
-        return new SmartRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);
+    public SmartRepository<PersistableTestee, PersistableTestee> createPersistableTestee() {
+        final SmartRepositoryListener<PersistableTestee, PersistableTestee> listener = new SmartRepositoryListener<PersistableTestee, PersistableTestee>() {
+            @Override
+            public CriteriaQuery<PersistableTestee> query(final CriteriaBuilder builder,
+                final CriteriaQuery<PersistableTestee> query, final Root<PersistableTestee> root,
+                final PersistableTestee filter) {
+                query.select(root).where(builder.equal(root.get("code"), filter.getCode()));
+                return query;
+            }
+        };
+        return new SmartRepositoryImpl<PersistableTestee, PersistableTestee>(
+            PersistableTestee.class, manager, listener);
     }
 }

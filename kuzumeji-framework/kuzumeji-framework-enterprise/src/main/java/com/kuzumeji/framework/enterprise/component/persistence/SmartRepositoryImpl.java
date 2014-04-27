@@ -20,14 +20,16 @@ import com.kuzumeji.framework.enterprise.component.EnterpriseRuntimeException;
 /**
  * 先進リポジトリ
  * @param <R> 基点エンティティ型
+ * @param <F> 検索条件オブジェクト型
  * @author nilcy
  */
-public class SmartRepositoryImpl<R extends Persistable> extends SimpleRepositoryImpl<R> implements
-    SmartRepository<R> {
+public class SmartRepositoryImpl<R extends Persistable, F> extends SimpleRepositoryImpl<R>
+    implements SmartRepository<R, F> {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(SmartRepositoryImpl.class);
     /** ビルダー */
     private final CriteriaBuilder builder;
+    private final SmartRepositoryListener<R, F> listener;
     /**
      * コンストラクタ
      * @param clazz エンティティクラス
@@ -36,6 +38,18 @@ public class SmartRepositoryImpl<R extends Persistable> extends SimpleRepository
     public SmartRepositoryImpl(final Class<R> clazz, final EntityManager manager) {
         super(clazz, manager);
         builder = manager.getCriteriaBuilder();
+        this.listener = new DefaultSmartRepositoryListener<R, F>();
+    }
+    /**
+     * コンストラクタ
+     * @param clazz エンティティクラス
+     * @param manager エンティティマネージャ
+     */
+    public SmartRepositoryImpl(final Class<R> clazz, final EntityManager manager,
+        final SmartRepositoryListener<R, F> listener) {
+        super(clazz, manager);
+        builder = manager.getCriteriaBuilder();
+        this.listener = listener;
     }
     /**
      * {@link #builder} の取得
@@ -61,6 +75,7 @@ public class SmartRepositoryImpl<R extends Persistable> extends SimpleRepository
     public <T> Root<T> root(final Class<T> entityClass) {
         return query(entityClass).from(entityClass);
     }
+    @Override
     public <T> TypedQuery<T> query(final CriteriaQuery<T> query, final int... range) {
         final TypedQuery<T> q = getManager().createQuery(query);
         if (range.length > 0) {
@@ -70,10 +85,15 @@ public class SmartRepositoryImpl<R extends Persistable> extends SimpleRepository
         }
         return q;
     }
+    public TypedQuery<R> query(final F filter) {
+        return getManager().createQuery(listener.query(builder, query(), root(), filter));
+    }
+    @Override
     public <T> T findOne(final TypedQuery<T> query) throws PersistenceException {
         return query.getSingleResult();
     }
     /** {@inheritDoc} */
+    @Override
     public <T> Collection<T> findMany(final TypedQuery<T> query) throws PersistenceException {
         return query.getResultList();
     }

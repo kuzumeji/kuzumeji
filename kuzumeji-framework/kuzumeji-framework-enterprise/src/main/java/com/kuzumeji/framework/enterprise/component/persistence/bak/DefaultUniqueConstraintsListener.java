@@ -11,7 +11,6 @@ import java.util.Map;
 import org.apache.commons.beanutils.PropertyUtils;
 import com.kuzumeji.framework.enterprise.component.EnterpriseRuntimeException;
 import com.kuzumeji.framework.enterprise.component.persistence.Persistable;
-import com.kuzumeji.framework.enterprise.component.persistence.UniqueConstraintsListener;
 /**
  * (デフォルト)一意キー制約リスナー
  * <dl>

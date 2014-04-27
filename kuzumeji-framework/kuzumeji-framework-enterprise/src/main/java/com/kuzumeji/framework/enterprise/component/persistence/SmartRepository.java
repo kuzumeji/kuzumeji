@@ -12,9 +12,10 @@ import javax.persistence.criteria.Root;
 /**
  * 先進リポジトリI/F
  * @param <R> 基点エンティティ型
+ * @param <F> 検索条件オブジェクト型
  * @author nilcy
  */
-public interface SmartRepository<R extends Persistable> extends SimpleRepository<R> {
+public interface SmartRepository<R extends Persistable, F> extends SimpleRepository<R> {
     /**
      * {@link #builder} の取得
      * @return {@link #builder}
@@ -27,4 +28,5 @@ public interface SmartRepository<R extends Persistable> extends SimpleRepository
     <T> TypedQuery<T> query(final CriteriaQuery<T> query, final int... range);
     <T> T findOne(final TypedQuery<T> query) throws PersistenceException;
     <T> Collection<T> findMany(final TypedQuery<T> query) throws PersistenceException;
+    TypedQuery<R> query(final F filter);
 }
