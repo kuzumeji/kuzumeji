@@ -12,6 +12,7 @@ import com.kuzumeji.template.registry.ejb.StatelessSessionService;
  * @see StatelessSessionService
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class HelloTest {
     /** @see Hello#sayHello(String) */
     @Test

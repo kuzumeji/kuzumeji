@@ -7,11 +7,11 @@ package com.kuzumeji.template.provider;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kuzumeji.template.provider.Hello;
 /**
  * @see Hello
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class HelloTest {
     /** @see Hello#sayHello(String) */
     @Test

@@ -12,6 +12,7 @@ import javax.ejb.Stateful;
  */
 @Stateful
 @LocalBean
+@SuppressWarnings("static-method")
 public class StatefulLocalService {
     /** コンストラクタ */
     public StatefulLocalService() {

@@ -12,6 +12,7 @@ import com.kuzumeji.template.registry.Hello;
  * @see Hello
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class HelloTest {
     /** @see Hello#sayHello(String) */
     @Test

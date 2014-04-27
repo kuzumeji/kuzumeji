@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/variables/")
 public class VariableResource {
     /** 変数 */
-    private final Collection<Variable> variables = new ArrayList<Variable>();
+    private final Collection<Variable> variables = new ArrayList<>();
     /** コンストラクタ */
     public VariableResource() {
     }
@@ -26,8 +26,9 @@ public class VariableResource {
     @PostConstruct
     public void postConstruct() {
         for (int i = 0; i < 10; ++i) {
-            variables.add(new Variable(String.format("foo#%02d", i), String.format("bar#%02d", i),
-                String.format("baz#%02d", i)));
+            final Integer n = Integer.valueOf(i);
+            variables.add(new Variable(String.format("foo#%02d", n), String.format("bar#%02d", n),
+                String.format("baz#%02d", n)));
         }
     }
     /**

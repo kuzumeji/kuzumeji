@@ -32,7 +32,7 @@ public class ProgramaticTimerService extends AbstractTimerService {
      * @param duration タイムアウト時間(ミリ秒)
      */
     public void setTimer(final long duration) {
-        log.info("タイムアウト時間(ミリ秒) : {}", duration);
+        log.info("タイムアウト時間(ミリ秒) : {}", Long.valueOf(duration));
         timerService.createTimer(duration, "手動タイマー#01");
     }
     /**
