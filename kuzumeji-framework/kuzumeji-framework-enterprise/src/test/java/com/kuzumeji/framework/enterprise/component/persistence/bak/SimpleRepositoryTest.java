@@ -17,8 +17,6 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import com.kuzumeji.framework.enterprise.component.persistence.PersistableTestee;
 import com.kuzumeji.framework.enterprise.component.persistence.PersistenceException;
-import com.kuzumeji.framework.enterprise.component.persistence.bak.Repository;
-import com.kuzumeji.framework.enterprise.component.persistence.bak.SimpleRepository;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see Repository
@@ -27,7 +25,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "boxing" })
 public class SimpleRepositoryTest {
     @Inject
     private SimpleRepository<PersistableTestee> testee;

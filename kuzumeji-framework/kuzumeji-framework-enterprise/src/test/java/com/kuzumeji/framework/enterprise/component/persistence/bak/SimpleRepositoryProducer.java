@@ -8,8 +8,6 @@ import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import com.kuzumeji.framework.enterprise.component.persistence.PersistableTestee;
-import com.kuzumeji.framework.enterprise.component.persistence.bak.DefaultUniqueConstraintsListener;
-import com.kuzumeji.framework.enterprise.component.persistence.bak.SimpleRepository;
 /**
  * @see SimpleRepository
  * @author nilcy
@@ -27,7 +25,7 @@ public class SimpleRepositoryProducer {
      */
     @Produces
     public SimpleRepository<PersistableTestee> createPersistableTesteeUKcode() {
-        return new SimpleRepository<PersistableTestee>(PersistableTestee.class, manager,
+        return new SimpleRepository<>(PersistableTestee.class, manager,
             new DefaultUniqueConstraintsListener<PersistableTestee>(
                 "PersistableTestee.findUK_code", "PersistableTestee.UK_code", "code"),
             new DefaultUniqueConstraintsListener<PersistableTestee>(

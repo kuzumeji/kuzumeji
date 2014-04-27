@@ -12,6 +12,7 @@ import org.junit.Test;
  * @see CacheService
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class CacheServiceTest {
     /**
      * @see CacheService#getCache(String)

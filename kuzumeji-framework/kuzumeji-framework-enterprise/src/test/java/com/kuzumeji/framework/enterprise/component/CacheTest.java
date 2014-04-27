@@ -12,6 +12,7 @@ import net.sf.ehcache.CacheManager;
  * @see CacheManager
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class CacheTest {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(CacheTest.class);

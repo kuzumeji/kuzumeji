@@ -13,10 +13,10 @@ import org.junit.Test;
  * @see PropertiesHelper
  * @author nilcy
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "static-method", "javadoc", "unused" })
 public class PropertiesHelperTest {
     @Test
-    public final void testSimple() throws ConfigurationException {
+    public void testSimple() {
         try {
             new PropertiesHelper("xxxx");
             fail();
@@ -45,7 +45,7 @@ public class PropertiesHelperTest {
         assertArrayEquals(testee.getTexts("vars"), new Object[] { "fuga", "hoge" });
     }
     @Test
-    public final void testMessage() throws ConfigurationException {
+    public final void testMessage() {
         final PropertiesHelper testee = new PropertiesHelper("error-messages");
         assertThat(testee, is(not(nullValue())));
         assertThat(testee.getText("UK", "設定", "name=日本,key=国番号"),

@@ -39,7 +39,6 @@ public class SmartRepositoryProducer {
                 return query;
             }
         };
-        return new SmartRepositoryImpl<PersistableTestee, PersistableTestee>(
-            PersistableTestee.class, manager, listener);
+        return new SmartRepositoryImpl<>(PersistableTestee.class, manager, listener);
     }
 }

@@ -106,10 +106,8 @@ public final class PropertiesHelper {
                     }
                     LOG.debug("Resource could be found ({}).", resourceName);
                     return new PropertiesConfiguration(url);
-                } else {
-                    builder.append(" " + resourceName);
-                    // LOG.debug("NOT-FOUND. -> {}", resourceName);
                 }
+                builder.append(" " + resourceName);
             } catch (final ConfigurationException e) {
                 LOG.warn(e.toString(), e);
                 throw new StandardRuntimeException(e);

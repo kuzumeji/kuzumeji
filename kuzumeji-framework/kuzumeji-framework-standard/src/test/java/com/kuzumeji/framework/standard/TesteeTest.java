@@ -13,9 +13,9 @@ import org.junit.Test;
  * @see Testee
  * @author nilcy
  */
+@SuppressWarnings({ "javadoc", "static-method" })
 public class TesteeTest {
     /** @see PropertyUtils#getSimpleProperty(Object, String) */
-    @SuppressWarnings("javadoc")
     @Test
     public void test() throws IllegalAccessException, InvocationTargetException,
         NoSuchMethodException {

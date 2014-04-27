@@ -12,6 +12,7 @@ import com.kuzumeji.framework.testing.CoverageHelper;
  * @see MessageHelper
  * @author nilcy
  */
+@SuppressWarnings({ "static-method", "boxing" })
 public class MessageHelperTest {
     /**
      * @see MessageHelper#createMessage(String, Object...)

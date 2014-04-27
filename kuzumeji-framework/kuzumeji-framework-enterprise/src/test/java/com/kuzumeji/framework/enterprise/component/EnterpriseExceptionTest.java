@@ -13,6 +13,7 @@ import org.junit.Test;
  * @see EnterpriseException
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class EnterpriseExceptionTest {
     /**
      * @see EnterpriseException#EnterpriseException()

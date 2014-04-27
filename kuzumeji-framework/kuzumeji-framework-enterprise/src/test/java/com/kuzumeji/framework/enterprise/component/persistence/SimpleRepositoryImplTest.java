@@ -24,7 +24,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "boxing" })
 public class SimpleRepositoryImplTest {
     @Inject
     @SimpleRepositoryPersistableTestee

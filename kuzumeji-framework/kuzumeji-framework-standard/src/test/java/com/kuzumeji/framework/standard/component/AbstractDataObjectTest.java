@@ -13,6 +13,7 @@ import org.junit.Test;
  */
 @SuppressWarnings("javadoc")
 public class AbstractDataObjectTest {
+    @SuppressWarnings("boxing")
     @Test
     public void test() {
         final TesteeDataObject testee01 = new TesteeDataObject("foo#01");

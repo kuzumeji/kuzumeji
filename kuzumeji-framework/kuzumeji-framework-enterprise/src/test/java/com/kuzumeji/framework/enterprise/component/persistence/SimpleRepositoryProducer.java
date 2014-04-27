@@ -28,6 +28,6 @@ public class SimpleRepositoryProducer {
     @SimpleRepositoryPersistableTestee
     public SimpleRepository<PersistableTestee> createPersistableTesteeUKcode() {
         // manager.setFlushMode(FlushModeType.AUTO);
-        return new SimpleRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);
+        return new SimpleRepositoryImpl<>(PersistableTestee.class, manager);
     }
 }

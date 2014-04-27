@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
  * @see Hello
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class LoggingTest {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(LoggingTest.class);

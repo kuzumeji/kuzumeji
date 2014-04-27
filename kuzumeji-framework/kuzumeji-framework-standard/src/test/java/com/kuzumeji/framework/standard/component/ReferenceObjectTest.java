@@ -12,7 +12,7 @@ import org.junit.Test;
  * @see ReferenceObject
  * @author shimokawa4955
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "boxing" })
 public class ReferenceObjectTest {
     @Test
     public void test() {

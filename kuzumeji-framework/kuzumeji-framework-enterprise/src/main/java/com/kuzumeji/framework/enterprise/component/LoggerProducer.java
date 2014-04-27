@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * </dl>
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class LoggerProducer {
     /** コンストラクタ */
     public LoggerProducer() {

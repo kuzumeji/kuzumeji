@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * @see SystemUtils
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class SystemUtilsTest {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(SystemUtilsTest.class);

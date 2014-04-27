@@ -13,6 +13,7 @@ import org.junit.Test;
  * @see RetryableException
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class RetryableExceptionTest {
     /**
      * @see RetryableException#RetryableException()

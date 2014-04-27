@@ -11,6 +11,7 @@ import org.junit.Test;
  * @see CacheArea
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class CacheAreaTest {
     /** @see CacheArea */
     @Test

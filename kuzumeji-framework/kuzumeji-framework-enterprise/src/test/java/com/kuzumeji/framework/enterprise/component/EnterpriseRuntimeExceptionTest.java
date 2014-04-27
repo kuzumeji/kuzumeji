@@ -11,6 +11,7 @@ import org.junit.Test;
  * @see EnterpriseRuntimeException
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class EnterpriseRuntimeExceptionTest {
     /**
      * @see EnterpriseRuntimeException#EnterpriseRuntimeException()

@@ -12,7 +12,7 @@ import org.junit.Test;
  * @see AbstractValueObject
  * @author shimokawa4955
  */
-@SuppressWarnings("javadoc")
+@SuppressWarnings({ "javadoc", "boxing" })
 public class AbstractValueObjectTest {
     @Test
     public void test() {

@@ -11,10 +11,8 @@ import org.junit.Test;
  * @see Hello
  * @author nilcy
  */
+@SuppressWarnings({ "static-method", "javadoc" })
 public class HelloTest {
-    /**
-     * @see Hello#sayHello(String)
-     */
     @Test
     public void test() {
         assertThat(Hello.sayHello("nilcy"), is("こんにちは nilcy さん。"));

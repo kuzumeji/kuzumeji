@@ -13,6 +13,7 @@ import org.junit.Test;
  * @see NoRollbackException
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class NoRollbackExceptionTest {
     /**
      * @see NoRollbackException#NoRollbackException()

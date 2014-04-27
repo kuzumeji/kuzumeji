@@ -24,7 +24,7 @@ public class SmartRepositoryImpl<R extends Persistable, F> extends SimpleReposit
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(SmartRepositoryImpl.class);
     /** ビルダー */
-    private final CriteriaBuilder builder;
+    // private final CriteriaBuilder builder;
     /** 先進リポジトリリスナー */
     private final SmartRepositoryListener<R, F> listener;
     /**
@@ -35,7 +35,7 @@ public class SmartRepositoryImpl<R extends Persistable, F> extends SimpleReposit
     public SmartRepositoryImpl(final Class<R> clazz, final EntityManager manager) {
         super(clazz, manager);
         try {
-            builder = manager.getCriteriaBuilder();
+            // builder = manager.getCriteriaBuilder();
             this.listener = new SmartRepositoryListener<R, F>() {
                 @Override
                 public CriteriaQuery<R> query(final CriteriaBuilder builder,
@@ -57,7 +57,7 @@ public class SmartRepositoryImpl<R extends Persistable, F> extends SimpleReposit
     public SmartRepositoryImpl(final Class<R> clazz, final EntityManager manager,
         final SmartRepositoryListener<R, F> listener) {
         super(clazz, manager);
-        builder = manager.getCriteriaBuilder();
+        // builder = manager.getCriteriaBuilder();
         this.listener = listener;
     }
     /**
@@ -65,7 +65,7 @@ public class SmartRepositoryImpl<R extends Persistable, F> extends SimpleReposit
      * @return クライテリアクエリー
      */
     private CriteriaQuery<R> query() {
-        return builder.createQuery(getEntityClass());
+        return getManager().getCriteriaBuilder().createQuery(getEntityClass());
     }
     /**
      * クエリールートの作成
@@ -80,7 +80,8 @@ public class SmartRepositoryImpl<R extends Persistable, F> extends SimpleReposit
      * @return タイプドクエリー
      */
     private TypedQuery<R> query(final F filter) {
-        return getManager().createQuery(listener.query(builder, query(), root(), filter));
+        return getManager().createQuery(
+            listener.query(getManager().getCriteriaBuilder(), query(), root(), filter));
     }
     /** {@inheritDoc} */
     @Override

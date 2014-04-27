@@ -14,5 +14,13 @@ import javax.persistence.criteria.Root;
  * @author nilcy
  */
 public interface SmartRepositoryListener<R extends Persistable, F> {
+    /**
+     * クエリーの作成
+     * @param builder クライテリアビルダー
+     * @param query クライテリアクエリー
+     * @param root クエリールート
+     * @param filter 検索条件オブジェクト
+     * @return クエリー
+     */
     CriteriaQuery<R> query(CriteriaBuilder builder, CriteriaQuery<R> query, Root<R> root, F filter);
 }

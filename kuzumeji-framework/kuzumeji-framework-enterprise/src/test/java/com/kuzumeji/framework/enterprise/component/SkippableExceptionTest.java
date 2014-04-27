@@ -13,6 +13,7 @@ import org.junit.Test;
  * @see SkippableException
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class SkippableExceptionTest {
     /**
      * @see SkippableException#SkippableException()

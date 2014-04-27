@@ -23,6 +23,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
+@SuppressWarnings("boxing")
 public class PersistableTesteeTest {
     /** エンティティマネージャ */
     @PersistenceContext

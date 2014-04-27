@@ -6,21 +6,20 @@
 package com.kuzumeji.framework.standard.component;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import org.apache.commons.configuration.ConfigurationException;
 import org.junit.Test;
 import com.kuzumeji.framework.testing.CoverageHelper;
 /**
  * @see ConfigHelper
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class ConfigHelperTest {
     /**
      * @see ConfigHelper#getText(String)
      * @see ConfigHelper#getTexts(String)
      */
-    @SuppressWarnings("javadoc")
     @Test
-    public final void testSimple() throws ConfigurationException {
+    public final void testSimple() {
         CoverageHelper.privateConstructor(ConfigHelper.class);
         assertThat(ConfigHelper.MESSAGE_BASENAME, is("messages"));
         assertThat(ConfigHelper.ERROR_MESSAGE_BASENAME, is("error-messages"));

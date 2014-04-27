@@ -14,6 +14,7 @@ import com.kuzumeji.framework.testing.CoverageHelper;
  * @see SpecHelper
  * @author nilcy
  */
+@SuppressWarnings({ "static-method", "boxing" })
 public class AbstractSpecTest {
     /** true specification */
     private final Spec<Object> trueSpec = new AbstractSpec<Object>() {
