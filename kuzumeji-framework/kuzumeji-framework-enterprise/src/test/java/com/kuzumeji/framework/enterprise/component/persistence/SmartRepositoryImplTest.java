@@ -5,31 +5,32 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.inject.Inject;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
-import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.StandardRepositoryPersistableTestee;
+import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.SmartRepositoryPersistableTestee;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
- * @see StandardRepository
- * @see StandardRepositoryImpl
+ * @see SmartRepository
+ * @see SmartRepositoryImpl
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 @SuppressWarnings("javadoc")
-@Ignore
-public class StandardRepositoryImplTest {
+public class SmartRepositoryImplTest {
     @Inject
-    @StandardRepositoryPersistableTestee
-    private StandardRepository<PersistableTestee> testee;
+    @SmartRepositoryPersistableTestee
+    private SmartRepository<PersistableTestee> testee;
     @Inject
     private Logger log;
     @Deployment
@@ -44,9 +45,12 @@ public class StandardRepositoryImplTest {
     }
     @Test
     public final void test() throws PersistenceException {
-        final PersistableTestee filter = new PersistableTestee("code#01", "name#01");
-        final PersistableTestee entity = testee.findOne("PersistableTestee.findUK_code", filter,
-            "code");
+        final CriteriaBuilder b = testee.getBuilder();
+        final CriteriaQuery<PersistableTestee> q = testee.query();
+        final Root<PersistableTestee> r = testee.root();
+        q.select(r);
+        q.where(b.equal(r.get("code"), "code#01"));
+        final PersistableTestee entity = testee.findOne(testee.query(q, 0, 100));
         log.debug("entity : {}", entity);
     }
 }

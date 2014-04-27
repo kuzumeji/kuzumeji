@@ -8,50 +8,74 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.kuzumeji.framework.enterprise.component.EnterpriseRuntimeException;
 /**
- * 標準リポジトリ
+ * 先進リポジトリ
  * @param <R> 基点エンティティ型
  * @author nilcy
  */
-public class StandardRepositoryImpl<R extends Persistable> extends SimpleRepositoryImpl<R>
-    implements StandardRepository<R> {
+public class SmartRepositoryImpl<R extends Persistable> extends SimpleRepositoryImpl<R> implements
+    SmartRepository<R> {
     /** ロガー */
-    private static final Logger LOG = LoggerFactory.getLogger(StandardRepositoryImpl.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SmartRepositoryImpl.class);
+    /** ビルダー */
+    private final CriteriaBuilder builder;
     /**
      * コンストラクタ
      * @param clazz エンティティクラス
      * @param manager エンティティマネージャ
      */
-    public StandardRepositoryImpl(final Class<R> clazz, final EntityManager manager) {
+    public SmartRepositoryImpl(final Class<R> clazz, final EntityManager manager) {
         super(clazz, manager);
+        builder = manager.getCriteriaBuilder();
     }
-    /** {@inheritDoc} */
+    /**
+     * {@link #builder} の取得
+     * @return {@link #builder}
+     */
     @Override
-    public R findOne(final String name, final R object, final String... fields)
-        throws PersistenceException {
-        try {
-            final TypedQuery<R> query = getManager().createNamedQuery(name, getEntityClass());
-            for (final Entry<String, Object> entry : filter(object, fields).entrySet()) {
-                query.setParameter(entry.getKey(), entry.getValue());
-            }
-            return query.getSingleResult();
-        } catch (final IllegalArgumentException | IllegalStateException
-            | javax.persistence.PersistenceException e) {
-            LOG.warn(e.toString(), e);
-            throw new PersistenceException(e);
+    public final CriteriaBuilder getBuilder() {
+        return builder;
+    }
+    @Override
+    public CriteriaQuery<R> query() {
+        return query(getEntityClass());
+    }
+    @Override
+    public <T> CriteriaQuery<T> query(final Class<T> entityClass) {
+        return builder.createQuery(entityClass);
+    }
+    @Override
+    public Root<R> root() {
+        return query().from(getEntityClass());
+    }
+    @Override
+    public <T> Root<T> root(final Class<T> entityClass) {
+        return query(entityClass).from(entityClass);
+    }
+    public <T> TypedQuery<T> query(final CriteriaQuery<T> query, final int... range) {
+        final TypedQuery<T> q = getManager().createQuery(query);
+        if (range.length > 0) {
+            q.setFirstResult(range[0]);
+        } else if (range.length > 1) {
+            q.setMaxResults(range[1]);
         }
+        return q;
+    }
+    public <T> T findOne(final TypedQuery<T> query) throws PersistenceException {
+        return query.getSingleResult();
     }
     /** {@inheritDoc} */
-    @Override
-    public Collection<R> findMany(final Object filter) throws PersistenceException {
-        return null;
+    public <T> Collection<T> findMany(final TypedQuery<T> query) throws PersistenceException {
+        return query.getResultList();
     }
     /**
      * 検索条件の作成

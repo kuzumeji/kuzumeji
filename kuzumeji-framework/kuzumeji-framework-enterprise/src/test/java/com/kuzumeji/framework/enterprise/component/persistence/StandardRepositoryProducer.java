@@ -5,8 +5,9 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.StandardRepositoryPersistableTestee;
 /**
  * @see StandardRepository
  * @see StandardRepositoryImpl
@@ -14,7 +15,7 @@ import javax.persistence.PersistenceContext;
  */
 public class StandardRepositoryProducer {
     /** エンティティマネージャ */
-    @PersistenceContext
+    @Inject
     private EntityManager manager;
     /** コンストラクタ */
     public StandardRepositoryProducer() {
@@ -24,6 +25,7 @@ public class StandardRepositoryProducer {
      * @return リポジトリ(テストエンティティ)
      */
     @Produces
+    @StandardRepositoryPersistableTestee
     public StandardRepository<PersistableTestee> createPersistableTestee() {
         // manager.setFlushMode(FlushModeType.AUTO);
         return new StandardRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);

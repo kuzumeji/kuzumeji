@@ -15,6 +15,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
+import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.SimpleRepositoryPersistableTestee;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
  * @see SimpleRepository
@@ -26,6 +27,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 @SuppressWarnings("javadoc")
 public class SimpleRepositoryImplTest {
     @Inject
+    @SimpleRepositoryPersistableTestee
     private SimpleRepository<PersistableTestee> testee;
     @Inject
     private Logger log;

@@ -14,14 +14,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
  * 単純リポジトリ
- * @param <P> エンティティ型
+ * @param <R> 基点エンティティ型
  * @author nilcy
  */
-public class SimpleRepositoryImpl<P extends Persistable> implements SimpleRepository<P> {
+public class SimpleRepositoryImpl<R extends Persistable> implements SimpleRepository<R> {
     /** ロガー */
     private static final Logger LOG = LoggerFactory.getLogger(SimpleRepositoryImpl.class);
     /** エンティティクラス */
-    private final Class<P> clazz;
+    private final Class<R> clazz;
     /** エンティティマネージャ */
     private final EntityManager manager;
     /**
@@ -29,13 +29,13 @@ public class SimpleRepositoryImpl<P extends Persistable> implements SimpleReposi
      * @param clazz {@link #clazz エンティティクラス}
      * @param manager {@link #manager エンティティマネージャ}
      */
-    public SimpleRepositoryImpl(final Class<P> clazz, final EntityManager manager) {
+    public SimpleRepositoryImpl(final Class<R> clazz, final EntityManager manager) {
         this.clazz = clazz;
         this.manager = manager;
     }
     /** {@inheritDoc} */
     @Override
-    public <S extends P> S save(final S entity) throws PersistenceException {
+    public <S extends R> S save(final S entity) throws PersistenceException {
         beforeSave(entity);
         try {
             if (!entity.isPersisted()) {
@@ -51,7 +51,7 @@ public class SimpleRepositoryImpl<P extends Persistable> implements SimpleReposi
     }
     /** {@inheritDoc} */
     @Override
-    public <S extends P> Collection<S> save(final Iterable<S> entities) throws PersistenceException {
+    public <S extends R> Collection<S> save(final Iterable<S> entities) throws PersistenceException {
         final List<S> results = new ArrayList<>();
         for (final S entity : entities) {
             results.add(save(entity));
@@ -60,19 +60,19 @@ public class SimpleRepositoryImpl<P extends Persistable> implements SimpleReposi
     }
     /** {@inheritDoc} */
     @Override
-    public P find(final Object id) {
+    public R find(final Object id) {
         return manager.find(clazz, id);
     }
     /** {@inheritDoc} */
     @Override
-    public <S extends P> void delete(final S entity) throws PersistenceException {
+    public <S extends R> void delete(final S entity) throws PersistenceException {
         final S merged = manager.merge(entity);
         beforeDelete(merged);
         manager.remove(merged);
     }
     /** {@inheritDoc} */
     @Override
-    public <S extends P> void delete(final Iterable<S> entities) throws PersistenceException {
+    public <S extends R> void delete(final Iterable<S> entities) throws PersistenceException {
         for (final S entity : entities) {
             delete(entity);
         }
@@ -88,7 +88,7 @@ public class SimpleRepositoryImpl<P extends Persistable> implements SimpleReposi
      * @param entity エンティティ
      * @throws PersistenceException 保存の失敗
      */
-    protected <S extends P> void beforeSave(final S entity) throws PersistenceException {
+    protected <S extends R> void beforeSave(final S entity) throws PersistenceException {
     }
     /**
      * 削除前処理
@@ -96,13 +96,13 @@ public class SimpleRepositoryImpl<P extends Persistable> implements SimpleReposi
      * @param entity エンティティ
      * @throws PersistenceException 削除の失敗
      */
-    protected <S extends P> void beforeDelete(final S entity) throws PersistenceException {
+    protected <S extends R> void beforeDelete(final S entity) throws PersistenceException {
     }
     /**
      * {@link #clazz} の取得
      * @return {@link #clazz}
      */
-    protected final Class<P> getEntityClass() {
+    protected final Class<R> getEntityClass() {
         return clazz;
     }
     /**

@@ -7,27 +7,26 @@ package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.SimpleRepositoryPersistableTestee;
+import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.SmartRepositoryPersistableTestee;
 /**
- * @see SimpleRepository
- * @see SimpleRepositoryImpl
+ * @see SmartRepository
+ * @see SmartRepositoryImpl
  * @author nilcy
  */
-public class SimpleRepositoryProducer {
+public class SmartRepositoryProducer {
     /** エンティティマネージャ */
     @Inject
     private EntityManager manager;
     /** コンストラクタ */
-    public SimpleRepositoryProducer() {
+    public SmartRepositoryProducer() {
     }
     /**
-     * リポジトリ(テストエンティティ)の作成
-     * @return リポジトリ(テストエンティティ)
+     * 先進リポジトリの作成
+     * @return 先進リポジトリ(テストエンティティ)
      */
     @Produces
-    @SimpleRepositoryPersistableTestee
-    public SimpleRepository<PersistableTestee> createPersistableTesteeUKcode() {
-        // manager.setFlushMode(FlushModeType.AUTO);
-        return new SimpleRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);
+    @SmartRepositoryPersistableTestee
+    public SmartRepository<PersistableTestee> createPersistableTestee() {
+        return new SmartRepositoryImpl<PersistableTestee>(PersistableTestee.class, manager);
     }
 }
