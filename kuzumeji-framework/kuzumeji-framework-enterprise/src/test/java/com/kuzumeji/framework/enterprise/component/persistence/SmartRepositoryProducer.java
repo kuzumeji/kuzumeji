@@ -29,16 +29,15 @@ public class SmartRepositoryProducer {
      */
     @Produces
     @SmartRepositoryPersistableTestee
-    public SmartRepository<PersistableTestee, PersistableTestee> createPersistableTestee() {
-        final SmartRepositoryListener<PersistableTestee, PersistableTestee> listener = new SmartRepositoryListener<PersistableTestee, PersistableTestee>() {
+    public SmartRepository<Testee, TesteeFilter> createPersistableTestee() {
+        final SmartRepositoryListener<Testee, TesteeFilter> listener = new SmartRepositoryListener<Testee, TesteeFilter>() {
             @Override
-            public CriteriaQuery<PersistableTestee> query(final CriteriaBuilder builder,
-                final CriteriaQuery<PersistableTestee> query, final Root<PersistableTestee> root,
-                final PersistableTestee filter) {
-                query.select(root).where(builder.equal(root.get("code"), filter.getCode()));
-                return query;
+            public CriteriaQuery<Testee> query(final CriteriaBuilder builder,
+                final CriteriaQuery<Testee> query, final Root<Testee> root,
+                final TesteeFilter filter) {
+                return query.select(root).where(builder.equal(root.get("code"), filter.getCode()));
             }
         };
-        return new SmartRepositoryImpl<>(PersistableTestee.class, manager, listener);
+        return new SmartRepositoryImpl<>(Testee.class, manager, listener);
     }
 }

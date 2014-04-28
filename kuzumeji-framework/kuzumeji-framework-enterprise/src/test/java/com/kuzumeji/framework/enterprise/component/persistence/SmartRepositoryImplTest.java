@@ -27,7 +27,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 public class SmartRepositoryImplTest {
     @Inject
     @SmartRepositoryPersistableTestee
-    private SmartRepository<PersistableTestee, PersistableTestee> testee;
+    private SmartRepository<Testee, TesteeFilter> testee;
     @Inject
     private Logger log;
     @Deployment
@@ -37,13 +37,13 @@ public class SmartRepositoryImplTest {
     }
     @Before
     public void before() throws PersistenceException {
-        testee.save(new PersistableTestee("code#01", "name#01"));
+        testee.save(new Testee("code#01", "name#01"));
         testee.flush();
     }
     @Test
     public final void test() throws PersistenceException {
-        final PersistableTestee filter = new PersistableTestee("code#01", "name#01");
-        final PersistableTestee entity = testee.findOne(filter);
+        final TesteeFilter filter = new TesteeFilter("code#01");
+        final Testee entity = testee.findOne(filter);
         log.debug("entity : {}", entity);
     }
 }

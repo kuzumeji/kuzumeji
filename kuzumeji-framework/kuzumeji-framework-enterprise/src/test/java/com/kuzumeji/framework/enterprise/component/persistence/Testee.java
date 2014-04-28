@@ -16,13 +16,12 @@ import javax.persistence.UniqueConstraint;
  * @author nilcy
  */
 @Entity
-@Table(name = "PersitenceTestee", indexes = { @Index(columnList = "code"),
-    @Index(columnList = "name") }, uniqueConstraints = {
+@Table(name = "Testee", indexes = { @Index(columnList = "code"), @Index(columnList = "name") }, uniqueConstraints = {
     @UniqueConstraint(columnNames = { "code" }), @UniqueConstraint(columnNames = { "name" }) })
 @NamedQueries({
-    @NamedQuery(name = "PersistableTestee.findUK_code", query = "SELECT pt FROM PersistableTestee pt WHERE pt.code=:code"),
-    @NamedQuery(name = "PersistableTestee.findUK_name", query = "SELECT pt FROM PersistableTestee pt WHERE pt.name=:name") })
-public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
+    @NamedQuery(name = "Testee.findUK_code", query = "SELECT t FROM Testee t WHERE t.code=:code"),
+    @NamedQuery(name = "Testee.findUK_name", query = "SELECT t FROM Testee t WHERE t.name=:name") })
+public class Testee extends AbstractPersistable<Testee> {
     /** 識別番号 */
     private static final long serialVersionUID = 4506075597459118931L;
     /** コード */
@@ -32,14 +31,14 @@ public class PersistableTestee extends AbstractPersistable<PersistableTestee> {
     @Column(name = "name", nullable = false, insertable = true, updatable = true)
     private String name;
     /** コンストラクタ */
-    public PersistableTestee() {
+    public Testee() {
     }
     /**
      * コンストラクタ
      * @param code {@link #code コード}
      * @param name {@link #name なまえ}
      */
-    public PersistableTestee(final String code, final String name) {
+    public Testee(final String code, final String name) {
         this.code = code;
         this.name = name;
     }

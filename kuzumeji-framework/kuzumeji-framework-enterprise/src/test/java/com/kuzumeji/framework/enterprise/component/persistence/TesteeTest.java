@@ -18,13 +18,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
- * @see PersistableTestee
+ * @see Testee
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 @SuppressWarnings("boxing")
-public class PersistableTesteeTest {
+public class TesteeTest {
     /** エンティティマネージャ */
     @PersistenceContext
     private EntityManager manager;
@@ -43,14 +43,14 @@ public class PersistableTesteeTest {
     @Test
     public final void test() {
         assertThat(manager, is(not(nullValue())));
-        final PersistableTestee entity = new PersistableTestee();
+        final Testee entity = new Testee();
         entity.setCode("code#01");
         entity.setName("name#01");
         manager.persist(entity);
-        final Collection<PersistableTestee> entities = manager.createQuery(
-            "select pt from PersistableTestee pt", PersistableTestee.class).getResultList();
+        final Collection<Testee> entities = manager.createQuery("select t from Testee t",
+            Testee.class).getResultList();
         assertThat(entities.size(), is(1));
-        final PersistableTestee first = entities.iterator().next();
+        final Testee first = entities.iterator().next();
         assertThat(first.getCode(), is("code#01"));
         assertThat(first.getName(), is("name#01"));
     }

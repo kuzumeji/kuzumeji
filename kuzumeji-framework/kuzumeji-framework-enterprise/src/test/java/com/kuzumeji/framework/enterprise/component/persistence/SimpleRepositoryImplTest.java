@@ -28,7 +28,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 public class SimpleRepositoryImplTest {
     @Inject
     @SimpleRepositoryPersistableTestee
-    private SimpleRepository<PersistableTestee> testee;
+    private SimpleRepository<Testee> testee;
     @Inject
     private Logger log;
     @Deployment
@@ -40,7 +40,7 @@ public class SimpleRepositoryImplTest {
     public final void test() throws PersistenceException {
         assertThat(testee, is(not(nullValue())));
         // 追加してID発番,永続管理ができることを確認する。
-        PersistableTestee entity = new PersistableTestee("code#01", "name#01");
+        Testee entity = new Testee("code#01", "name#01");
         log.debug("entity : {}", entity);
         entity = testee.save(entity);
         testee.flush();

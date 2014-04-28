@@ -29,7 +29,7 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 public class StandardRepositoryImplTest {
     @Inject
     @StandardRepositoryPersistableTestee
-    private StandardRepository<PersistableTestee> testee;
+    private StandardRepository<Testee> testee;
     @Inject
     private Logger log;
     @Deployment
@@ -39,13 +39,13 @@ public class StandardRepositoryImplTest {
     }
     @Before
     public void before() throws PersistenceException {
-        testee.save(new PersistableTestee("code#01", "name#01"));
+        testee.save(new Testee("code#01", "name#01"));
         testee.flush();
     }
     @Test
     public final void test() throws PersistenceException {
-        final PersistableTestee filter = new PersistableTestee("code#01", "name#01");
-        final PersistableTestee entity = testee.findOne("PersistableTestee.findUK_code", filter,
+        final Testee filter = new Testee("code#01", "name#01");
+        final Testee entity = testee.findOne("PersistableTestee.findUK_code", filter,
             "code");
         log.debug("entity : {}", entity);
     }
