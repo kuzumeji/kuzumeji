@@ -1,0 +1,48 @@
+// ----------------------------------------------------------------------------
+// Copyright (C) Kuzumeji Evolution Laboratory. All rights reserved.
+// GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+// http://www.gnu.org/licenses/gpl-3.0-standalone.html
+// ----------------------------------------------------------------------------
+package com.kuzumeji.template.provider.domain;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+/**
+ * @see JaasUserDomain
+ * @author nilcy
+ */
+@SuppressWarnings({ "static-method", "javadoc" })
+public class JaasUserDomainTest {
+    private static final Logger LOG = LoggerFactory.getLogger(JaasUserDomainTest.class);
+    @Test
+    public final void test() {
+        final JaasUser user1 = new JaasUser("user#1", DigestUtils.sha256Hex("password#1"));
+        LOG.debug("user1 : {}", user1);
+        final JaasUserDomain testee = new JaasUserDomain(user1);
+        try {
+            testee.changePassword(null);
+            fail();
+        } catch (final NullPointerException e) {
+            LOG.debug(e.toString());
+        }
+        try {
+            testee.changePassword(StringUtils.EMPTY);
+            fail();
+        } catch (final IllegalArgumentException e) {
+            LOG.debug(e.toString());
+        }
+        try {
+            testee.changePassword("password#1");
+            fail();
+        } catch (final IllegalArgumentException e) {
+            LOG.debug(e.toString());
+        }
+        final JaasUser user2 = testee.changePassword("password#2");
+        assertThat(user2, is(not(user1)));
+        LOG.debug("user2 : {}", user1);
+    }
+}
