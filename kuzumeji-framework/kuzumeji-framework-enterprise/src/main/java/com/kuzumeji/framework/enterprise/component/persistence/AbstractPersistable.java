@@ -45,7 +45,7 @@ public abstract class AbstractPersistable<P extends AbstractPersistable<P>> exte
     private static final Logger LOG = LoggerFactory.getLogger(AbstractPersistable.class);
     /** 識別子(ID) */
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false, insertable = true, updatable = false)
     private BigDecimal id;
     /** 永続管理FG (TRUE:管理中,FALSE:未管理) */
