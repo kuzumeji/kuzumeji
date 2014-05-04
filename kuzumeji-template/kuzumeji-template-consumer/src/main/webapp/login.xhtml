@@ -12,7 +12,7 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<link rel="shortcut icon" href="#{request.contextPath}/assets/ico/favicon.ico" />
-	<title>Kuzumeji Template</title>
+	<title>#{msg['Application']}</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="signin.css" />
 	<!--[if lt IE 9]>
@@ -24,13 +24,13 @@
 	<div class="container">
 		<form class="form-signin" role="form" method="post"
 			action="j_security_check">
-			<h2 class="form-signin-heading">Please sign in</h2>
+			<h2 class="form-signin-heading">#{msg['Login_guide']}</h2>
 			<h:inputText id="username" p:type="email" styleClass="form-control"
-				p:placeholder="Email address" required="true" p:autofocus="true" />
+				p:placeholder="#{msg['username']}" required="true" p:autofocus="true" />
 			<h:inputText id="password" p:type="password"
-				styleClass="form-control" p:placeholder="Password" required="true" />
+				styleClass="form-control" p:placeholder="#{msg['password']}" required="true" />
 			<h:commandButton id="login" type="submit"
-				styleClass="btn btn-lg btn-primary btn-block" value="Sign in" />
+				styleClass="btn btn-lg btn-primary btn-block" value="#{msg['Login']}" />
 		</form>
 
 	</div>
