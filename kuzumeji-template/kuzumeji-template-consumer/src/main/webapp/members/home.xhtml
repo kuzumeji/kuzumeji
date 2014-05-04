@@ -11,8 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="" />
 	<meta name="author" content="" />
-	<link rel="shortcut icon"
-		href="#{request.contextPath}/assets/ico/favicon.ico" />
+	<link rel="shortcut icon" href="#{request.contextPath}/assets/ico/favicon.ico" />
 	<title>#{msg['Application']}</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputStylesheet library="css" name="signin.css" />
@@ -23,20 +22,9 @@
 </h:head>
 <h:body>
 	<div class="container">
-		<form id="login" class="form-signin" action="j_security_check">
-			<h2 class="form-signin-heading">#{msg['Login_guide']}</h2>
-			<h:inputText id="j_username" name="j_username" p:type="email"
-				styleClass="form-control" p:placeholder="#{msg['username']}"
-				required="true" autocomplete="off" p:autofocus="true" />
-			<h:inputText id="j_password" name="j_password" p:type="password"
-				styleClass="form-control" p:placeholder="#{msg['password']}"
-				required="true" autocomplete="off" />
-			<h:commandButton id="submit" type="submit"
-				styleClass="btn btn-lg btn-primary btn-block"
-				value="#{msg['Login']}" />
-		</form>
+	MEMBERS ONLY
 	</div>
-	<h:outputScript library="js" name="jquery.min.js" />
+	<h:outputScript library="js" name="jquery.js" />
 	<h:outputScript library="js" name="bootstrap.min.js" />
 </h:body>
 </html>
