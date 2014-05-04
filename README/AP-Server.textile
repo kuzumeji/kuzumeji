@@ -1,0 +1,133 @@
+h1. APサーバ
+
+h2. 稼働環境
+
+* GlassFish Server Open Source Edition 4.0
+** Java EE 7 requires JDK 7
+
+h2. JDBCドライバの管理
+
+<pre>
+JDBCドライバをAPサーバへインストール
+$ cp $MAVEN_REPO/org/postgresql/postgresql/9.2-1003-jdbc4/postgresql-9.2-1003-jdbc4.jar $GLASSFISH_HOME/lib
+($MAVEN_REPOはMavenリポジトリ、$GLASSFISH_HOMEはGlassFishホームディレクトリ)
+</pre>
+
+h2. APサーバの管理
+
+* APサーバの起動
+<pre>
+$ asadmin start-domain
+</pre>
+
+* APサーバの停止
+<pre>
+$ asadmin stop-domain
+</pre>
+
+* APサーバの再起動
+<pre>
+$ asadmin restart-domain
+</pre>
+
+h2. JDBCコネクションプールとJDBCリソースの管理
+
+* JDBCコネクションプールの作成
+
+<pre>
+$ asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource --property portNumber=5432:user=kuzumeji:password=happyhacking:serverName=localhost:databaseName=kuzumeji kuzumeji_pool
+</pre>
+
+* JDBCコネクションプールの確認
+<pre>
+$ asadmin ping-connection-pool kuzumeji_pool
+</pre>
+
+* JDBCコネクションプールの一覧
+<pre>
+$ asadmin list-jdbc-connection-pools
+</pre>
+
+* JDBCコネクションプールの削除
+<pre>
+$ asadmin delete-jdbc-connection-pool kuzumeji_pool
+</pre>
+
+* JDBCリソースの作成
+<pre>
+$ asadmin create-jdbc-resource --connectionpoolid kuzumeji_pool jdbc/kuzumeji
+</pre>
+
+* JDBCリソースの一覧
+<pre>
+$ asadmin list-jdbc-resources
+</pre>
+
+* JDBCリソースの削除
+<pre>
+$ asadmin delete-jdbc-resource jdbc/kuzumeji
+</pre>
+
+h2. 認証レルムの管理
+
+* 認証レルムの作成
+<pre>
+$ asadmin create-auth-realm --classname com.sun.enterprise.security.ee.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/kuzumeji:user-table=public.JaasUser:group-table=public.JaasGroup:user-name-column=userName:password-column=password:group-name-column=groupName:digest-algorithm=SHA-256:encoding=Hex  kuzumeji_realm
+</pre>
+
+* 認証レルムの確認
+<pre>
+$ asadmin list-auth-realms
+</pre>
+
+* 認証レルムの削除
+<pre>
+$ asadmin delete-auth-realm kuzumeji_realm
+</pre>
+
+h2. JavaMailリソースの管理
+
+<pre>
+JavaMailリソースの作成
+$ asadmin create-javamail-resource --mailhost smtp.gmail.com --fromaddress kuzumeji@gmail.com --mailuser kuzumeji@gmail.com --transprotocol smtps --transprotocolclass com.sun.mail.smtp.SMTPSSLTransport --description "kuzumeji mail session" --property mail-smtps-password=xxxxxxxx:mail-smtps-auth=true mail/kuzumeji/primarySession
+$ asadmin list-javamail-resources
+JavaMailリソースの削除
+$ asadmin delete-javamail-resource mail/kuzumeji/primarySession
+</pre>
+
+h2. JMSリソースの管理
+
+<pre>
+JMSコネクションファクトリーの作成
+$ asadmin create-jms-resource --restype javax.jms.ConnectionFactory jms/kuzumeji/primaryConnectionFactory
+JMSキューの作成
+$ asadmin create-jms-resource --restype javax.jms.Queue jms/kuzumeji/primaryQueue
+JMSトピックの作成
+$ asadmin create-jms-resource --restype javax.jms.Topic jms/kuzumeji/primaryTopic
+JMSリソースの一覧
+$ asadmin list-jms-resources
+JMSコネクションファクトリーの削除
+$ asadmin delete-jms-resource jms/kuzumeji/primaryConnectionFactory
+JMSキューの削除
+$ asadmin delete-jms-resource jms/kuzumeji/primaryQueue
+JMSトピックの削除
+$ asadmin delete-jms-resource jms/kuzumeji/primaryTopic
+</pre>
+
+h2. ログ設定の管理
+
+<pre>
+$ cp $kuzumeji_HOME/kuzumeji-fw/kuzumeji-fw-standard/src/test/resources/logback-test.xml $GLASSFISH_HOME/domains/domain1/config/logback.xml
+($kuzumeji_HOMEはプロジェクトディレクトリ、$GLASSFISH_HOMEはGlassFishホームディレクトリ)
+</pre>
+
+h2. JVMオプションの管理
+
+<pre>
+JVMオプションの作成
+$ asadmin create-jvm-options '-Dlogback.configurationFile=${com.sun.aas.instanceRoot}/config/logback.xml'
+JVMオプションの一覧
+$ asadmin list-jvm-options
+JVMオプションの削除
+$ asadmin delete-jvm-options -Dlogback.configurationFile=${com.sun.aas.instanceRoot}/config/logback.xml
+</pre>

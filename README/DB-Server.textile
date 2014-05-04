@@ -1,0 +1,42 @@
+h1. データベースサーバ
+
+h2. 稼働環境
+
+* PostgreSQL 9.3.4
+
+h2. ユーザ
+
+* ユーザの作成
+<pre>
+$ createuser --username=postgres --createdb --encrypted --inherit --login --pwprompt --createrole --superuser kuzumeji
+Enter password for new role: <---- "happyhacking" と入力する。
+Enter it again: <---- "happyhacking" と入力する。 
+</pre>
+
+* ユーザの削除
+<pre>
+$ dropuser --username=postgres kuzumeji
+</pre>
+
+h3. データベース
+
+* データベースの作成(Unix)
+<pre>
+$ createdb --username=kuzumeji --encoding=UTF8 --locale=ja_JP.UTF-8 --owner=kuzumeji --template=template0 kuzumeji
+</pre>
+
+* データベースの作成(Windows)
+<pre>
+> createdb --username=kuzumeji --encoding=UTF8 --locale=Japanese_Japan.932 --owner=kuzumeji --template=template0 kuzumeji
+</pre>
+
+* データベースの削除
+<pre>
+$ dropdb --username=postgres kuzumeji
+</pre>
+
+* データベースへの接続
+<pre>
+$ psql --username=kuzumeji kuzumeji
+</pre>
+

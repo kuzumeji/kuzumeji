@@ -1,0 +1,156 @@
+h1. YOYO
+
+UUO (you-you-oh) [short for "Un-Used Operation"]
+
+h1. 環境構築の手順
+
+h2. Java開発環境の構築 (Eclipse)
+
+* Eclipse Kepler Release - Eclipse Java EE IDE for Web Developers.
+
+h3. 拡張プラグイン導入#1 (Help -> Ecilpse Marketplace...)
+
+# Maven Integration for Eclipse
+# EGit - Git Team Provider
+# GitHub Mylyn Connector
+# Checkstyle Plug-in
+# FindBugs Ecilpse Plugin
+
+h3. 拡張プラグイン導入#2 (Help -> Install New Software... ->)
+
+# Add -> http://propedit.sourceforge.jp/eclipse/updates/ (PropertiesEditor)
+
+h2. DBサーバの構築 (PostgreSQL)
+
+* PostgreSQL 9.3.1
+
+h3. DBユーザの管理
+
+<pre>
+DBユーザの作成
+$ createuser --username=postgres --createdb --encrypted --inherit --login --pwprompt --createrole --superuser yoyo
+Enter password for new role: <---- "happyhacking" と入力する。 
+Enter it again: <---- "happyhacking" と入力する。 
+</pre>
+<pre>
+DBユーザの削除
+$ dropuser --username=postgres yoyo
+</pre>
+
+h3. データベースの管理
+
+<pre>
+データベースの作成(Unix)
+$ createdb --username=yoyo --encoding=UTF8 --locale=ja_JP.UTF-8 --owner=yoyo --template=template0 yoyo
+データベースの作成(Windows)
+> createdb --username=yoyo --encoding=UTF8 --locale=Japanese_Japan.932 --owner=yoyo --template=template0 yoyo
+</pre>
+<pre>
+データベースの削除
+$ dropdb --username=postgres yoyo
+データベースへの接続
+$ psql --username=yoyo yoyo
+</pre>
+
+h2. APサーバ(GlassFish)
+
+* GlassFish Server Open Source Edition 4.0
+** Java EE 7 requires JDK 7
+
+h3. JDBCドライバの管理
+
+<pre>
+JDBCドライバをAPサーバへインストール
+$ cp $MAVEN_REPO/org/postgresql/postgresql/9.2-1003-jdbc4/postgresql-9.2-1003-jdbc4.jar $GLASSFISH_HOME/lib
+($MAVEN_REPOはMavenリポジトリ、$GLASSFISH_HOMEはGlassFishホームディレクトリ)
+</pre>
+
+h3. APサーバの管理
+
+<pre>
+APサーバの起動
+$ asadmin start-domain
+APサーバの停止
+$ asadmin stop-domain
+APサーバの再起動
+$ asadmin restart-domain
+</pre>
+
+h3. JDBCコネクションプールとJDBCリソースの管理
+
+<pre>
+JDBCコネクションプールの作成
+$ asadmin create-jdbc-connection-pool --datasourceclassname org.postgresql.ds.PGConnectionPoolDataSource --restype javax.sql.ConnectionPoolDataSource --property portNumber=5432:user=yoyo:password=happyhacking:serverName=localhost:databaseName=yoyo yoyo_primary_pool
+JDBCコネクションプールの確認
+$ asadmin ping-connection-pool yoyo_primary_pool
+JDBCコネクションプールの一覧
+$ asadmin list-jdbc-connection-pools
+JDBCリソースの作成
+$ asadmin create-jdbc-resource --connectionpoolid yoyo_primary_pool jdbc/yoyo/primaryDatabase
+JDBCリソースの一覧
+$ asadmin list-jdbc-resources
+</pre>
+
+<pre>
+JDBCコネクションプールの削除
+$ asadmin delete-jdbc-resource jdbc/yoyo/primaryDatabase
+JDBCリソースの削除
+$ asadmin delete-jdbc-connection-pool yoyo_primary_pool
+</pre>
+
+h3. 認証レルムの管理
+
+<pre>
+認証レルムの作成
+$ asadmin create-auth-realm --classname com.sun.enterprise.security.ee.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/yoyo/primaryDatabase:user-table=public.member:group-table=public.member_auth:user-name-column=account:password-column=password:group-name-column=auth:digest-algorithm=SHA-256:encoding=Hex yoyo_primary_auth
+asadmin list-auth-realms
+認証レルムの削除
+$ asadmin delete-auth-realm yoyo_primary_auth
+</pre>
+
+h3. JavaMailリソースの管理
+
+<pre>
+JavaMailリソースの作成
+$ asadmin create-javamail-resource --mailhost smtp.gmail.com --fromaddress yoyo@gmail.com --mailuser yoyo@gmail.com --transprotocol smtps --transprotocolclass com.sun.mail.smtp.SMTPSSLTransport --description "yoyo mail session" --property mail-smtps-password=xxxxxxxx:mail-smtps-auth=true mail/yoyo/primarySession
+$ asadmin list-javamail-resources
+JavaMailリソースの削除
+$ asadmin delete-javamail-resource mail/yoyo/primarySession
+</pre>
+
+h3. JMSリソースの管理
+
+<pre>
+JMSコネクションファクトリーの作成
+$ asadmin create-jms-resource --restype javax.jms.ConnectionFactory jms/yoyo/primaryConnectionFactory
+JMSキューの作成
+$ asadmin create-jms-resource --restype javax.jms.Queue jms/yoyo/primaryQueue
+JMSトピックの作成
+$ asadmin create-jms-resource --restype javax.jms.Topic jms/yoyo/primaryTopic
+JMSリソースの一覧
+$ asadmin list-jms-resources
+JMSコネクションファクトリーの削除
+$ asadmin delete-jms-resource jms/yoyo/primaryConnectionFactory
+JMSキューの削除
+$ asadmin delete-jms-resource jms/yoyo/primaryQueue
+JMSトピックの削除
+$ asadmin delete-jms-resource jms/yoyo/primaryTopic
+</pre>
+
+h3. ログ設定の管理
+
+<pre>
+$ cp $YOYO_HOME/yoyo-fw/yoyo-fw-standard/src/test/resources/logback-test.xml $GLASSFISH_HOME/domains/domain1/config/logback.xml
+($YOYO_HOMEはプロジェクトディレクトリ、$GLASSFISH_HOMEはGlassFishホームディレクトリ)
+</pre>
+
+h3. JVMオプションの管理
+
+<pre>
+JVMオプションの作成
+$ asadmin create-jvm-options '-Dlogback.configurationFile=${com.sun.aas.instanceRoot}/config/logback.xml'
+JVMオプションの一覧
+$ asadmin list-jvm-options
+JVMオプションの削除
+$ asadmin delete-jvm-options -Dlogback.configurationFile=${com.sun.aas.instanceRoot}/config/logback.xml
+</pre>
