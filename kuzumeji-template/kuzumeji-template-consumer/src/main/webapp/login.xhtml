@@ -1,21 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-<title>Kuzumeji</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Kuzumeji Template</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputStylesheet library="css" name="signin.css" />
+	<!--[if lt IE 9]>
+<script src="#{request.contextPath}/assets/js/html5shiv.js"></script>
+<script src="#{request.contextPath}/assets/js/respond.min.js"></script>
+<![endif]-->
 </h:head>
 <h:body>
-	<h1>Enter your username and password to login</h1>
-	<i> Enter login=me and password=me in order to authenticate
-		successfully</i>
-	<form method="post" action="j_security_check">
-		<b>Login: </b><input type="text" name="j_username" />
-		<p />
-		<b>Password: </b><input type="password" name="j_password" />
-		<p />
-		<input type="submit" value="Login" />
-	</form>
+	<div class="container">
+		<form class="form-signin" role="form" method="post"
+			action="j_security_check">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<h:inputText id="username" p:type="email" styleClass="form-control"
+				p:placeholder="Email address" required="true" p:autofocus="true" />
+			<h:inputText id="password" p:type="password"
+				styleClass="form-control" p:placeholder="Password" required="true" />
+			<h:commandButton id="login" type="submit"
+				styleClass="btn btn-lg btn-primary btn-block" value="Sign in" />
+		</form>
+
+	</div>
+	<h:outputScript library="js" name="bootstrap.min.js" />
 </h:body>
 </html>
