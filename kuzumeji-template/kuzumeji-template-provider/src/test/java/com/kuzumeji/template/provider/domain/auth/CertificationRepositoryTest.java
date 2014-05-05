@@ -4,10 +4,7 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.template.provider.domain.auth;
-import java.util.ArrayList;
-import java.util.Collection;
 import javax.inject.Inject;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -31,7 +28,9 @@ import com.kuzumeji.framework.testing.ArchiveFactory;
 @SuppressWarnings("javadoc")
 public class CertificationRepositoryTest {
     @Inject
-    private SmartRepository<Certification, CertificationFilter> Certification;
+    private SmartRepository<Certification, CertificationFilter> testee;
+    @Inject
+    private CertificationFactory factory;
     @Inject
     private Logger log;
     @Deployment
@@ -41,18 +40,13 @@ public class CertificationRepositoryTest {
     }
     @Before
     public void before() throws PersistenceException {
-        final Certification certification = new Certification("account#01",
-            DigestUtils.sha256Hex("password#01"));
-        final Collection<Permission> permissions = new ArrayList<>();
-        permissions.add(new Permission("account#01", "user"));
-        certification.setPermissions(permissions);
-        Certification.save(certification);
-        Certification.flush();
+        testee.save(factory.create("account#01", "password#01", "user", "admin"));
+        testee.flush();
     }
     @Test
     public final void test() throws PersistenceException {
         final CertificationFilter filter = new CertificationFilter("account#01");
-        final Certification entity = Certification.findOne(filter);
+        final Certification entity = testee.findOne(filter);
         log.debug("entity : {}", entity);
     }
 }
