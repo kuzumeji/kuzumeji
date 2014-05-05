@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.provider.domain;
+package com.kuzumeji.template.provider.domain.auth;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -11,6 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import com.kuzumeji.template.provider.domain.auth.Certification;
+import com.kuzumeji.template.provider.domain.auth.CertificationDomain;
 /**
  * @see CertificationDomain
  * @author nilcy

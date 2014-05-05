@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.provider.domain;
+package com.kuzumeji.template.provider.domain.auth;
 import javax.inject.Inject;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -18,6 +18,8 @@ import org.slf4j.Logger;
 import com.kuzumeji.framework.enterprise.component.persistence.PersistenceException;
 import com.kuzumeji.framework.enterprise.component.persistence.SmartRepository;
 import com.kuzumeji.framework.testing.ArchiveFactory;
+import com.kuzumeji.template.provider.domain.auth.Certification;
+import com.kuzumeji.template.provider.domain.auth.CertificationFilter;
 /**
  * @see Certification
  * @author nilcy

@@ -3,7 +3,7 @@
 // GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
-package com.kuzumeji.template.provider.domain;
+package com.kuzumeji.template.provider.domain.auth;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
