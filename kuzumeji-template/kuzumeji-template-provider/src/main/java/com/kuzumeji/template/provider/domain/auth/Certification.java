@@ -34,8 +34,8 @@ public class Certification extends AbstractVersionable<Certification> {
     private String password;
     /** 認可エンティティ集合 */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    @JoinColumn(name = "id", nullable = true, insertable = true, updatable = true)
-    private Collection<Permission> auths;
+    @JoinColumn(name = "account", referencedColumnName = "account", nullable = true, insertable = true, updatable = true)
+    private Collection<Permission> permissions;
     /** コンストラクタ */
     public Certification() {
     }
@@ -47,6 +47,17 @@ public class Certification extends AbstractVersionable<Certification> {
     public Certification(final String account, final String password) {
         this.account = account;
         this.password = password;
+    }
+    /**
+     * コンストラクタ
+     * @param account {@link #account}
+     * @param password {@link #password}
+     * @param permissions {@link #permissions}
+     */
+    public Certification(final String account, final String password,
+        final Collection<Permission> permissions) {
+        this(account, password);
+        this.permissions = permissions;
     }
     /**
      * {@link #account} の取得
@@ -75,5 +86,19 @@ public class Certification extends AbstractVersionable<Certification> {
      */
     public final void setPassword(final String password) {
         this.password = password;
+    }
+    /**
+     * {@link #permissions} の取得
+     * @return {@link #permissions}
+     */
+    public final Collection<Permission> getPermissions() {
+        return permissions;
+    }
+    /**
+     * {@link #permissions} の設定
+     * @param permissions {@link #permissions}
+     */
+    public final void setPermissions(final Collection<Permission> permissions) {
+        this.permissions = permissions;
     }
 }
