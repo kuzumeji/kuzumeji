@@ -15,7 +15,7 @@
 		href="#{request.contextPath}/assets/ico/favicon.ico" />
 	<title>#{msg['Application']}</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	<h:outputStylesheet library="css" name="signin.css" />
+	<h:outputStylesheet library="css" name="login.css" />
 	<!--[if lt IE 9]>
 <script src="#{request.contextPath}/assets/js/html5shiv.js"></script>
 <script src="#{request.contextPath}/assets/js/respond.min.js"></script>
@@ -23,8 +23,8 @@
 </h:head>
 <h:body>
 	<div class="container">
-		<form id="login" class="form-signin" action="j_security_check">
-			<h2 class="form-signin-heading">#{msg['Login_guide']}</h2>
+		<form class="form-login" action="j_security_check">
+			<h2 class="form-login-heading">#{msg['Login_guide']}</h2>
 			<h:inputText id="j_username" name="j_username" p:type="email"
 				styleClass="form-control" p:placeholder="#{msg['username']}"
 				required="true" autocomplete="off" p:autofocus="true" />
