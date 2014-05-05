@@ -19,15 +19,15 @@ import com.kuzumeji.framework.enterprise.component.persistence.PersistenceExcept
 import com.kuzumeji.framework.enterprise.component.persistence.SmartRepository;
 import com.kuzumeji.framework.testing.ArchiveFactory;
 /**
- * @see JaasUser
+ * @see Certification
  * @author nilcy
  */
 @RunWith(Arquillian.class)
 @Transactional(value = TransactionMode.ROLLBACK)
 @SuppressWarnings("javadoc")
-public class JaasUserTest {
+public class CertificationTest {
     @Inject
-    private SmartRepository<JaasUser, JaasUserFilter> testee;
+    private SmartRepository<Certification, CertificationFilter> testee;
     @Inject
     private Logger log;
     @Deployment
@@ -37,12 +37,12 @@ public class JaasUserTest {
     }
     @Before
     public void before() throws PersistenceException {
-        testee.save(new JaasUser("user#01", DigestUtils.sha256Hex("password#01")));
+        testee.save(new Certification("user#01", DigestUtils.sha256Hex("password#01")));
         testee.flush();
     }
     @Test
     public final void test() throws PersistenceException {
-        final JaasUser entity = testee.findOne(new JaasUserFilter("user#01"));
+        final Certification entity = testee.findOne(new CertificationFilter("user#01"));
         log.debug("entity : {}", entity);
     }
 }

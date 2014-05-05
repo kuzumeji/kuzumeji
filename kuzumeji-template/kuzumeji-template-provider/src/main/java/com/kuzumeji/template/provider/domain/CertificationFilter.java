@@ -6,26 +6,26 @@
 package com.kuzumeji.template.provider.domain;
 import com.kuzumeji.framework.standard.component.AbstractValueObject;
 /**
- * JAASユーザ検索条件
+ * 認証エンティティ検索条件
  * @author nilcy
  */
-public class JaasUserFilter extends AbstractValueObject<JaasUserFilter> {
+public class CertificationFilter extends AbstractValueObject<CertificationFilter> {
     /** 識別番号 */
     private static final long serialVersionUID = -985653761854953733L;
-    /** ユーザ名 */
-    private final String userName;
+    /** アカウント */
+    private final String account;
     /**
      * コンストラクタ
-     * @param userName {@link #userName}
+     * @param account {@link #account}
      */
-    public JaasUserFilter(final String userName) {
-        this.userName = userName;
+    public CertificationFilter(final String account) {
+        this.account = account;
     }
     /**
-     * {@link #userName} の取得
-     * @return {@link #userName}
+     * {@link #account} の取得
+     * @return {@link #account}
      */
-    public final String getUserName() {
-        return userName;
+    public final String getAccount() {
+        return account;
     }
 }

@@ -8,8 +8,8 @@
 		<class>com.kuzumeji.framework.enterprise.component.persistence.AbstractVersionable</class>
 		<class>com.kuzumeji.framework.enterprise.component.persistence.AbstractAuditable</class>
 		<class>com.kuzumeji.framework.enterprise.domain.Config</class>
-		<class>com.kuzumeji.template.provider.domain.JaasUser</class>
-		<class>com.kuzumeji.template.provider.domain.JaasGroup</class>
+		<class>com.kuzumeji.template.provider.domain.Certification</class>
+		<class>com.kuzumeji.template.provider.domain.Permission</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 		<validation-mode>AUTO</validation-mode>

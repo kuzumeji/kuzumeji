@@ -14,31 +14,31 @@ import com.kuzumeji.framework.enterprise.component.persistence.SmartRepository;
 import com.kuzumeji.framework.enterprise.component.persistence.SmartRepositoryImpl;
 import com.kuzumeji.framework.enterprise.component.persistence.SmartRepositoryListener;
 /**
- * 先進リポジトリ作成
+ * 認証リポジトリ作成
  * @author nilcy
  */
-public class SmartRepositoryProducer {
+public class CertificationRepositoryProducer {
     /** エンティティマネージャ */
     @Inject
     private EntityManager manager;
     /** コンストラクタ */
-    public SmartRepositoryProducer() {
+    public CertificationRepositoryProducer() {
     }
     /**
-     * JAASユーザ・リポジトリの作成
-     * @return JAASユーザ・リポジトリ
+     * 先進リポジトリの作成
+     * @return 先進リポジトリI/F
      */
     @Produces
-    public SmartRepository<JaasUser, JaasUserFilter> createPersistableTestee() {
-        final SmartRepositoryListener<JaasUser, JaasUserFilter> listener = new SmartRepositoryListener<JaasUser, JaasUserFilter>() {
+    public SmartRepository<Certification, CertificationFilter> createSmartRepository() {
+        final SmartRepositoryListener<Certification, CertificationFilter> listener = new SmartRepositoryListener<Certification, CertificationFilter>() {
             @Override
-            public CriteriaQuery<JaasUser> query(final CriteriaBuilder builder,
-                final CriteriaQuery<JaasUser> query, final Root<JaasUser> root,
-                final JaasUserFilter filter) {
+            public CriteriaQuery<Certification> query(final CriteriaBuilder builder,
+                final CriteriaQuery<Certification> query, final Root<Certification> root,
+                final CertificationFilter filter) {
                 return query.select(root).where(
-                    builder.equal(root.get("userName"), filter.getUserName()));
+                    builder.equal(root.get("account"), filter.getAccount()));
             }
         };
-        return new SmartRepositoryImpl<>(JaasUser.class, manager, listener);
+        return new SmartRepositoryImpl<>(Certification.class, manager, listener);
     }
 }

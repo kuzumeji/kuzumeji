@@ -72,7 +72,7 @@ h2. 認証レルムの管理
 
 * 認証レルムの作成
 <pre>
-$ asadmin create-auth-realm --classname com.sun.enterprise.security.ee.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/kuzumeji:user-table=public.JaasUser:group-table=public.JaasGroup:user-name-column=userName:password-column=password:group-name-column=groupName:digest-algorithm=SHA-256:encoding=Hex  kuzumeji_realm
+$ asadmin create-auth-realm --classname com.sun.enterprise.security.ee.auth.realm.jdbc.JDBCRealm --property jaas-context=jdbcRealm:datasource-jndi=jdbc/kuzumeji:user-table=Certification:group-table=Permission:user-name-column=account:password-column=password:group-name-column=role:digest-algorithm=SHA-256:encoding=Hex  kuzumeji_realm
 </pre>
 
 * 認証レルムの確認

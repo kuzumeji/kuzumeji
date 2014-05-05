@@ -12,17 +12,17 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 /**
- * @see JaasUserDomain
+ * @see CertificationDomain
  * @author nilcy
  */
 @SuppressWarnings({ "static-method", "javadoc" })
-public class JaasUserDomainTest {
-    private static final Logger LOG = LoggerFactory.getLogger(JaasUserDomainTest.class);
+public class CertificationDomainTest {
+    private static final Logger LOG = LoggerFactory.getLogger(CertificationDomainTest.class);
     @Test
     public final void test() {
-        final JaasUser user1 = new JaasUser("user#1", DigestUtils.sha256Hex("password#1"));
+        final Certification user1 = new Certification("user#1", DigestUtils.sha256Hex("password#1"));
         LOG.debug("user1 : {}", user1);
-        final JaasUserDomain testee = new JaasUserDomain(user1);
+        final CertificationDomain testee = new CertificationDomain(user1);
         try {
             testee.changePassword(null);
             fail();
@@ -41,7 +41,7 @@ public class JaasUserDomainTest {
         } catch (final IllegalArgumentException e) {
             LOG.debug(e.toString());
         }
-        final JaasUser user2 = testee.changePassword("password#2");
+        final Certification user2 = testee.changePassword("password#2");
         assertThat(user2, is(not(user1)));
         LOG.debug("user2 : {}", user1);
     }
