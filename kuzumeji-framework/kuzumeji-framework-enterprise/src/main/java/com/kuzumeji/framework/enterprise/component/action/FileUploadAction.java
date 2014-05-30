@@ -17,7 +17,9 @@ import javax.servlet.http.Part;
  */
 @Named
 @ConversationScoped
-public class FileUploadAction {
+public class FileUploadAction implements Action {
+    /** クラス識別番号 */
+    private static final long serialVersionUID = -3633583333612278789L;
     /** 送信ファイル */
     private Part file;
     /** コンストラクタ */
@@ -27,14 +29,14 @@ public class FileUploadAction {
      * {@link #file} の取得
      * @return {@link #file}
      */
-    public final Part getFile() {
+    public Part getFile() {
         return file;
     }
     /**
      * {@link #file} の設定
      * @param file {@link #file}
      */
-    public final void setFile(final Part file) {
+    public void setFile(final Part file) {
         this.file = file;
     }
 }
