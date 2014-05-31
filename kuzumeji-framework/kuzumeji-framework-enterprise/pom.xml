@@ -27,5 +27,9 @@
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache-jcache</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+		</dependency>
 	</dependencies>
 </project>

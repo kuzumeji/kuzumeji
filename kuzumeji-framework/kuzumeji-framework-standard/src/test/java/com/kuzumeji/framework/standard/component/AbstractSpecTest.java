@@ -5,7 +5,7 @@
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.standard.component;
 import static com.kuzumeji.framework.standard.component.SpecHelper.*;
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import com.kuzumeji.framework.testing.CoverageHelper;
