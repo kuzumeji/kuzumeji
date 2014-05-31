@@ -20,11 +20,9 @@ h2. Preferences
 
 h3. Window > Preferences > Java > Editor > Content Assist > Favorites > New Type...
 
-* org.hamcrest.CoreMatchers
 * org.hamcrest.Matchers
 * org.junit.Assert
 * org.junit.Assume
-* org.junit.matchers.JUnitMatchers
 
 h2. Misc
 
