@@ -14,7 +14,7 @@ import org.junit.Test;
  * @see ELProcessor
  * @author nilcy
  */
-@SuppressWarnings({ "javadoc", "boxing", "static-method" })
+@SuppressWarnings({ "javadoc", "boxing" })
 public class ELProcessorTest {
     ELProcessor testee = new ELProcessor();
     @Test
