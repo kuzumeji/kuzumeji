@@ -12,14 +12,25 @@ import com.kuzumeji.framework.standard.component.AbstractValueObject;
 public class TesteeFilter extends AbstractValueObject<TesteeFilter> {
     /** 識別番号 */
     private static final long serialVersionUID = 5270677421769642756L;
+    /** 整列条件 */
+    private final String[] orders;
     /** コード */
     private final String code;
     /**
      * コンストラクタ
      * @param code {@link #code}
+     * @param orders {@link #orders}
      */
-    public TesteeFilter(final String code) {
+    public TesteeFilter(final String code, final String... orders) {
         this.code = code;
+        this.orders = orders;
+    }
+    /**
+     * {@link #orders} の取得
+     * @return {@link #orders}
+     */
+    public String[] getOrders() {
+        return orders;
     }
     /**
      * {@link #code} の取得

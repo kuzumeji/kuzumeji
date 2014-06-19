@@ -70,7 +70,7 @@ public class SmartRepositoryImplTest {
     }
     @Test
     public final void testSmartRepository() throws PersistenceException {
-        final TesteeFilter filter = new TesteeFilter("code#91");
+        final TesteeFilter filter = new TesteeFilter("code#91", "CODE ASC");
         final Testee entity = testee.findOne(filter);
         assertThat(entity.getCode(), is("code#91"));
         assertThat(entity.getName(), is("name#91"));

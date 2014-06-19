@@ -4,11 +4,15 @@
 // http://www.gnu.org/licenses/gpl-3.0-standalone.html
 // ----------------------------------------------------------------------------
 package com.kuzumeji.framework.enterprise.component.persistence;
+import java.util.ArrayList;
+import java.util.List;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 /**
  * @see SmartRepository
@@ -33,7 +37,20 @@ public class SmartRepositoryProducer {
             public CriteriaQuery<Testee> query(final CriteriaBuilder builder,
                 final CriteriaQuery<Testee> query, final Root<Testee> root,
                 final TesteeFilter filter) {
-                return query.select(root).where(builder.equal(root.get("code"), filter.getCode()));
+                final List<Order> orders = new ArrayList<>();
+                for (final String order : filter.getOrders()) {
+                    final String[] vars = order.split(" ");
+                    final Path<Testee> path = root.get(vars[0].toLowerCase());
+                    Order o;
+                    if ((vars.length < 2) || "asc".equals(vars[1].toLowerCase())) {
+                        o = builder.asc(path);
+                    } else {
+                        o = builder.desc(path);
+                    }
+                    orders.add(o);
+                }
+                return query.select(root).where(builder.equal(root.get("code"), filter.getCode()))
+                    .orderBy(orders);
             }
         };
         return new SmartRepositoryImpl<>(Testee.class, manager, listener);
