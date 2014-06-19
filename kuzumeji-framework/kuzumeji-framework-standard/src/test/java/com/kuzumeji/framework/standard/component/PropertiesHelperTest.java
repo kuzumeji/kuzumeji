@@ -13,7 +13,7 @@ import org.junit.Test;
  * @see PropertiesHelper
  * @author nilcy
  */
-@SuppressWarnings({ "static-method", "javadoc", "unused" })
+@SuppressWarnings({ "static-method", "javadoc" })
 public class PropertiesHelperTest {
     @Test
     public void testSimple() {

@@ -14,7 +14,7 @@ import org.junit.Test;
  * @see ELProcessor
  * @author nilcy
  */
-@SuppressWarnings({ "javadoc", "boxing" })
+@SuppressWarnings({ "javadoc", "boxing", "unchecked" })
 public class ELProcessorTest {
     ELProcessor testee = new ELProcessor();
     @Test

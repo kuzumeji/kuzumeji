@@ -238,6 +238,7 @@
     <metadata name="net.sf.eclipsecs.core.comment" value="Ok to catch"/>
     <property name="commentFormat" value="Ok to catch"/>
     <property name="checkFormat" value="IllegalCatchCheck"/>
+    <property name="influenceFormat" value="-1"/>
   </module>
   <module name="SuppressWithNearbyCommentFilter">
     <metadata name="net.sf.eclipsecs.core.comment" value="CHECKSTYLE IGNORE (\w+) FOR NEXT (\d+) LINES"/>

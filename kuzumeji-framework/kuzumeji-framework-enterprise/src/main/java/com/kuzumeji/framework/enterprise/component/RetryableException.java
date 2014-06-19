@@ -15,6 +15,7 @@ import javax.ejb.ApplicationException;
  * @author nilcy
  */
 @ApplicationException(rollback = false, inherited = true)
+// CHECKSTYLE:OFF
 public class RetryableException extends EnterpriseException {
     /** 識別番号 */
     private static final long serialVersionUID = 1620335242611556374L;

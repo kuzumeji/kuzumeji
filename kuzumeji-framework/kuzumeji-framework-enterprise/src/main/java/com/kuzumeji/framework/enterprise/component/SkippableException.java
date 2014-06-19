@@ -15,6 +15,7 @@ import javax.ejb.ApplicationException;
  * @author nilcy
  */
 @ApplicationException(rollback = false, inherited = true)
+// CHECKSTYLE:OFF
 public class SkippableException extends EnterpriseException {
     /** 識別番号 */
     private static final long serialVersionUID = -2081775658030836650L;
