@@ -7,8 +7,6 @@ package com.kuzumeji.framework.enterprise.component.persistence;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Index;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 /**
@@ -18,9 +16,6 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Testee", indexes = { @Index(columnList = "code"), @Index(columnList = "name") }, uniqueConstraints = {
     @UniqueConstraint(columnNames = { "code" }), @UniqueConstraint(columnNames = { "name" }) })
-@NamedQueries({
-    @NamedQuery(name = "Testee.findUK_code", query = "SELECT t FROM Testee t WHERE t.code=:code"),
-    @NamedQuery(name = "Testee.findUK_name", query = "SELECT t FROM Testee t WHERE t.name=:name") })
 public class Testee extends AbstractPersistable<Testee> {
     /** 識別番号 */
     private static final long serialVersionUID = 4506075597459118931L;

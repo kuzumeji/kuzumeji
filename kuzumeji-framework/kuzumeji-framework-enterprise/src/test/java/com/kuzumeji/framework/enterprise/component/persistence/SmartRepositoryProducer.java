@@ -10,7 +10,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import com.kuzumeji.framework.enterprise.component.persistence.RepositoryAnnotations.SmartRepositoryPersistableTestee;
 /**
  * @see SmartRepository
  * @see SmartRepositoryImpl
@@ -28,8 +27,7 @@ public class SmartRepositoryProducer {
      * @return 先進リポジトリ(テストエンティティ)
      */
     @Produces
-    @SmartRepositoryPersistableTestee
-    public SmartRepository<Testee, TesteeFilter> createPersistableTestee() {
+    public SmartRepository<Testee, TesteeFilter> createTestee() {
         final SmartRepositoryListener<Testee, TesteeFilter> listener = new SmartRepositoryListener<Testee, TesteeFilter>() {
             @Override
             public CriteriaQuery<Testee> query(final CriteriaBuilder builder,
