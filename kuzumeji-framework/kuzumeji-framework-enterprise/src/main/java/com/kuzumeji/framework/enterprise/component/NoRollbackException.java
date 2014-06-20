@@ -15,6 +15,7 @@ import javax.ejb.ApplicationException;
  * @author nilcy
  */
 @ApplicationException(rollback = false, inherited = true)
+// CHECKSTYLE:OFF
 public class NoRollbackException extends EnterpriseException {
     /** 識別番号 */
     private static final long serialVersionUID = -6004059900614805028L;
