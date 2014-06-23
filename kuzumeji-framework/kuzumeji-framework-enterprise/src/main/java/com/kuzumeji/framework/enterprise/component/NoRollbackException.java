@@ -102,3 +102,4 @@ public class NoRollbackException extends EnterpriseException {
         super(messageMap);
     }
 }
+// CHECKSTYLE:ON

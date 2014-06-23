@@ -19,6 +19,7 @@ import com.kuzumeji.framework.enterprise.component.persistence.AbstractVersionab
 @Table(name = "Permission", uniqueConstraints = { @UniqueConstraint(columnNames = { "account",
     "role" }) })
 @NamedQueries({ @NamedQuery(name = "Permission.findUK_account_role", query = "SELECT e FROM Permission e WHERE e.account=:account AND e.role=:role") })
+// CHECKSTYLE:OFF
 public class Permission extends AbstractVersionable<Permission> {
     /** 識別番号 */
     private static final long serialVersionUID = -2989313024762807768L;
@@ -69,3 +70,4 @@ public class Permission extends AbstractVersionable<Permission> {
         this.role = role;
     }
 }
+// CHECKSTYLE:ON

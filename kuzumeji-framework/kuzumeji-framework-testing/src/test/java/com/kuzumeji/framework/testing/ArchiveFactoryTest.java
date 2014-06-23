@@ -14,6 +14,7 @@ import org.junit.Test;
  * @see ArchiveFactory
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class ArchiveFactoryTest {
     /** 非公開コンストラクタ */
     @Test

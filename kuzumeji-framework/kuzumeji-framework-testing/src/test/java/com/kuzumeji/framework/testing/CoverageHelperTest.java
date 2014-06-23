@@ -10,6 +10,7 @@ import org.junit.Test;
  * @see CoverageHelper
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class CoverageHelperTest {
     /**
      * @see CoverageHelper#privateConstructor(Class)

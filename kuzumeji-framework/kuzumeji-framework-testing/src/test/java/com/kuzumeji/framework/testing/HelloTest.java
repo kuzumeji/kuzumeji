@@ -11,6 +11,7 @@ import org.junit.Test;
  * @see Hello
  * @author nilcy
  */
+@SuppressWarnings("static-method")
 public class HelloTest {
     /**
      * @see Hello#sayHello(String)

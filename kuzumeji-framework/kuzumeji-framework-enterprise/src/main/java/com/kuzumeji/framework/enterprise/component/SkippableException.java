@@ -102,3 +102,4 @@ public class SkippableException extends EnterpriseException {
         super(messageMap);
     }
 }
+// CHECKSTYLE:ON

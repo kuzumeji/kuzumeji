@@ -102,3 +102,4 @@ public class RetryableException extends EnterpriseException {
         super(messageMap);
     }
 }
+// CHECKSTYLE:ON
