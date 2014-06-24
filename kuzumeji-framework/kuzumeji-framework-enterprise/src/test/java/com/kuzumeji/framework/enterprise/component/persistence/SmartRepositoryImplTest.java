@@ -34,11 +34,6 @@ public class SmartRepositoryImplTest {
         return ArchiveFactory.createJarWithJpa().addAsResource("config.properties")
             .addAsResource("error-messages.properties");
     }
-    // @Before
-    // public void before() throws PersistenceException {
-    // testee.save(new Testee("code#91", "name#91"));
-    // testee.flush();
-    // }
     @Test
     public final void testSimpleRepository() throws PersistenceException {
         assertThat(testee, is(not(nullValue())));
