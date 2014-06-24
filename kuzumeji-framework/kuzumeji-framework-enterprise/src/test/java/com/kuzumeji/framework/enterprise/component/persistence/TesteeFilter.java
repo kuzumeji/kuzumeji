@@ -9,7 +9,7 @@ import com.kuzumeji.framework.standard.component.AbstractValueObject;
  * テストエンティティ検索条件
  * @author nilcy
  */
-public class TesteeFilter extends AbstractValueObject<TesteeFilter> {
+public class TesteeFilter extends AbstractValueObject<TesteeFilter> implements SortableFilter {
     /** 識別番号 */
     private static final long serialVersionUID = 5270677421769642756L;
     /** 整列条件 */
@@ -29,6 +29,7 @@ public class TesteeFilter extends AbstractValueObject<TesteeFilter> {
      * {@link #orders} の取得
      * @return {@link #orders}
      */
+    @Override
     public String[] getOrders() {
         return orders;
     }

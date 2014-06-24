@@ -12,7 +12,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
 import org.jboss.arquillian.transaction.api.annotation.Transactional;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -35,11 +34,11 @@ public class SmartRepositoryImplTest {
         return ArchiveFactory.createJarWithJpa().addAsResource("config.properties")
             .addAsResource("error-messages.properties");
     }
-    @Before
-    public void before() throws PersistenceException {
-        testee.save(new Testee("code#91", "name#91"));
-        testee.flush();
-    }
+    // @Before
+    // public void before() throws PersistenceException {
+    // testee.save(new Testee("code#91", "name#91"));
+    // testee.flush();
+    // }
     @Test
     public final void testSimpleRepository() throws PersistenceException {
         assertThat(testee, is(not(nullValue())));
@@ -70,10 +69,24 @@ public class SmartRepositoryImplTest {
     }
     @Test
     public final void testSmartRepository() throws PersistenceException {
+        testee.save(new Testee("code#91", "name#91"));
         final TesteeFilter filter = new TesteeFilter("code#91", "name", "code");
         final Testee entity = testee.findOne(filter);
         assertThat(entity.getCode(), is("code#91"));
         assertThat(entity.getName(), is("name#91"));
         log.debug("entity : {}", entity);
+        testee.delete(entity);
+    }
+    @Test
+    public final void testOrders() throws PersistenceException {
+        testee.save(new Testee("code#81", "name#81"));
+        testee.save(new Testee("code#82", "name#82"));
+        testee.save(new Testee("code#83", "name#83"));
+        testee.flush();
+        final TesteeFilter filter = new TesteeFilter(null, "code desc");
+        final Testee entity = testee.findMany(filter).iterator().next();
+        assertThat(entity.getCode(), is("code#83"));
+        log.debug("entity : {}", entity);
+        testee.delete(entity);
     }
 }
