@@ -6,6 +6,12 @@ import net.java.cargotracker.domain.model.cargo.TrackingId;
 import net.java.cargotracker.domain.model.location.UnLocode;
 /**
  * 予約サービス
+ * <dl>
+ * <dt>表明保証
+ * <dd>
+ * <dt>特記など
+ * <dd>
+ * </dl>
  * <p/>
  * Cargo booking service.
  */
