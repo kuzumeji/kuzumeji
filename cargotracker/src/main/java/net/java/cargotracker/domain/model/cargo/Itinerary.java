@@ -1,26 +1,24 @@
 package net.java.cargotracker.domain.model.cargo;
-
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.Size;
-
-import net.java.cargotracker.domain.model.handling.HandlingEvent;
-import net.java.cargotracker.domain.model.location.Location;
-
 import org.apache.commons.lang3.Validate;
 import org.eclipse.persistence.annotations.PrivateOwned;
-
+import net.java.cargotracker.domain.model.handling.HandlingEvent;
+import net.java.cargotracker.domain.model.location.Location;
+/**
+ * 配送予定
+ * @author nilcy
+ */
 @Embeddable
 public class Itinerary implements Serializable {
-
     private static final long serialVersionUID = 1L;
     private static final Date END_OF_DAYS = new Date(Long.MAX_VALUE);
     // Null object pattern.
@@ -33,76 +31,62 @@ public class Itinerary implements Serializable {
     @PrivateOwned
     @Size(min = 1)
     private List<Leg> legs = Collections.emptyList();
-
     public Itinerary() {
         // Nothing to initialize.
     }
-
-    public Itinerary(List<Leg> legs) {
+    public Itinerary(final List<Leg> legs) {
         Validate.notEmpty(legs);
         Validate.noNullElements(legs);
-
         this.legs = legs;
     }
-
     public List<Leg> getLegs() {
         return Collections.unmodifiableList(legs);
     }
-
     /**
      * Test if the given handling event is expected when executing this
      * itinerary.
      */
-    public boolean isExpected(HandlingEvent event) {
+    public boolean isExpected(final HandlingEvent event) {
         if (legs.isEmpty()) {
             return true;
         }
-
         // TODO Convert this to a switch statement?
         if (event.getType() == HandlingEvent.Type.RECEIVE) {
             // Check that the first leg's origin is the event's location
-            Leg leg = legs.get(0);
+            final Leg leg = legs.get(0);
             return (leg.getLoadLocation().equals(event.getLocation()));
         }
-
         if (event.getType() == HandlingEvent.Type.LOAD) {
             // Check that the there is one leg with same load location and
             // voyage
-            for (Leg leg : legs) {
+            for (final Leg leg : legs) {
                 if (leg.getLoadLocation().sameIdentityAs(event.getLocation())
-                        && leg.getVoyage().sameIdentityAs(event.getVoyage())) {
+                    && leg.getVoyage().sameIdentityAs(event.getVoyage())) {
                     return true;
                 }
             }
-
             return false;
         }
-
         if (event.getType() == HandlingEvent.Type.UNLOAD) {
             // Check that the there is one leg with same unload location and
             // voyage
-            for (Leg leg : legs) {
+            for (final Leg leg : legs) {
                 if (leg.getUnloadLocation().equals(event.getLocation())
-                        && leg.getVoyage().equals(event.getVoyage())) {
+                    && leg.getVoyage().equals(event.getVoyage())) {
                     return true;
                 }
             }
-
             return false;
         }
-
         if (event.getType() == HandlingEvent.Type.CLAIM) {
             // Check that the last leg's destination is from the event's
             // location
-            Leg leg = getLastLeg();
-
+            final Leg leg = getLastLeg();
             return (leg.getUnloadLocation().equals(event.getLocation()));
         }
-
         // HandlingEvent.Type.CUSTOMS;
         return true;
     }
-
     Location getInitialDepartureLocation() {
         if (legs.isEmpty()) {
             return Location.UNKNOWN;
@@ -110,7 +94,6 @@ public class Itinerary implements Serializable {
             return legs.get(0).getLoadLocation();
         }
     }
-
     Location getFinalArrivalLocation() {
         if (legs.isEmpty()) {
             return Location.UNKNOWN;
@@ -118,20 +101,17 @@ public class Itinerary implements Serializable {
             return getLastLeg().getUnloadLocation();
         }
     }
-
     /**
      * @return Date when cargo arrives at final destination.
      */
     Date getFinalArrivalDate() {
-        Leg lastLeg = getLastLeg();
-
+        final Leg lastLeg = getLastLeg();
         if (lastLeg == null) {
             return new Date(END_OF_DAYS.getTime());
         } else {
             return new Date(lastLeg.getUnloadTime().getTime());
         }
     }
-
     /**
      * @return The last leg on the itinerary.
      */
@@ -142,30 +122,24 @@ public class Itinerary implements Serializable {
             return legs.get(legs.size() - 1);
         }
     }
-
-    private boolean sameValueAs(Itinerary other) {
-        return other != null && legs.equals(other.legs);
+    private boolean sameValueAs(final Itinerary other) {
+        return (other != null) && legs.equals(other.legs);
     }
-
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if ((o == null) || (getClass() != o.getClass())) {
             return false;
         }
-
-        Itinerary itinerary = (Itinerary) o;
-
+        final Itinerary itinerary = (Itinerary) o;
         return sameValueAs(itinerary);
     }
-
     @Override
     public int hashCode() {
         return legs.hashCode();
     }
-
     @Override
     public String toString() {
         return "Itinerary{" + "legs=" + legs + '}';
